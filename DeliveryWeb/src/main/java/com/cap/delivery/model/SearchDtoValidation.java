@@ -21,16 +21,27 @@ public class SearchDtoValidation implements Validator{
 	@Override
 	public void validate(Object target, Errors errors) {
 		SearchDto searchDto = (SearchDto) target;
+		String type = searchDto.getType();
+		if(type.equals("waybillNum")) {
+			String waybillNum = searchDto.getWaybillNum();
 		
-		String waybillNum = searchDto.getWaybillNum();
-		if(waybillNum == null || waybillNum.trim().isEmpty()) {
-			errors.rejectValue("waybillNum", "home.waybillNum.required", "운송장 번호를 입력해주세요.");
-		}else {
-			if(searchDto.getWaybillNum().length() != 11) {
+			if(waybillNum == null || waybillNum.trim().isEmpty()) {
+				errors.rejectValue("waybillNum", "home.waybillNum.required", "운송장 번호를 입력해주세요.");
+			}else {
+				if(searchDto.getWaybillNum().length() != 11) {
 				errors.rejectValue("waybillNum", "home.waybillNum.lengthsize", new Object[]{11}, "운송장 11자를 입력해주세요.");
+				}
+			}
+		}else if(type.equals("reservationNum")) {
+			logger.info("reservation 에러 검출");
+			String reservationNum = searchDto.getReservationNum();
+			if(reservationNum == null || reservationNum.trim().isEmpty()) {
+				errors.rejectValue("reservationNum", "home.reservationNum.required", "예약 번호를 입력해주세요.");
+			}else {
+				if(searchDto.getReservationNum().length() != 12) {
+				errors.rejectValue("reservationNum", "home.reservationNum.lengthsize", new Object[]{12}, "예약번호 12자를 입력해주세요.");
+				}
 			}
 		}
-		
 	}
-
 }

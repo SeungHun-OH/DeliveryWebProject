@@ -68,6 +68,7 @@
 		<!--               		<p class="help-block text-danger"></p> -->
 							<small><form:errors path="waybillNum" cssClass="errormsg" /></small>
 							<form:hidden path="clickPage" value="searchView"/>
+							<form:hidden path="type" value="waybillNum"/>
 		            	</div>
 		          	</div>
 		          	<button class="btn btn-primary" id="btnWaybillNumLookup" style="width: 100%;">조회</button>
@@ -77,10 +78,11 @@
                 <form:form modelAttribute="searchDto" id="searchForm" method="post" action="${pageContext.request.contextPath}/board/search">
 					<div class="control-group">
 						<div class="form-group controls">
-		              		<form:input type="text" cssClass="form-control" placeholder="예: 01234567890, '-'를 제외한 숫자 12자리" path="waybillNum" id="waybillNum" value="${reservationNum}" maxlength="12"/>
+		              		<form:input type="text" cssClass="form-control" placeholder="예: 01234567890, '-'를 제외한 숫자 12자리" path="reservationNum" id="reservationNum" maxlength="12"/>
 		<!--               		<p class="help-block text-danger"></p> -->
-							<small><form:errors path="waybillNum" cssClass="errormsg" /></small>
+							<small><form:errors path="reservationNum" cssClass="errormsg" /></small>
 							<form:hidden path="clickPage" value="searchView"/>
+							<form:hidden path="type" value="reservationNum"/>
 		            	</div>
 		          	</div>
 		          	<button class="btn btn-primary" id="btnResNumLookup" style="width: 100%;">조회</button>
@@ -123,7 +125,7 @@
   <script type="text/javascript">
 	//wire up shown event
 	$(document).ready(function() {
-		if(localStorage.length == 0){
+		if(localStorage.getItem("sw") != "true"){
 			localStorage.setItem("sw", "false");
 			console.log('스위치 초기화');
 		}
@@ -132,7 +134,6 @@
 	$("#btnResNumLookup").click(function(e) {
 		localStorage.setItem("sw", "true");
 		var tab_switch = localStorage.getItem("sw");
-		alert(tab_switch);
 	});
 	
 	if(localStorage.getItem("sw") == "true"){

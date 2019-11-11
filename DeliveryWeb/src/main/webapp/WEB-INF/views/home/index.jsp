@@ -42,6 +42,7 @@
 <!--               		<p class="help-block text-danger"></p> -->
 					<small><form:errors path="waybillNum" cssClass="errormsg" /></small>
 					<form:hidden path="clickPage" value="index"/>
+					<form:hidden path="type" value="waybillNum"/>
             	</div>
           	</div>
           	<button class="btn btn-primary" type="submit" style="width:100%">검색</button>
