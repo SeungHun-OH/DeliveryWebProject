@@ -1,5 +1,7 @@
 package com.cap.delivery;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -11,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.cap.delivery.dao.BoardDao;
 import com.cap.delivery.model.SearchDto;
+import com.cap.delivery.model.SearchResponseListVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -25,6 +28,9 @@ public class JunitTest {
 	public void test() throws Exception {
 		SearchDto searchDto = new SearchDto();
 		searchDto.setWaybillNum("BIS02A00001538");
-		boardDao.lookupResult(searchDto);
+		List<SearchResponseListVO> searchResponseVO= boardDao.lookupListResult(searchDto);
+		for(SearchResponseListVO i : searchResponseVO) {
+			System.out.println(i.toString());
+		}
 	}
 }
