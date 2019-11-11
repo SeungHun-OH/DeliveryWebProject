@@ -35,12 +35,13 @@
           <div class="site-heading">
             <h1>운송장 조회</h1>
 <!--             <span class="subheading">A Blog Theme by Start Bootstrap</span> -->
-			<form:form modelAttribute="searchDto" id="searchForm" method="post" action="${pageContext.request.contextPath}/search">
+			<form:form modelAttribute="searchDto" id="searchForm" method="post" action="${pageContext.request.contextPath}/board/search">
 			<div class="control-group">
 				<div class="form-group controls">
-              		<form:input type="text" cssClass="form-control" placeholder="Search" path="waybillNum" id="waybillNum" />
+              		<form:input type="text" cssClass="form-control" placeholder="Search" path="waybillNum" id="waybillNum" maxlength="11" />
 <!--               		<p class="help-block text-danger"></p> -->
 					<small><form:errors path="waybillNum" cssClass="errormsg" /></small>
+					<form:hidden path="clickPage" value="index"/>
             	</div>
           	</div>
           	<button class="btn btn-primary" type="submit" style="width:100%">검색</button>

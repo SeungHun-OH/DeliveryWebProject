@@ -36,27 +36,26 @@ public class BoardController {
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String searchViewGet(Model model) {
+		logger.info("운송장 조회 GET");
 		model.addAttribute("searchDto", new SearchDto());
 		return "/board/searchView";
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public String searchViewPOST(@Valid @ModelAttribute("searchDto") SearchDto searchDto, BindingResult result, Model model, HttpServletRequest request, RedirectAttributes flash) {
-		logger.info("운송장 조회 페이지입니다.");
-		logger.info("요청 url: "+request.getServletPath());
+	public String searchViewPOST(@Valid @ModelAttribute("searchDto") SearchDto searchDto, BindingResult result, Model model) {
+		logger.info("운송장 조회 POST");
 		if(searchDto.getWaybillNum() != null) {
 			if (result.hasErrors()) {
 				// form에 에러가 있으면
 				logger.info("에러검출");
-				String old_url = request.getHeader("referer");
-				logger.info("예전 주소: "+old_url);
 //				FieldError fieldError = result.getFieldError();
 //				logger.info("에러이름: "+result.getFieldError());
 //				flash.addFlashAttribute("errors",result);
-				return "board/searchView";
+				if(searchDto.getClickPage().equals("index")) 
+					return "/home/index";
+				return "/board/searchView";
 			}
 		}
-		
 		// 에러가 없으면
 		model.addAttribute("waybillNum", searchDto.getWaybillNum());
 		return "/board/searchView";

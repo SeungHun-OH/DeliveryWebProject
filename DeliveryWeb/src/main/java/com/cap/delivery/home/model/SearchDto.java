@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 public class SearchDto {
 
 	private String waybillNum;
+	private String clickPage;
 
 	public String getWaybillNum() {
 		return waybillNum;
@@ -15,8 +16,16 @@ public class SearchDto {
 		this.waybillNum = waybillNum;
 	}
 
+	public String getClickPage() {
+		return clickPage;
+	}
+
+	public void setClickPage(String clickPage) {
+		this.clickPage = clickPage;
+	}
+
 	@Override
 	public String toString() {
-		return "SearchDTO [waybillNum=" + waybillNum + "]";
+		return "SearchDto [waybillNum=" + waybillNum + ", clickPage=" + clickPage + "]";
 	}
 }
