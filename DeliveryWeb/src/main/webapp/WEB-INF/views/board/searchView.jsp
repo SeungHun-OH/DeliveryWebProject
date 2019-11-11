@@ -61,7 +61,7 @@
             <div class="tab-content">
               <div class="tab-pane show active" id="waybill_tab">
 <%-- 		        	<input class="form-control" type="text" placeholder="예: 01234567890, '-'를 제외한 숫자 11자리" maxlength="11" id="waybill" name="waybill" <c:if test="${!empty waybillNum}">value="${waybillNum}"</c:if>> --%>
-				    <form:form modelAttribute="searchDto" id="searchForm" method="post" action="${pageContext.request.contextPath}/board/search">
+				    <form:form modelAttribute="searchDto" id="waybillNumSearchForm" method="post" action="${pageContext.request.contextPath}/board/search">
 					<div class="control-group">
 						<div class="form-group controls">
 		              		<form:input type="text" cssClass="form-control" placeholder="예: 01234567890, '-'를 제외한 숫자 11자리" path="waybillNum" id="waybillNum" value="${waybillNum}" maxlength="11"/>
@@ -71,11 +71,11 @@
 							<form:hidden path="type" value="waybillNum"/>
 		            	</div>
 		          	</div>
-		          	<button class="btn btn-primary" id="btnWaybillNumLookup" style="width: 100%;">조회</button>
+		          	<button type="submit" class="btn btn-primary" id="btnWaybillNumLookup" style="width: 100%;">조회</button>
 		          	</form:form>
               </div>
               <div class="tab-pane" id="resNum_tab">
-                <form:form modelAttribute="searchDto" id="searchForm" method="post" action="${pageContext.request.contextPath}/board/search">
+                <form:form modelAttribute="searchDto" id="reservationSearchForm" method="post" action="${pageContext.request.contextPath}/board/search">
 					<div class="control-group">
 						<div class="form-group controls">
 		              		<form:input type="text" cssClass="form-control" placeholder="예: 01234567890, '-'를 제외한 숫자 12자리" path="reservationNum" id="reservationNum" maxlength="12"/>
@@ -85,7 +85,7 @@
 							<form:hidden path="type" value="reservationNum"/>
 		            	</div>
 		          	</div>
-		          	<button class="btn btn-primary" id="btnResNumLookup" style="width: 100%;">조회</button>
+		          	<button type="submit" class="btn btn-primary" id="btnResNumLookup" style="width: 100%;">조회</button>
 		          	</form:form>
               </div>
             </div>
@@ -124,19 +124,19 @@
   <%@ include file="../../include/footer.jsp" %>
   <script type="text/javascript">
 	//wire up shown event
-	$(document).ready(function() {
-		if(localStorage.getItem("sw") != "true"){
-			localStorage.setItem("sw", "false");
-			console.log('스위치 초기화');
-		}
-	});
+// 	$(document).ready(function() {
+// 		if(localStorage.getItem("sw") != "true"){
+// 			localStorage.setItem("sw", "false");
+// 			console.log('스위치 초기화');
+// 		}
+// 	});
 	
-	$("#btnResNumLookup").click(function(e) {
-		localStorage.setItem("sw", "true");
-		var tab_switch = localStorage.getItem("sw");
-	});
+// 	$("#btnResNumLookup").click(function(e) {
+// 		localStorage.setItem("sw", "true");
+// 		var tab_switch = localStorage.getItem("sw");
+// 	});
 	
-	if(localStorage.getItem("sw") == "true"){
+// 	if(localStorage.getItem("sw") == "true"){
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 	    console.log("tab shown...");
 	    localStorage.setItem('activeTab', $(e.target).attr('href'));
@@ -148,7 +148,8 @@
 	    $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
 	    localStorage.removeItem("sw");
 	}
-	}
+
+		
 	</script>
 </body>
 </html>

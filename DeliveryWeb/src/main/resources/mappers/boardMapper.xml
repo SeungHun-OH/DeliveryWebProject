@@ -3,5 +3,18 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardMapper">
+
+	<select id="lookupResult" parameterType="SearchDto" resultMap="SearchResponseResult">
+		SELECT WAYBILL_NUMBER, SE_NAME, RE_NAME, PRODUCT_NAME
+		FROM AAA_DELIVERY_CHART
+		WHERE WAYBILL_NUMBER = #{waybillNum}
+	</select>
 	
+	
+	<resultMap type="SearchResponseVO" id="SearchResponseResult">
+		<result property="waybillNum" column="WAYBILL_NUMBER"/>
+		<result property="senderName" column="SE_NAME"/>
+		<result property="receiverName" column="RE_NAME"/>
+		<result property="productName" column="PRODUCT_NAME"/>
+	</resultMap>
 </mapper>

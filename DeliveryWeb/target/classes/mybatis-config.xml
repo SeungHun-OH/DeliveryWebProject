@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	  <typeAliases>
-<!-- 	  	<typeAlias type="com.delivery.user.model.UserVO" alias="UserVO"/> -->
+	  	<typeAlias type="com.cap.delivery.model.SearchResponseVO" alias="SearchResponseVO"/>
+	  	<typeAlias type="com.cap.delivery.model.SearchDto" alias="SearchDto"/>
 	  </typeAliases>
 </configuration>
