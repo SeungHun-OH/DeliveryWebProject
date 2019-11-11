@@ -1,4 +1,4 @@
-package com.cap.delivery.board.service;
+package com.cap.delivery.service;
 
 import org.springframework.stereotype.Service;
 

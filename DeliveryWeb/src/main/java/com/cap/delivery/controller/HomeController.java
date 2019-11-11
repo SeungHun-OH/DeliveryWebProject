@@ -1,4 +1,4 @@
-package com.cap.delivery.home.controller;
+package com.cap.delivery.controller;
 
 
 
@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.cap.delivery.home.model.SearchDto;
+import com.cap.delivery.model.SearchDto;
 
 @Controller
 public class HomeController {

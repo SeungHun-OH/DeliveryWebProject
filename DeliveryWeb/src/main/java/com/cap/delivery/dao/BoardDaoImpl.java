@@ -1,4 +1,4 @@
-package com.cap.delivery.board.dao;
+package com.cap.delivery.dao;
 
 import javax.inject.Inject;
 

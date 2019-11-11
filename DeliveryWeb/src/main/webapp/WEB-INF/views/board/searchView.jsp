@@ -72,8 +72,6 @@
 		          	</div>
 		          	<button class="btn btn-primary" id="btnWaybillNumLookup" style="width: 100%;">조회</button>
 		          	</form:form>
-
-  
               </div>
               <div class="tab-pane" id="resNum_tab">
                 <form:form modelAttribute="searchDto" id="searchForm" method="post" action="${pageContext.request.contextPath}/board/search">
@@ -85,11 +83,8 @@
 							<form:hidden path="clickPage" value="searchView"/>
 		            	</div>
 		          	</div>
-		          	<button class="btn btn-primary" id="btnWaybillNumLookup" style="width: 100%;">조회</button>
+		          	<button class="btn btn-primary" id="btnResNumLookup" style="width: 100%;">조회</button>
 		          	</form:form>
-                <div>
-                	<button id="btnResNumLookup">조회</button>
-                </div>
               </div>
             </div>
             <div id="infoDiv"></div>
@@ -129,11 +124,18 @@
 	//wire up shown event
 	$(document).ready(function() {
 		if(localStorage.length == 0){
-			localStorage.setItem('switch', 0);
+			localStorage.setItem("sw", "false");
 			console.log('스위치 초기화');
 		}
 	});
 	
+	$("#btnResNumLookup").click(function(e) {
+		localStorage.setItem("sw", "true");
+		var tab_switch = localStorage.getItem("sw");
+		alert(tab_switch);
+	});
+	
+	if(localStorage.getItem("sw") == "true"){
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 	    console.log("tab shown...");
 	    localStorage.setItem('activeTab', $(e.target).attr('href'));
@@ -143,6 +145,8 @@
 	if(activeTab){
 		console.log(activeTab);
 	    $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
+	    localStorage.removeItem("sw");
+	}
 	}
 	</script>
 </body>

@@ -1,7 +1,6 @@
-package com.cap.delivery.board.controller;
+package com.cap.delivery.controller;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -14,10 +13,9 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.cap.delivery.home.model.SearchDto;
-import com.cap.delivery.home.model.SearchDtoValidation;
+import com.cap.delivery.model.SearchDto;
+import com.cap.delivery.model.SearchDtoValidation;
 
 
 @RequestMapping("/board")

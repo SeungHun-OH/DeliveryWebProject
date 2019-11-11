@@ -1,4 +1,4 @@
-package com.cap.delivery.home.model;
+package com.cap.delivery.model;
 
 import org.springframework.stereotype.Component;
 
