@@ -96,7 +96,6 @@
   		</div>
   	</div>
     <div class="row">
-    	<h5>테이블있음</h5>
       <div class="col-lg-12 col-md-12 mx-auto">
       <div class="col">
 		<c:if test="${!empty response}">

@@ -44,85 +44,145 @@
     <div class="col-lg-10 col-md-12 mx-auto">
     <form name="reservationDTO" id="reservationForm" method="post" action="${pageContext.request.contextPath}/board/reservation">
       <div class="col-lg-12 col-md-12 mx-auto">
-      <div class="card" style="border: none; margin-bottom: 40px;">
+      <div class="card" style="border: none; margin-bottom: 40px; font-weight: 800;">
         <div class="card-header">
 			보내는 분
-          </div>
-          <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              <label>이름</label>
-              <input type="text" class="form-control" placeholder="이름" id="senderName">
-              <p class="help-block text-danger"></p>
+        </div>
+        <div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+              	<label>이름</label>
+              	<input type="text" class="form-control" placeholder="이름" id="senderName">
             </div>
-          </div>
-          <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              <label>Email Address</label>
-              <input type="text" class="form-control" placeholder="전화번호" name="senderPhone">
-              <p class="help-block text-danger"></p>
+		</div>
+		<div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+			<label>전화번호</label>
+			<input type="text" class="form-control" placeholder="전화번호" name="senderPhone">
             </div>
-          </div>
-          <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              <label>주소</label>
-              <div class="input-group" style="margin-bottom: 5px;">
-	      		<input type="text" class="form-control" placeholder="우편번호" readonly="readonly">
-	      		<span class="input-group-btn">
-				<button class="btn btn-primary" type="button" style="padding: 11px 25px;">우편번호 찾기</button>
-	      		</span>
-	    		</div>
-              <input type="text" class="form-control" placeholder="주소" name="senderPhone" readonly="readonly" style="margin-bottom: 5px;">
-              <input type="text" class="form-control" placeholder="상세주소" name="senderPhone">
+		</div>
+		<div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+				<label>주소</label>
+					<div class="input-group" style="margin-bottom: 5px; width: 60%;">
+					<input type="text" class="form-control" placeholder="우편번호" readonly="readonly">
+					<span class="input-group-btn">
+						<button class="btn btn-warning" type="button" style="padding: 11px 25px;">우편번호 찾기</button>
+		      		</span>
+				</div>
+			<input type="text" class="form-control" placeholder="주소" name="senderPhone" readonly="readonly" style="margin-bottom: 5px;">
+			<input type="text" class="form-control" placeholder="상세주소" name="senderPhone">
             </div>
-          </div>
-          </div>
-          </div>
-          <div class="col-lg-12 col-md-12 mx-auto">
-          <div class="card" style="border: none;">
-          <div class="card-header">
-			받는분
-          </div>
-		  <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              <label>이름</label>
-              <input type="text" class="form-control" placeholder="이름" id="name">
-              <p class="help-block text-danger"></p>
+		</div>
+	  </div>
+	  </div>
+	  
+	  <div class="col-lg-12 col-md-12 mx-auto">
+      <div class="card" style="border: none; margin-bottom: 40px; font-weight: 800;">
+        <div class="card-header">
+			받는 분
+        </div>
+        <div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+              	<label>이름</label>
+              	<input type="text" class="form-control" placeholder="이름" id="senderName">
             </div>
-          </div>
-          <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              <label>Email Address</label>
-              <input type="email" class="form-control" placeholder="Email Address" id="email">
-              <p class="help-block text-danger"></p>
+		</div>
+		<div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+			<label>전화번호</label>
+			<input type="text" class="form-control" placeholder="전화번호" name="senderPhone">
             </div>
-          </div>
-          <div class="control-group">
-            <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label>Phone Number</label>
-              <input type="tel" class="form-control" placeholder="Phone Number" id="phone">
-              <p class="help-block text-danger"></p>
+		</div>
+		<div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+				<label>주소</label>
+				<div class="input-group" style="margin-bottom: 5px; width: 60%;">
+					<input type="text" class="form-control" placeholder="우편번호" readonly="readonly">
+					<span class="input-group-btn">
+						<button class="btn btn-warning" type="button" style="padding: 11px 25px;">우편번호 찾기</button>
+		      		</span>
+				</div>
+			<input type="text" class="form-control" placeholder="주소" name="senderPhone" readonly="readonly" style="margin-bottom: 5px;">
+			<input type="text" class="form-control" placeholder="상세주소" name="senderPhone">
             </div>
-          </div>
-          <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              <label>Message</label>
-              <textarea rows="5" class="form-control" placeholder="Message" id="message"></textarea>
-              <p class="help-block text-danger"></p>
+		</div>
+	  </div>
+	  </div>
+	  
+	  <div class="col-lg-12 col-md-12 mx-auto">
+      <div class="card" style="border: none; font-weight: 800; margin-bottom: 40px;">
+        <div class="card-header">
+			 상품정보
+        </div>
+        <div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+			    <label for="exampleFormControlSelect1">택배회사</label>
+			    <select class="form-control" id="exampleFormControlSelect1" style="width: 50%;">
+					<option selected="selected" value="0">택배회사 선택</option>
+					<option value="1">CJ대한통운</option>
+					<option value="2">로젠택배</option>
+					<option value="3">우체국</option>
+			    </select>
             </div>
-          </div>
-          <br>
-          <div id="success"></div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary" id="sendMessageButton">Send</button>
-          </div>
-
-        <table class="table">
-        <tr>
-        <td></td>
-        </tr>
-        </table>
-      </div>
-      </div>
+		</div>
+		<div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+			    <label for="exampleFormControlSelect2">방문날짜</label>
+			    <select class="form-control" id="exampleFormControlSelect2" style="width: 50%;">
+					<option selected="selected" value="0">방문날짜 선택</option>
+					<option value="1">날짜1</option>
+			    </select>
+            </div>
+		</div>
+		<div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+			    <label for="exampleFormControlSelect3">운임방식</label>
+			    <select class="form-control" id="exampleFormControlSelect2" style="width: 50%;">
+					<option selected="selected" value="0">운임 선택</option>
+					<option value="1">선불</option>
+					<option value="2">후불</option>
+			    </select>
+            </div>
+		</div>
+        <div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+              	<label>상품명</label>
+              	<input type="text" class="form-control" placeholder="상품명" id="senderName">
+            </div>
+		</div>
+		<div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+			<label>상품가격</label>
+			<input type="text" class="form-control" placeholder="상품가격" name="senderPhone">
+            </div>
+		</div>
+		<div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+			    <label for="exampleFormControlSelect4">상품부피</label>
+			    <select class="form-control" id="exampleFormControlSelect4" style="width: 50%;">
+					<option selected="selected" value="0">상품부피 선택</option>
+					<option value="1">극소</option>
+					<option value="2">소</option>
+					<option value="3">중</option>
+					<option value="4">대</option>
+			    </select>
+            </div>
+		</div>
+		<div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+				<label>예상운임</label>
+				<div class="input-group" style="margin-bottom: 5px; width: 60%;">
+					<input type="text" class="form-control col-sm-6" placeholder="예상운임" readonly="readonly">
+					<span class="input-group-btn">
+						<button class="btn btn-warning" type="button" style="padding: 11px 25px;">예상운임 계산</button>
+		      		</span>
+				</div>
+            </div>
+		</div>
+	  </div>
+	  <button class="btn btn-primary w-100" style="font-size: 20px;" type="button">택배예약</button>
+	  </div>
+	  
 	</form>
 	</div>
     </div>

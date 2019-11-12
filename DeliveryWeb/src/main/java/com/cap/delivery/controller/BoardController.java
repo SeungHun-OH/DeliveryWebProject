@@ -76,6 +76,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "/reservation", method = RequestMethod.GET)
 	public String reservationGet(Model model) {
+		logger.info("택배예약 GET");
 		return "/board/reservationView";
 	}
 }
