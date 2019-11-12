@@ -17,6 +17,9 @@
             <a class="nav-link" href="${pageContext.request.contextPath}/board/search">Search</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/board/reservation">Reservation</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/post">Sample Post</a>
           </li>
           <li class="nav-item">

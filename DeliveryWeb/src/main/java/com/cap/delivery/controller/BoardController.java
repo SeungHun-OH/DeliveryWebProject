@@ -73,4 +73,9 @@ public class BoardController {
 		model.addAttribute("responseList", responseListVO);
 		return "/board/searchView";
 	}
+	
+	@RequestMapping(value = "/reservation", method = RequestMethod.GET)
+	public String reservationGet(Model model) {
+		return "/board/reservationView";
+	}
 }
