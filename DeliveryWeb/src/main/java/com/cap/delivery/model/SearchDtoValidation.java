@@ -22,9 +22,8 @@ public class SearchDtoValidation implements Validator{
 		SearchDto searchDto = (SearchDto) target;
 		String type = searchDto.getType();
 		if(type.equals("waybillNum")) {
-			String waybillNum = searchDto.getWaybillNum();
-		
-			if(waybillNum == null || waybillNum.trim().isEmpty()) {
+			logger.info("waybillNum 에러 검출");
+			if(searchDto.getWaybillNum() == null || searchDto.getWaybillNum().trim().isEmpty()) {
 				errors.rejectValue("waybillNum", "home.waybillNum.required", "운송장 번호를 입력해주세요.");
 			}else {
 				if(searchDto.getWaybillNum().length() != 11) {
@@ -33,8 +32,7 @@ public class SearchDtoValidation implements Validator{
 			}
 		}else if(type.equals("reservationNum")) {
 			logger.info("reservation 에러 검출");
-			String reservationNum = searchDto.getReservationNum();
-			if(reservationNum == null || reservationNum.trim().isEmpty()) {
+			if(searchDto.getReservationNum() == null || searchDto.getReservationNum().trim().isEmpty()) {
 				errors.rejectValue("reservationNum", "home.reservationNum.required", "예약 번호를 입력해주세요.");
 			}else {
 				if(searchDto.getReservationNum().length() != 12) {

@@ -2,12 +2,12 @@ package com.cap.delivery;
 
 import java.util.List;
 
-import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,13 +21,14 @@ public class JunitTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(JunitTest.class);
 	
-	@Inject
+	@Autowired
 	private BoardDao boardDao;
 	
 	@Test
 	public void test() throws Exception {
 		SearchDto searchDto = new SearchDto();
-		searchDto.setWaybillNum("BIS02A00001538");
+		searchDto.setWaybillNum("11111111111");
+		boardDao.lookupResult(searchDto);
 		List<SearchResponseListVO> searchResponseVO= boardDao.lookupListResult(searchDto);
 		for(SearchResponseListVO i : searchResponseVO) {
 			System.out.println(i.toString());

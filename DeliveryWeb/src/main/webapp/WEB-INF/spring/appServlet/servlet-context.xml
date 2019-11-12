@@ -21,8 +21,6 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.cap.delivery" use-default-filters="true">
-    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>
+	<context:component-scan base-package="com.cap.delivery.controller" />
 	
 </beans:beans>

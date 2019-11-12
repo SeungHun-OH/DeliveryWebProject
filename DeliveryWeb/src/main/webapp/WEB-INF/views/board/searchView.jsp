@@ -98,25 +98,52 @@
     <div class="row">
     	<h5>테이블있음</h5>
       <div class="col-lg-12 col-md-12 mx-auto">
-		<c:if test="${!empty responseSearch}">
+      <div class="col">
+		<c:if test="${!empty response}">
         <h5>조회결과</h5>
-		<table class="table">
-     	<thead class="thead-dark">
+		<table class="table table-hover" style="text-align: center;">
+     	<thead class="thead-light">
       	<tr>
       		<th>운송장 번호</th>
       		<th>보내는 분</th>
       		<th>받는 분</th>
       		<th>상품 정보</th>
-      		<th>수량</th>
+<!--       		<th>수량</th> -->
        	</tr>
       	</thead>
-      	<tbody>
+      	<tbody style="font-size: 13px;">
       	<tr>
+      		<td>${response.waybillNum}</td>
+      		<td>${response.senderName}</td>
+      		<td>${response.receiverName}</td>
+      		<td>${response.productName}</td>
        	</tr>
+	    </tbody>
+		</table>
+		<table class="table table-hover" style="text-align: center;">
+     	<thead class="thead-light">
+      	<tr>
+      		<th>단계</th>
+      		<th>처리시간</th>
+      		<th>상품상태</th>
+      		<th>담당 점소</th>
+<!--       		<th>수량</th> -->
+       	</tr>
+      	</thead>
+      	<tbody style="font-size: 13px;">
+      	<c:forEach var="deliveryInfo" items="${responseList}">
+      	<tr>
+      		<td>배송단계</td>
+      		<td>${deliveryInfo.deliveryStep}</td>
+      		<td>${deliveryInfo.processTime}</td>
+      		<td>${deliveryInfo.productStatus}</td>
+       	</tr>
+       	</c:forEach>
 	    </tbody>
 		</table>
 		</c:if>
       </div>
+     </div>
     </div>
   </div>
 
