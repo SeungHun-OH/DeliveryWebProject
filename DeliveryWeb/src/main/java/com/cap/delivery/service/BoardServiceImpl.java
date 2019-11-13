@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cap.delivery.dao.BoardDao;
+import com.cap.delivery.model.ReservationDto;
 import com.cap.delivery.model.SearchDto;
 import com.cap.delivery.model.SearchResponseListVO;
 import com.cap.delivery.model.SearchResponseVO;
@@ -25,6 +26,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<SearchResponseListVO> lookupListResult(SearchDto searchDto) {
 		return boardDao.lookupListResult(searchDto);
+	}
+
+	@Override
+	public int reservationInsert(ReservationDto reservationDto) {
+		return boardDao.reservationInsert(reservationDto);
 	}
 
 }

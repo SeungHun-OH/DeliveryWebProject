@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardMapper">
+	<!-- 운송장 검색 부분 -->
 	<select id="lookupResult" resultMap="SearchResponseResult">
 		SELECT WAYBILL_NUMBER, SE_NAME, RE_NAME, PRODUCT_NAME
 		FROM AAA_DELIVERY_CHART
@@ -16,6 +17,17 @@
 		ORDER BY PROCESS_DATE, DLNO
 	</select>
 	
+	<!-- 택배예약 부분 -->
+	<insert id="reservationInsert" parameterType="ReservationDto">
+	INSERT INTO AAA_DELIVERY_CHART 
+    	(DNO, WAYBILL_NUMBER, SE_NAME, SE_PHOEN, SE_ADDR1, SE_ADDR2, SE_ADDR3, RE_NAME, RE_PHONE, RE_ADDR1, RE_ADDR2, RE_ADDR3, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_FARE, PRODUCT_FARE_PRICE, CNO <if test="senderReq != null and senderReq.equals('')">,SE_REQ</if>)
+	VALUES ('4', LPAD(AAA_WAYBILLNUM_SEQ.NEXTVAL,11,'0'), #{senderName}, #{senderPhone}, #{senderPostCode}, #{senderAddr1}, #{senderAddr2}, #{receiverName}, #{receiverPhone}, #{receiverPostCode}, #{receiverAddr1}, #{receiverAddr2}, #{productName}, #{productPrice}, #{fareCategoryCode}, #{freightCost}, #{courierCode} <if test="senderReq != null and senderReq.equals('')">,#{senderReq} </if>)
+	</insert>
+	
+<!-- 	INSERT INTO AAA_DELIVERY_CHART  -->
+<!--     	(DNO, WAYBILL_NUMBER, SE_NAME, SE_PHOEN, SE_ADDR1, SE_ADDR2, SE_ADDR3, SE_REQ, RE_NAME, RE_PHONE, RE_ADDR1, RE_ADDR2, RE_ADDR3, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_FARE, PRODUCT_FARE_PRICE, CNO) -->
+<!-- 	VALUES ('4', LPAD(AAA_WAYBILLNUM_SEQ.NEXTVAL,11,'0'), '홍길동', '01045457878', '18510', '경기 화성시 경기동로 138', '동호아파트 205동 903호', 'ss', '박흥부', '01078951212', '18334', '경기 화성시 봉담읍 당하리 161-11', '당진아파트 802동 501호', '의류', '45800', '1', 4000, '1234'); -->
+	
 	<resultMap type="SearchResponseVO" id="SearchResponseResult">
 		<result property="waybillNum" column="WAYBILL_NUMBER"/>
 		<result property="senderName" column="SE_NAME"/>
@@ -27,4 +39,5 @@
 		<result property="processTime" column="PROCESS_DATE"/>
 		<result property="productStatus" column="DELIVERY_LOCATION"/>
 	</resultMap>
+	
 </mapper>

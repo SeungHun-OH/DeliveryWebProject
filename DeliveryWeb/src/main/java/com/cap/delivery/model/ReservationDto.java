@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ReservationDto {
+	
 	private String senderName;
 	private String senderPhone;
 	private String senderPostCode;
@@ -22,7 +23,7 @@ public class ReservationDto {
 	private int fareCategoryCode; // 운임 구분
 	private int productWeight; // 상품 부피
 	private String freightCost; // 운임 비용
-	private int courierCode; //택배 회사 코드
+	private int courierCode;
 	
 	public String getSenderName() {
 		return senderName;

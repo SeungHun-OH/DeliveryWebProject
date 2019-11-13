@@ -85,6 +85,9 @@ public class ReservationValidation implements Validator{
 		if(reservationDto.getFareCategoryCode() == 0) {
 			logger.info("운임 선택 에러");
 			errors.rejectValue("fareCategoryCode", "reservation.fareCategoryCode.noSelect", "운임방식을 선택해주세요.");
+		}else if(!Pattern.matches("^[1-2]*$", Integer.toString(reservationDto.getFareCategoryCode()))) {
+			logger.info("운임 데이터 변조 에러");
+			errors.rejectValue("fareCategoryCode", "reservation.fareCategoryCode.modulate", "올바른 데이터를 넣어주세요.");
 		}
 		if(reservationDto.getProductName() == null || reservationDto.getProductName().trim().isEmpty()) {
 			logger.info("상품명 미입력 에러");
@@ -108,7 +111,7 @@ public class ReservationValidation implements Validator{
 			logger.info("예상운임 글자입력 에러");
 			errors.rejectValue("freightCost", "reservation.freightCost.pattern", "숫자만 입력해주세요");
 		}else if(!reservationDto.getFreightCost().equals("4000") && !reservationDto.getFreightCost().equals("6000") && !reservationDto.getFreightCost().equals("7000") && !reservationDto.getFreightCost().equals("8000")) {
-			logger.info("예상운임 데이터 변조");
+			logger.info("예상운임 데이터 변조 에러");
 			errors.rejectValue("freightCost", "reservation.freightCost.modulate", "올바른 데이터를 넣어주세요.");
 		}
 	}

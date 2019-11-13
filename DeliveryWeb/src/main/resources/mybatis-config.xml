@@ -7,5 +7,6 @@
 	  	<typeAlias type="com.cap.delivery.model.SearchDto" alias="SearchDto"/>
 	  	<typeAlias type="com.cap.delivery.model.SearchResponseVO" alias="SearchResponseVO"/>
 	  	<typeAlias type="com.cap.delivery.model.SearchResponseListVO" alias="SearchResponseListVO"/>
+	  	<typeAlias type="com.cap.delivery.model.ReservationDto" alias="ReservationDto"/>
 	  </typeAliases>
 </configuration>
