@@ -93,7 +93,7 @@ public class ReservationValidation implements Validator{
 		if(reservationDto.getProductPrice() == null || reservationDto.getProductPrice().toString().trim().isEmpty()) {
 			logger.info("상품가격 미입력 에러");
 			errors.rejectValue("productPrice", "reservation.productPrice.required", "상품가격을 입력해주세요.");
-		}else if(!Pattern.matches("^[0-9]*$", reservationDto.getProductPrice().toString())) {
+		}else if(!Pattern.matches("^[0-9]*$", reservationDto.getProductPrice())) {
 			logger.info("상품가격 글자입력 에러");
 			errors.rejectValue("productPrice", "reservation.productPrice.pattern", "숫자만 입력해주세요");
 		}
@@ -102,11 +102,14 @@ public class ReservationValidation implements Validator{
 			errors.rejectValue("productWeight", "reservation.productWeight.noSelect", "상품부피를 선택해주세요.");
 		}
 		if(reservationDto.getFreightCost() == null || reservationDto.getFreightCost().toString().trim().isEmpty()) {
-			logger.info("상품가격 미입력 에러");
+			logger.info("예상운임 미입력 에러");
 			errors.rejectValue("freightCost", "reservation.freightCost.noSelect", "예상운임을 계산해주세요.");
 		}else if(!Pattern.matches("^[0-9]*$", reservationDto.getFreightCost().toString())) {
-			logger.info("상품가격 글자입력 에러");
+			logger.info("예상운임 글자입력 에러");
 			errors.rejectValue("freightCost", "reservation.freightCost.pattern", "숫자만 입력해주세요");
+		}else if(!reservationDto.getFreightCost().equals("4000") && !reservationDto.getFreightCost().equals("6000") && !reservationDto.getFreightCost().equals("7000") && !reservationDto.getFreightCost().equals("8000")) {
+			logger.info("예상운임 데이터 변조");
+			errors.rejectValue("freightCost", "reservation.freightCost.modulate", "올바른 데이터를 넣어주세요.");
 		}
 	}
 }

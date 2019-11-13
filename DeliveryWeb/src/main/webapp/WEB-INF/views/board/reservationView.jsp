@@ -80,10 +80,10 @@
 					<div class="input-group" style="margin-bottom: 5px; width: 60%;">
 					<form:input type="text" cssClass="form-control" placeholder="우편번호" id="senderPostCode" path="senderPostCode" readonly="true"/>
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button" style="padding: 11px 25px;">우편번호 찾기</button>
+						<button class="btn btn-primary" type="button" style="padding: 11px 25px;" onclick="execDaumPostcode('sender');">우편번호 찾기</button>
 		      		</span>
 				</div>
-			<form:input type="text" cssClass="form-control" placeholder="주소" id="senderAddr1" path="senderAddr1" style="margin-bottom: 5px;"/>
+			<form:input type="text" cssClass="form-control" placeholder="주소" id="senderAddr1" path="senderAddr1" style="margin-bottom: 5px;" readonly="true"/>
 			<form:input type="text" cssClass="form-control" placeholder="상세주소" id="senderAddr2" path="senderAddr2"/>
 			<small><form:errors path="senderAddr2" cssClass="errormsg" /></small>
             </div>
@@ -116,10 +116,10 @@
 				<div class="input-group" style="margin-bottom: 5px; width: 60%;">
 					<form:input type="text" cssClass="form-control" placeholder="우편번호" id="receiverPostCode" path="receiverPostCode" readonly="true"/>
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button" style="padding: 11px 25px;">우편번호 찾기</button>
+						<button class="btn btn-primary" type="button" style="padding: 11px 25px;" onclick="execDaumPostcode('receiver');">우편번호 찾기</button>
 		      		</span>
 				</div>
-			<form:input type="text" cssClass="form-control" placeholder="주소" id="receiverAddr1" path="receiverAddr1" style="margin-bottom: 5px;"/>
+			<form:input type="text" cssClass="form-control" placeholder="주소" id="receiverAddr1" path="receiverAddr1" style="margin-bottom: 5px;" readonly="true"/>
 			<form:input type="text" cssClass="form-control" placeholder="상세주소" id="receiverAddr2" path="receiverAddr2"/>
 			<small><form:errors path="receiverAddr2" cssClass="errormsg" /></small>
             </div>
@@ -149,7 +149,6 @@
 			    <label for="dateOfVisit">방문날짜</label>
 			    <form:select class="form-control" path="dateOfVisit" id="dateOfVisit" style="width: 50%;">
 					<option selected="selected" value="0">＊방문날짜 선택</option>
-					<option value="1">날짜1</option>
 			    </form:select>
 			    <small><form:errors path="dateOfVisit" cssClass="errormsg" /></small>
             </div>
@@ -193,10 +192,10 @@
 			    <label for="productWeight">상품부피</label>
 			    <form:select class="form-control" path="productWeight" id="productWeight" style="width: 50%;">
 					<option selected="selected" value="0">＊ 상품부피 선택</option>
-					<option value="1">극소</option>
-					<option value="2">소</option>
-					<option value="3">중</option>
-					<option value="4">대</option>
+					<option value="4000">극소</option>
+					<option value="6000">소</option>
+					<option value="7000">중</option>
+					<option value="8000">대</option>
 			    </form:select>
 			    <small><form:errors path="productWeight" cssClass="errormsg" /></small>
             </div>
@@ -207,7 +206,7 @@
 				<div class="input-group" style="margin-bottom: 5px; width: 60%;">
 					<form:input type="text" cssClass="form-control" placeholder="＊예상운임" id="freightCost" path="freightCost" readonly="true"/>
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button" style="padding: 11px 25px;">예상운임 계산</button>
+						<button class="btn btn-primary" type="button" style="padding: 11px 25px;" onclick="freightCostCalc();">예상운임 계산</button>
 		      		</span>
 				</div>
 				<small><form:errors path="freightCost" cssClass="errormsg" /></small>
@@ -226,61 +225,95 @@
   <%@ include file="../../include/footer.jsp" %>
   <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script>
-    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-    function sample4_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+  window.onload = function addOption(){
+	    var now = new Date();
+		var valArr = new Array();
+		var valArr2 = new Array();
+		
+		if(now.getDay() == 5 || now.getDay() == 6) {
+		 var num;
+		 if(now.getDay() == 5){
+		     num = 2;
+		 }else {
+		     num = 1  
+		 }
+		 now.setDate(now.getDate()+num);       
+		}
+		
+		var nowDayOfWeek = now.getDay();
+		var nowDay = now.getDate();
+		var nowMonth = now.getMonth();
+		var nowYear = now.getYear();
+		nowYear += (nowYear < 2000) ? 1900 : 0;
+		
+		
+		var today = new Date(nowYear, nowMonth, nowDay);
+		var reserveDate = new Date(nowYear, nowMonth, nowDay)
+		var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek);
+		var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek));
+		 
+		for(var i=today.getDay(), j=1; i<5; i++,j++){
+		    reserveDate.setDate(reserveDate.getDate()+1);
+		 valArr[j-1] = (reserveDate.getMonth()+1)+'월'+(reserveDate.getDate())+'일';
+		 valArr2[j-1] = today.getFullYear()+"-"+(reserveDate.getMonth()+1)+"-"+(reserveDate.getDate());
+		}
+		  
+		var objSel = document.getElementById("dateOfVisit");
+		
+		for(var i=0; i<=valArr.length-1; i++){
+			var objOption = document.createElement("option");       
+			objOption.text = valArr[i];
+			objOption.value = valArr2[i];
+			objSel.options.add(objOption);
+		}
+  }
+  function freightCostCalc() {
+	  var weight = $('#productWeight option:selected').val();
+	  if(weight == 0){
+		  alert('상품부피를 선택해주세요.')
+		  return false;
+	  }
+	  $('#freightCost').val(weight);
+  }
+  
+  var themeObj = {
+	//bgColor: "", //바탕 배경색
+	searchBgColor: "#212529", //검색창 배경색
+	//contentBgColor: "", //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
+	//pageBgColor: "", //페이지 배경색
+	//textColor: "", //기본 글자색
+	queryTextColor: "#FFFFFF" //검색창 글자색
+	//postcodeTextColor: "", //우편번호 글자색
+	//emphTextColor: "", //강조 글자색
+	//outlineColor: "", //테두리
+  };
+  function execDaumPostcode(btnId) {
+     new daum.Postcode({
+  	   theme: themeObj,
+          oncomplete: function(data) {
+              // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 참고 항목 변수
+              // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+              // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+              var addr = ''; // 주소 변수
+              var extraAddr = ''; // 참고항목 변수
 
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                }
+              //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+              if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                  addr = data.roadAddress;
+              } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                  addr = data.jibunAddress;
+              }
 
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample4_postcode').value = data.zonecode;
-                document.getElementById("sample4_roadAddress").value = roadAddr;
-                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-                
-                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                if(roadAddr !== ''){
-                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-                } else {
-                    document.getElementById("sample4_extraAddress").value = '';
-                }
-
-                var guideTextBox = document.getElementById("guide");
-                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                if(data.autoRoadAddress) {
-                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                    guideTextBox.style.display = 'block';
-
-                } else if(data.autoJibunAddress) {
-                    var expJibunAddr = data.autoJibunAddress;
-                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                    guideTextBox.style.display = 'block';
-                } else {
-                    guideTextBox.innerHTML = '';
-                    guideTextBox.style.display = 'none';
-                }
-            }
-        }).open();
+              // 우편번호와 주소 정보를 해당 필드에 넣는다.
+              
+              document.getElementById(btnId+'PostCode').value = data.zonecode;
+              document.getElementById(btnId+'Addr1').value = addr;
+              // 커서를 상세주소 필드로 이동한다.
+              document.getElementById(btnId+'Addr2').focus();
+          }
+      }).open();
     }
-  </script>
+</script>
 </body>
 </html>

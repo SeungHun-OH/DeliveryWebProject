@@ -17,11 +17,11 @@ public class ReservationDto {
 	private String receiverAddr1;
 	private String receiverAddr2;
 	private String productName;
-	private Integer productPrice;
+	private String productPrice;
 	private String dateOfVisit; // 방문 희망일
 	private int fareCategoryCode; // 운임 구분
 	private int productWeight; // 상품 부피
-	private Integer freightCost; // 운임 비용
+	private String freightCost; // 운임 비용
 	private int courierCode; //택배 회사 코드
 	
 	public String getSenderName() {
@@ -120,16 +120,16 @@ public class ReservationDto {
 	public void setDateOfVisit(String dateOfVisit) {
 		this.dateOfVisit = dateOfVisit;
 	}
-	public Integer getProductPrice() {
+	public String getProductPrice() {
 		return productPrice;
 	}
-	public void setProductPrice(Integer productPrice) {
+	public void setProductPrice(String productPrice) {
 		this.productPrice = productPrice;
 	}
-	public Integer getFreightCost() {
+	public String getFreightCost() {
 		return freightCost;
 	}
-	public void setFreightCost(Integer freightCost) {
+	public void setFreightCost(String freightCost) {
 		this.freightCost = freightCost;
 	}
 }
