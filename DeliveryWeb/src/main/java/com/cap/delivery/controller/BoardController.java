@@ -90,8 +90,10 @@ public class BoardController {
 		reservationValidation.validate(reservationDto, result);
 		if(result.hasErrors()) {
 			logger.info("택배예약 에러검출");
+			model.addAttribute("reloadForm",reservationDto);
 			return "board/reservationView";
 		}
+		System.out.println(reservationDto.toString());
 		boardService.reservationInsert(reservationDto);
 		return "/board/reservationView";
 	}

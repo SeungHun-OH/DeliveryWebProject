@@ -213,7 +213,7 @@
             </div>
 		</div>
 	  </div>
-	  <button class="btn w-100 btnSubmit" style="font-size: 20px;" type="submit">택배예약</button>
+	  <button class="btn w-100 btnSubmit" style="font-size: 20px;" type="submit" onclick="return freightCostCalc();">택배예약</button>
 	  </div>
 	  
 	</form:form>
@@ -225,7 +225,7 @@
   <%@ include file="../../include/footer.jsp" %>
   <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script>
-  window.onload = function addOption(){
+  $(document).ready(function addOption(){
 	    var now = new Date();
 		var valArr = new Array();
 		var valArr2 = new Array();
@@ -266,14 +266,34 @@
 			objOption.value = valArr2[i];
 			objSel.options.add(objOption);
 		}
-  }
+  });
+  $(document).ready(function(){
+	  if('${reloadForm.courierCode}' != ''){
+		  $('#courierCode').val('${reloadForm.courierCode}').prop('selected', true);
+	  }
+	  if('${reloadForm.dateOfVisit}' != ''){
+		  $('#dateOfVisit').val('${reloadForm.dateOfVisit}').prop('selected', true);
+	  }
+	  if('${reloadForm.fareCategoryCode}' != ''){
+		  $('#fareCategoryCode').val('${reloadForm.fareCategoryCode}').prop('selected', true);
+	  }
+	  if('${reloadForm.productWeight}' != ''){
+		  $('#productWeight').val('${reloadForm.productWeight}').prop('selected', true);
+	  }
+  });
+  //버튼 클릭여부 확인할 것.
   function freightCostCalc() {
 	  var weight = $('#productWeight option:selected').val();
 	  if(weight == 0){
-		  alert('상품부피를 선택해주세요.')
+		  alert('상품부피를 선택해주세요.');
+		  return false;
+	  }
+	  if($('#freightCost').val() == ''){
+		  alert('버튼을 눌러주세요');
 		  return false;
 	  }
 	  $('#freightCost').val(weight);
+	  return true;
   }
   
   var themeObj = {

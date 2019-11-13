@@ -20,8 +20,8 @@
 	<!-- 택배예약 부분 -->
 	<insert id="reservationInsert" parameterType="ReservationDto">
 	INSERT INTO AAA_DELIVERY_CHART 
-    	(DNO, WAYBILL_NUMBER, SE_NAME, SE_PHOEN, SE_ADDR1, SE_ADDR2, SE_ADDR3, RE_NAME, RE_PHONE, RE_ADDR1, RE_ADDR2, RE_ADDR3, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_FARE, PRODUCT_FARE_PRICE, CNO <if test="senderReq != null and senderReq.equals('')">,SE_REQ</if>)
-	VALUES ('4', LPAD(AAA_WAYBILLNUM_SEQ.NEXTVAL,11,'0'), #{senderName}, #{senderPhone}, #{senderPostCode}, #{senderAddr1}, #{senderAddr2}, #{receiverName}, #{receiverPhone}, #{receiverPostCode}, #{receiverAddr1}, #{receiverAddr2}, #{productName}, #{productPrice}, #{fareCategoryCode}, #{freightCost}, #{courierCode} <if test="senderReq != null and senderReq.equals('')">,#{senderReq} </if>)
+    	(DNO, WAYBILL_NUMBER, SE_NAME, SE_PHOEN, SE_ADDR1, SE_ADDR2, SE_ADDR3, RE_NAME, RE_PHONE, RE_ADDR1, RE_ADDR2, RE_ADDR3, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_FARE, PRODUCT_FARE_PRICE, CNO <if test="senderReq == null and senderReq.equals('')"> SE_REQ</if>)
+	VALUES ('4', LPAD(AAA_WAYBILLNUM_SEQ.NEXTVAL,11,'0'), #{senderName}, #{senderPhone}, #{senderPostCode}, #{senderAddr1}, #{senderAddr2}, #{receiverName}, #{receiverPhone}, #{receiverPostCode}, #{receiverAddr1}, #{receiverAddr2}, #{productName}, #{productPrice}, #{fareCategoryCode}, #{freightCost}, #{courierCode} <if test="senderReq == null and senderReq.equals('')">,#{senderReq} </if>)
 	</insert>
 	
 <!-- 	INSERT INTO AAA_DELIVERY_CHART  -->

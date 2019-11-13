@@ -133,4 +133,15 @@ public class ReservationDto {
 	public void setFreightCost(String freightCost) {
 		this.freightCost = freightCost;
 	}
+	
+	@Override
+	public String toString() {
+		return "ReservationDto [senderName=" + senderName + ", senderPhone=" + senderPhone + ", senderPostCode="
+				+ senderPostCode + ", senderAddr1=" + senderAddr1 + ", senderAddr2=" + senderAddr2 + ", senderReq="
+				+ senderReq + ", receiverName=" + receiverName + ", receiverPhone=" + receiverPhone
+				+ ", receiverPostCode=" + receiverPostCode + ", receiverAddr1=" + receiverAddr1 + ", receiverAddr2="
+				+ receiverAddr2 + ", productName=" + productName + ", productPrice=" + productPrice + ", dateOfVisit="
+				+ dateOfVisit + ", fareCategoryCode=" + fareCategoryCode + ", productWeight=" + productWeight
+				+ ", freightCost=" + freightCost + ", courierCode=" + courierCode + "]";
+	}
 }
