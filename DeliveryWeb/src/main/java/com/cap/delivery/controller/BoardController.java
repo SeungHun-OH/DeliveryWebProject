@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cap.delivery.model.ReservationDto;
+import com.cap.delivery.model.ReservationValidation;
 import com.cap.delivery.model.SearchDto;
 import com.cap.delivery.model.SearchDtoValidation;
 import com.cap.delivery.model.SearchResponseListVO;
@@ -34,6 +36,9 @@ public class BoardController {
 	
 	@Autowired
 	private SearchDtoValidation searchDtoValidation;
+	
+	@Autowired
+	private ReservationValidation reservationValidation;
 	
 //	@InitBinder
 //	protected void initBinder(WebDataBinder binder) {
@@ -77,6 +82,18 @@ public class BoardController {
 	@RequestMapping(value = "/reservation", method = RequestMethod.GET)
 	public String reservationGet(Model model) {
 		logger.info("택배예약 GET");
+		model.addAttribute("reservationDto", new ReservationDto());
+		return "/board/reservationView";
+	}
+	
+	@RequestMapping(value = "/reservation", method = RequestMethod.POST)
+	public String reservationPost(@Valid @ModelAttribute("reservationDto") ReservationDto reservationDto, BindingResult result, Model model) {
+		logger.info("택배예약 POST");
+		reservationValidation.validate(reservationDto, result);
+		if(result.hasErrors()) {
+			logger.info("택배예약 에러검출");
+			return "board/reservationView";
+		}
 		return "/board/reservationView";
 	}
 }

@@ -15,6 +15,18 @@
 
   <!-- Bootstrap core CSS -->
   <%@ include file="../../include/header.jsp" %>
+  
+	<style type="text/css">
+	.errormsg {
+		color: red;
+	}
+	.btnSubmit{
+		background: #dae0e5;
+	}
+	.btnSubmit:hover{
+		background: #999999;
+	}
+	</style>
 
 </head>
 
@@ -42,35 +54,38 @@
   <div class="container">
     <div class="row">
     <div class="col-lg-10 col-md-12 mx-auto">
-    <form name="reservationDTO" id="reservationForm" method="post" action="${pageContext.request.contextPath}/board/reservation">
+    <form:form modelAttribute="reservationDto" id="reservationForm" method="post" action="${pageContext.request.contextPath}/board/reservation">
       <div class="col-lg-12 col-md-12 mx-auto">
       <div class="card" style="border: none; margin-bottom: 40px; font-weight: 800;">
         <div class="card-header">
-			보내는 분
+			<span style="color: red;">＊ </span>보내는 분
         </div>
         <div class="control-group">
 			<div class="form-group floating-label-form-group controls">
               	<label>이름</label>
-              	<input type="text" class="form-control" placeholder="이름" id="senderName">
+              	<form:input type="text" cssClass="form-control" placeholder="이름" id="senderName" path="senderName"/>
+              	<small><form:errors path="senderName" cssClass="errormsg" /></small>
             </div>
 		</div>
 		<div class="control-group">
 			<div class="form-group floating-label-form-group controls">
-			<label>전화번호</label>
-			<input type="text" class="form-control" placeholder="전화번호" name="senderPhone">
+				<label>전화번호</label>
+				<form:input type="text" cssClass="form-control" placeholder="전화번호" id="senderPhone" path="senderPhone"/>
+            	<small><form:errors path="senderPhone" cssClass="errormsg" /></small>
             </div>
 		</div>
 		<div class="control-group">
 			<div class="form-group floating-label-form-group controls">
 				<label>주소</label>
 					<div class="input-group" style="margin-bottom: 5px; width: 60%;">
-					<input type="text" class="form-control" placeholder="우편번호" readonly="readonly">
+					<form:input type="text" cssClass="form-control" placeholder="우편번호" id="senderPostCode" path="senderPostCode" readonly="true"/>
 					<span class="input-group-btn">
-						<button class="btn btn-warning" type="button" style="padding: 11px 25px;">우편번호 찾기</button>
+						<button class="btn btn-primary" type="button" style="padding: 11px 25px;">우편번호 찾기</button>
 		      		</span>
 				</div>
-			<input type="text" class="form-control" placeholder="주소" name="senderPhone" readonly="readonly" style="margin-bottom: 5px;">
-			<input type="text" class="form-control" placeholder="상세주소" name="senderPhone">
+			<form:input type="text" cssClass="form-control" placeholder="주소" id="senderAddr1" path="senderAddr1" style="margin-bottom: 5px;"/>
+			<form:input type="text" cssClass="form-control" placeholder="상세주소" id="senderAddr2" path="senderAddr2"/>
+			<small><form:errors path="senderAddr2" cssClass="errormsg" /></small>
             </div>
 		</div>
 	  </div>
@@ -79,31 +94,34 @@
 	  <div class="col-lg-12 col-md-12 mx-auto">
       <div class="card" style="border: none; margin-bottom: 40px; font-weight: 800;">
         <div class="card-header">
-			받는 분
+			<span style="color: red;">＊ </span>받는 분
         </div>
         <div class="control-group">
 			<div class="form-group floating-label-form-group controls">
               	<label>이름</label>
-              	<input type="text" class="form-control" placeholder="이름" id="senderName">
+              	<form:input type="text" cssClass="form-control" placeholder="이름" id="receiverName" path="receiverName"/>
+              	<small><form:errors path="receiverName" cssClass="errormsg" /></small>
             </div>
 		</div>
 		<div class="control-group">
 			<div class="form-group floating-label-form-group controls">
 			<label>전화번호</label>
-			<input type="text" class="form-control" placeholder="전화번호" name="senderPhone">
+			<form:input type="text" cssClass="form-control" placeholder="전화번호" id="receiverPhone" path="receiverPhone"/>
+            <small><form:errors path="receiverPhone" cssClass="errormsg" /></small>
             </div>
 		</div>
 		<div class="control-group">
 			<div class="form-group floating-label-form-group controls">
 				<label>주소</label>
 				<div class="input-group" style="margin-bottom: 5px; width: 60%;">
-					<input type="text" class="form-control" placeholder="우편번호" readonly="readonly">
+					<form:input type="text" cssClass="form-control" placeholder="우편번호" id="receiverPostCode" path="receiverPostCode" readonly="true"/>
 					<span class="input-group-btn">
-						<button class="btn btn-warning" type="button" style="padding: 11px 25px;">우편번호 찾기</button>
+						<button class="btn btn-primary" type="button" style="padding: 11px 25px;">우편번호 찾기</button>
 		      		</span>
 				</div>
-			<input type="text" class="form-control" placeholder="주소" name="senderPhone" readonly="readonly" style="margin-bottom: 5px;">
-			<input type="text" class="form-control" placeholder="상세주소" name="senderPhone">
+			<form:input type="text" cssClass="form-control" placeholder="주소" id="receiverAddr1" path="receiverAddr1" style="margin-bottom: 5px;"/>
+			<form:input type="text" cssClass="form-control" placeholder="상세주소" id="receiverAddr2" path="receiverAddr2"/>
+			<small><form:errors path="receiverAddr2" cssClass="errormsg" /></small>
             </div>
 		</div>
 	  </div>
@@ -116,74 +134,90 @@
         </div>
         <div class="control-group">
 			<div class="form-group floating-label-form-group controls">
-			    <label for="exampleFormControlSelect1">택배회사</label>
-			    <select class="form-control" id="exampleFormControlSelect1" style="width: 50%;">
-					<option selected="selected" value="0">택배회사 선택</option>
+			    <label for="courierCode">택배회사</label>
+			    <form:select class="form-control" path="courierCode" id="courierCode" style="width: 50%;">
+					<option selected="selected" value="0">＊택배회사 선택</option>
 					<option value="1">CJ대한통운</option>
 					<option value="2">로젠택배</option>
 					<option value="3">우체국</option>
-			    </select>
+			    </form:select>
+			    <small><form:errors path="courierCode" cssClass="errormsg" /></small>
             </div>
 		</div>
 		<div class="control-group">
 			<div class="form-group floating-label-form-group controls">
-			    <label for="exampleFormControlSelect2">방문날짜</label>
-			    <select class="form-control" id="exampleFormControlSelect2" style="width: 50%;">
-					<option selected="selected" value="0">방문날짜 선택</option>
+			    <label for="dateOfVisit">방문날짜</label>
+			    <form:select class="form-control" path="dateOfVisit" id="dateOfVisit" style="width: 50%;">
+					<option selected="selected" value="0">＊방문날짜 선택</option>
 					<option value="1">날짜1</option>
-			    </select>
+			    </form:select>
+			    <small><form:errors path="dateOfVisit" cssClass="errormsg" /></small>
             </div>
 		</div>
 		<div class="control-group">
 			<div class="form-group floating-label-form-group controls">
-			    <label for="exampleFormControlSelect3">운임방식</label>
-			    <select class="form-control" id="exampleFormControlSelect2" style="width: 50%;">
-					<option selected="selected" value="0">운임 선택</option>
+              	<label>특이사항</label>
+              	<form:input type="text" cssClass="form-control" placeholder="특이사항 기재" id="senderReq" path="senderReq"/>
+              	<small><form:errors path="senderReq" cssClass="errormsg" /></small>
+            </div>
+		</div>
+		<div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+				<div class="dropdown-backdrop">
+			    <label for="fareCategoryCode">운임방식</label>
+			    <form:select class="form-control" path="fareCategoryCode" id="fareCategoryCode" style="width: 50%;">
+					<option selected="selected" value="0">＊운임 선택</option>
 					<option value="1">선불</option>
 					<option value="2">후불</option>
-			    </select>
+			    </form:select>
+			    <small><form:errors path="fareCategoryCode" cssClass="errormsg" /></small>
+			    </div>
             </div>
 		</div>
         <div class="control-group">
 			<div class="form-group floating-label-form-group controls">
               	<label>상품명</label>
-              	<input type="text" class="form-control" placeholder="상품명" id="senderName">
+				<form:input type="text" cssClass="form-control" placeholder="＊상품명" id="productName" path="productName"/>
+				<small><form:errors path="productName" cssClass="errormsg" /></small>
             </div>
 		</div>
 		<div class="control-group">
 			<div class="form-group floating-label-form-group controls">
 			<label>상품가격</label>
-			<input type="text" class="form-control" placeholder="상품가격" name="senderPhone">
+			<form:input type="text" cssClass="form-control" placeholder="＊상품가격" id="productPrice" path="productPrice"/>
+            <small><form:errors path="productPrice" cssClass="errormsg" /></small>
             </div>
 		</div>
 		<div class="control-group">
 			<div class="form-group floating-label-form-group controls">
-			    <label for="exampleFormControlSelect4">상품부피</label>
-			    <select class="form-control" id="exampleFormControlSelect4" style="width: 50%;">
-					<option selected="selected" value="0">상품부피 선택</option>
+			    <label for="productWeight">상품부피</label>
+			    <form:select class="form-control" path="productWeight" id="productWeight" style="width: 50%;">
+					<option selected="selected" value="0">＊ 상품부피 선택</option>
 					<option value="1">극소</option>
 					<option value="2">소</option>
 					<option value="3">중</option>
 					<option value="4">대</option>
-			    </select>
+			    </form:select>
+			    <small><form:errors path="productWeight" cssClass="errormsg" /></small>
             </div>
 		</div>
 		<div class="control-group">
 			<div class="form-group floating-label-form-group controls">
 				<label>예상운임</label>
 				<div class="input-group" style="margin-bottom: 5px; width: 60%;">
-					<input type="text" class="form-control col-sm-6" placeholder="예상운임" readonly="readonly">
+					<form:input type="text" cssClass="form-control" placeholder="＊예상운임" id="freightCost" path="freightCost" readonly="true"/>
 					<span class="input-group-btn">
-						<button class="btn btn-warning" type="button" style="padding: 11px 25px;">예상운임 계산</button>
+						<button class="btn btn-primary" type="button" style="padding: 11px 25px;">예상운임 계산</button>
 		      		</span>
 				</div>
+				<small><form:errors path="freightCost" cssClass="errormsg" /></small>
             </div>
 		</div>
 	  </div>
-	  <button class="btn btn-primary w-100" style="font-size: 20px;" type="button">택배예약</button>
+	  <button class="btn w-100 btnSubmit" style="font-size: 20px;" type="submit">택배예약</button>
 	  </div>
 	  
-	</form>
+	</form:form>
 	</div>
     </div>
   </div>

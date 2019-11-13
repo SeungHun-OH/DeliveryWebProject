@@ -1,6 +1,5 @@
 package com.cap.delivery.model;
 
-import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
@@ -12,18 +11,17 @@ public class ReservationDto {
 	private String senderAddr1;
 	private String senderAddr2;
 	private String senderReq;
-	private String senderReqConts;
 	private String receiverName;
 	private String receiverPhone;
-	private int receiverPostCode;
+	private String receiverPostCode;
 	private String receiverAddr1;
 	private String receiverAddr2;
 	private String productName;
-	private String productPrice;
-	private Date dateOfVisit; // 방문 희망일
+	private Integer productPrice;
+	private String dateOfVisit; // 방문 희망일
 	private int fareCategoryCode; // 운임 구분
 	private int productWeight; // 상품 부피
-	private int freightCost; // 운임 비용
+	private Integer freightCost; // 운임 비용
 	private int courierCode; //택배 회사 코드
 	
 	public String getSenderName() {
@@ -62,12 +60,6 @@ public class ReservationDto {
 	public void setSenderReq(String senderReq) {
 		this.senderReq = senderReq;
 	}
-	public String getSenderReqConts() {
-		return senderReqConts;
-	}
-	public void setSenderReqConts(String senderReqConts) {
-		this.senderReqConts = senderReqConts;
-	}
 	public String getReceiverName() {
 		return receiverName;
 	}
@@ -80,10 +72,10 @@ public class ReservationDto {
 	public void setReceiverPhone(String receiverPhone) {
 		this.receiverPhone = receiverPhone;
 	}
-	public int getReceiverPostCode() {
+	public String getReceiverPostCode() {
 		return receiverPostCode;
 	}
-	public void setReceiverPostCode(int receiverPostCode) {
+	public void setReceiverPostCode(String receiverPostCode) {
 		this.receiverPostCode = receiverPostCode;
 	}
 	public String getReceiverAddr1() {
@@ -104,12 +96,6 @@ public class ReservationDto {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	public String getProductPrice() {
-		return productPrice;
-	}
-	public void setProductPrice(String productPrice) {
-		this.productPrice = productPrice;
-	}
 	public int getFareCategoryCode() {
 		return fareCategoryCode;
 	}
@@ -122,22 +108,28 @@ public class ReservationDto {
 	public void setProductWeight(int productWeight) {
 		this.productWeight = productWeight;
 	}
-	public int getFreightCost() {
-		return freightCost;
-	}
-	public void setFreightCost(int freightCost) {
-		this.freightCost = freightCost;
-	}
 	public int getCourierCode() {
 		return courierCode;
 	}
 	public void setCourierCode(int courierCode) {
 		this.courierCode = courierCode;
 	}
-	public Date getDateOfVisit() {
+	public String getDateOfVisit() {
 		return dateOfVisit;
 	}
-	public void setDateOfVisit(Date dateOfVisit) {
+	public void setDateOfVisit(String dateOfVisit) {
 		this.dateOfVisit = dateOfVisit;
+	}
+	public Integer getProductPrice() {
+		return productPrice;
+	}
+	public void setProductPrice(Integer productPrice) {
+		this.productPrice = productPrice;
+	}
+	public Integer getFreightCost() {
+		return freightCost;
+	}
+	public void setFreightCost(Integer freightCost) {
+		this.freightCost = freightCost;
 	}
 }
