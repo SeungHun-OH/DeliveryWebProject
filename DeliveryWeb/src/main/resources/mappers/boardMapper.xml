@@ -5,15 +5,25 @@
 <mapper namespace="boardMapper">
 	<!-- 운송장 검색 부분 -->
 	<select id="lookupResult" resultMap="SearchResponseResult">
+		<if test="waybillNum != null">
 		SELECT WAYBILL_NUMBER, SE_NAME, RE_NAME, PRODUCT_NAME
 		FROM AAA_DELIVERY_CHART
 		WHERE WAYBILL_NUMBER = #{waybillNum}
+		</if>
+		<if test="reservationNum != null">
+		SELECT LPAD(DNO, 12, '0') AS DNO FROM AAA_DELIVERY_CHART WHERE DNO = #{reservationNum}
+		</if>
 	</select>
 	
 	<select id="lookupListResult" resultMap="SearchResponseListResult">
 		SELECT DELIVERY_INFORMATION, PROCESS_DATE, DELIVERY_LOCATION
 		FROM AAA_DELIVERY_STATE
+		<if test="waybillNum != null">
 		WHERE WAYBILL_NUMBER = #{waybillNum}
+		</if>
+		<if test="reservationNum != null">
+		WHERE DNO = (SELECT LPAD(DNO, 12, '0') AS DNO FROM AAA_DELIVERY_CHART WHERE DNO = #{reservationNum})
+		</if>
 		ORDER BY PROCESS_DATE, DLNO
 	</select>
 	
@@ -21,7 +31,7 @@
 	<insert id="reservationInsert" parameterType="ReservationDto">
 	INSERT INTO AAA_DELIVERY_CHART 
     	(DNO, WAYBILL_NUMBER, SE_NAME, SE_PHOEN, SE_ADDR1, SE_ADDR2, SE_ADDR3, RE_NAME, RE_PHONE, RE_ADDR1, RE_ADDR2, RE_ADDR3, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_FARE, PRODUCT_FARE_PRICE, CNO <if test="senderReq == null and senderReq.equals('')"> SE_REQ</if>)
-	VALUES ('4', LPAD(AAA_WAYBILLNUM_SEQ.NEXTVAL,11,'0'), #{senderName}, #{senderPhone}, #{senderPostCode}, #{senderAddr1}, #{senderAddr2}, #{receiverName}, #{receiverPhone}, #{receiverPostCode}, #{receiverAddr1}, #{receiverAddr2}, #{productName}, #{productPrice}, #{fareCategoryCode}, #{freightCost}, #{courierCode} <if test="senderReq == null and senderReq.equals('')">,#{senderReq} </if>)
+	VALUES (AAA_DNO_SEQ.NEXTVAL, LPAD(AAA_WAYBILLNUM_SEQ.NEXTVAL,11,'0'), #{senderName}, #{senderPhone}, #{senderPostCode}, #{senderAddr1}, #{senderAddr2}, #{receiverName}, #{receiverPhone}, #{receiverPostCode}, #{receiverAddr1}, #{receiverAddr2}, #{productName}, #{productPrice}, #{fareCategoryCode}, #{freightCost}, #{courierCode} <if test="senderReq == null and senderReq.equals('')">,#{senderReq} </if>)
 	</insert>
 	
 <!-- 	INSERT INTO AAA_DELIVERY_CHART  -->
