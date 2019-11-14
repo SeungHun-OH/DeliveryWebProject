@@ -206,14 +206,14 @@
 				<div class="input-group" style="margin-bottom: 5px; width: 60%;">
 					<form:input type="text" cssClass="form-control" placeholder="＊예상운임" id="freightCost" path="freightCost" readonly="true"/>
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button" style="padding: 11px 25px;" onclick="freightCostCalc();">예상운임 계산</button>
+						<button class="btn btn-primary" type="button" style="padding: 11px 25px;" id="btnFreightCostCalc">예상운임 계산</button>
 		      		</span>
 				</div>
 				<small><form:errors path="freightCost" cssClass="errormsg" /></small>
             </div>
 		</div>
 	  </div>
-	  <button class="btn w-100 btnSubmit" style="font-size: 20px;" type="submit" onclick="return freightCostCalc();">택배예약</button>
+	  <button class="btn w-100 btnSubmit" style="font-size: 20px;" type="button" id="btnResSubmit">택배예약</button>
 	  </div>
 	  
 	</form:form>
@@ -281,20 +281,31 @@
 		  $('#productWeight').val('${reloadForm.productWeight}').prop('selected', true);
 	  }
   });
-  //버튼 클릭여부 확인할 것.
-  function freightCostCalc() {
-	  var weight = $('#productWeight option:selected').val();
-	  if(weight == 0){
-		  alert('상품부피를 선택해주세요.');
-		  return false;
+  
+  var clicks=false;
+  $('#btnFreightCostCalc').on("click", function(){
+		var weight = $('#productWeight option:selected').val();
+		if (!clicks) {
+			if(weight == 0){
+				  alert('상품부피를 선택해주세요.');
+				  return false;
+			}
+			$('#freightCost').val(weight);
+			clicks = true;
+		}
+	});
+
+  $('#productWeight').on('change', function() {
+	  clicks = false;
+  });
+  
+  $('#btnResSubmit').on("click", function(e){
+	  if(clicks == false){
+			alert("예상운임을 다시 계산해주세요.");
+			return false;
 	  }
-	  if($('#freightCost').val() == ''){
-		  alert('버튼을 눌러주세요');
-		  return false;
-	  }
-	  $('#freightCost').val(weight);
-	  return true;
-  }
+	  $('#reservationForm').submit();
+  });
   
   var themeObj = {
 	//bgColor: "", //바탕 배경색
