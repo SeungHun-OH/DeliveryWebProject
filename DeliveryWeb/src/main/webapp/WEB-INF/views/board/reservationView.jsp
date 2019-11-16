@@ -21,10 +21,10 @@
 		color: red;
 	}
 	.btnSubmit{
-		background: #dae0e5;
+		background: #FFB843;
 	}
 	.btnSubmit:hover{
-		background: #999999;
+		background: #E3A538;
 	}
 	</style>
 
@@ -56,6 +56,7 @@
     <div class="col-lg-10 col-md-12 mx-auto">
     <form:form modelAttribute="reservationDto" id="reservationForm" method="post" action="${pageContext.request.contextPath}/board/reservation">
       <div class="col-lg-12 col-md-12 mx-auto">
+      <p style="font-size: 15px; margin-top: 0px;"><span style="color: red;">＊</span> 표시는 필수 입력 항목입니다.</p>
       <div class="card" style="border: none; margin-bottom: 40px; font-weight: 800;">
         <div class="card-header">
 			<span style="color: red;">＊ </span>보내는 분
@@ -267,6 +268,7 @@
 			objSel.options.add(objOption);
 		}
   });
+
   $(document).ready(function(){
 	  if('${reloadForm.courierCode}' != ''){
 		  $('#courierCode').val('${reloadForm.courierCode}').prop('selected', true);

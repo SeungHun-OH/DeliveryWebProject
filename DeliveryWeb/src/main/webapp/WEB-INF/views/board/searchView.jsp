@@ -21,6 +21,14 @@
 	.errormsg {
 		color: red;
 	}
+	.nav-tabs .nav-link.active {
+    font-weight:bold;
+    background-color: transparent;
+    border-bottom:3px solid #FFB843;
+    border-right: none;
+    border-left: none;
+    border-top: none;
+	}
 	</style>
 
 </head>
@@ -148,7 +156,7 @@
 
   <hr>
   <%@ include file="../../include/footer.jsp" %>
-  <script type="text/javascript">
+  <script>
 	//wire up shown event
 // 	$(document).ready(function() {
 // 		if(localStorage.getItem("sw") != "true"){
@@ -163,6 +171,8 @@
 // 	});
 	
 // 	if(localStorage.getItem("sw") == "true"){
+
+
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 	    console.log("tab shown...");
 	    localStorage.setItem('activeTab', $(e.target).attr('href'));
@@ -175,6 +185,9 @@
 	    localStorage.removeItem("sw");
 	}
 
+// 	$(window).on("beforeunload", function(){
+// 		localStorage.removeItem("activeTab");
+//     });
 		
 	</script>
 </body>
