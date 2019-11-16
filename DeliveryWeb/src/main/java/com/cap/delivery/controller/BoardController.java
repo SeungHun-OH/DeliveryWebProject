@@ -54,24 +54,18 @@ public class BoardController {
 	public String searchViewPOST(@Valid @ModelAttribute("searchDto") SearchDto searchDto, BindingResult result, Model model) {
 		logger.info("운송장 조회 POST");
 		searchDtoValidation.validate(searchDto, result);
-		if(searchDto.getWaybillNum() != null) {
-			if (result.hasErrors()) {
-				// form에 에러가 있으면
-				logger.info("에러검출");
-				logger.info("컨트롤러 reservation: "+ searchDto.getReservationNum());
-//				FieldError fieldError = result.getFieldError();
-//				logger.info("에러이름: "+result.getFieldError());
-//				flash.addFlashAttribute("errors",result);
-				if(searchDto.getClickPage().equals("index")) 
-					return "/home/index";
-				return "/board/searchView";
-			}
+		if (result.hasErrors()) {
+			// form에 에러가 있으면
+			logger.info("에러검출");
+			logger.info("컨트롤러 reservation: "+ searchDto.getReservationNum());
+			if(searchDto.getClickPage().equals("index")) 
+				return "/home/index";
+			return "/board/searchView";
 		}
 		//에러가 없으면
 		SearchResponseVO responseVO = boardService.lookupResult(searchDto);
 		List<SearchResponseListVO> responseListVO = boardService.lookupListResult(searchDto);
 		
-		model.addAttribute("waybillNum", searchDto.getWaybillNum());
 		model.addAttribute("response", responseVO);
 		model.addAttribute("responseList", responseListVO);
 		return "/board/searchView";
@@ -93,7 +87,6 @@ public class BoardController {
 			model.addAttribute("reloadForm",reservationDto);
 			return "board/reservationView";
 		}
-		System.out.println(reservationDto.toString());
 		boardService.reservationInsert(reservationDto);
 		return "/board/reservationView";
 	}

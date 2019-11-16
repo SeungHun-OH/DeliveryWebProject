@@ -64,7 +64,7 @@
 				    <form:form modelAttribute="searchDto" id="waybillNumSearchForm" method="post" action="${pageContext.request.contextPath}/board/search">
 					<div class="control-group">
 						<div class="form-group controls">
-		              		<form:input type="text" cssClass="form-control" placeholder="예: 01234567890, '-'를 제외한 숫자 11자리" path="waybillNum" id="waybillNum" value="${waybillNum}" maxlength="11"/>
+		              		<form:input type="text" cssClass="form-control" placeholder="예: 01234567890, '-'를 제외한 숫자 11자리" path="waybillNum" id="waybillNum" maxlength="11"/>
 		<!--               		<p class="help-block text-danger"></p> -->
 							<small><form:errors path="waybillNum" cssClass="errormsg" /></small>
 							<form:hidden path="clickPage" value="searchView"/>
