@@ -11,9 +11,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cap.delivery.model.LoginDto;
 import com.cap.delivery.model.LoginValidation;
+import com.cap.delivery.model.SignupDto;
+import com.cap.delivery.service.UserService;
 
 
 @RequestMapping("/user")
@@ -22,7 +26,11 @@ public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
-	@Autowired private LoginValidation loginValidation;
+	@Autowired 
+	private LoginValidation loginValidation;
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginViewGet(Model model) {
@@ -40,5 +48,22 @@ public class UserController {
 			return "/user/loginView"; 
 		}
 		return null;
+	}
+	
+	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	public String signupViewGet(Model model) {
+		logger.info("회원가입 GET");
+		model.addAttribute("signupDto", new SignupDto());
+		return "/user/signupView";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ajaxChkId", method = RequestMethod.POST)
+	public String signupChkId(@RequestParam("inputId") String inputId) {
+		if(userService.ajaxChkId(inputId) == 0)
+			return "YES";
+		else {
+			return "NO";
+		}
 	}
 }

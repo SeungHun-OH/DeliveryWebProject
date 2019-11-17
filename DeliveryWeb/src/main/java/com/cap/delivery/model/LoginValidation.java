@@ -34,5 +34,9 @@ public class LoginValidation implements Validator{
 			logger.info("로그인 아이디 한글 입력 에러");
 			errors.rejectValue("userId", "login.userId.pattern", "한글은 입력할 수 없습니다.");
 		}
+		if(loginDto.getUserPwd() == null || loginDto.getUserPwd().trim().isEmpty()) {
+			logger.info("비밀번호 미입력 에러");
+			errors.rejectValue("userPwd", "login.userPwd.pattern", "비밀번호를 입력해주세요.");
+		}
 	}
 }

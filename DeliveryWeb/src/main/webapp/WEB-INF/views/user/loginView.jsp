@@ -32,21 +32,21 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading" style="margin-top: 180px;">
-            <h1>로그인</h1>
+          <div class="site-heading" style="margin-top: 180px; padding: 100px 20px 100px 20px; background: rgba(255, 255, 255, 0.4); border-radius: 25px;">
+            <h1 style="margin-bottom: 100px;">Avery</h1>
 <!--             <span class="subheading">A Blog Theme by Start Bootstrap</span> -->
 			<form:form modelAttribute="loginDto" id="loginForm" action="${pageContext.request.contextPath}/user/login" method="post">
 			<div class="control-group">
 				<div class="form-group controls">
-              		<form:input type="text" cssClass="form-control" placeholder="아이디" path="userId" id="userId" maxlength="20"/>
+              		<form:input type="text" cssClass="form-control" placeholder="아이디" path="userId" id="userId" maxlength="20" style="font-size: 2rem;"/>
 					<small><form:errors path="userId" cssClass="errormsg" /></small>
 				</div>
 				<div class="form-group controls">
-					<form:input type="text" cssClass="form-control" placeholder="비밀번호" path="userPwd" id="userPwd" maxlength="20" />
+					<form:input type="password" cssClass="form-control" placeholder="비밀번호" path="userPwd" id="userPwd" maxlength="20" style="font-size: 2rem;"/>
 					<small><form:errors path="userPwd" cssClass="errormsg" /></small>
             	</div>
           	</div>
-          	<button class="btn btn-primary" type="submit" style="width:100%">로그인</button>
+          	<button class="btn btn-primary" type="submit" style="width:100%; font-size: 30px;"><i class="fas fa-sign-in-alt"></i> 로그인</button>
           	</form:form>
           </div>
         </div>
