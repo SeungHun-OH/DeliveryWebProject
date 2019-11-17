@@ -301,7 +301,7 @@
 	  clicks = false;
   });
   
-  $('#btnResSubmit').on("click", function(e){
+  $('#btnResSubmit').on("click", function(){
 	  if(clicks == false){
 			alert("예상운임을 다시 계산해주세요.");
 			return false;

@@ -95,7 +95,7 @@
 	      		</span>
 	      		<form:input type="text" cssClass="form-control" id="userEmail2" path="userEmail2" style="margin-left: 10px;" maxlength="20"/>
 			</div>
-            <small><form:errors path="userEmail1" cssClass="errormsg" /></small>
+            <small><form:errors path="userEmail2" cssClass="errormsg" /></small>
             </div>
 		</div>
 		<div class="control-group">
@@ -120,8 +120,8 @@
             </div>
 		</div>
 	  </div>
+	  <button class="btn w-100 btnSubmit" style="font-size: 20px;" type="button" id="btnSignupSubmit">회원가입</button>
 	  </div>
-	  
 	</form:form>
 	</div>
     </div>
@@ -185,7 +185,10 @@
 	  	  }
 	  })
   });
-   
+  
+  $('#btnSignupSubmit').on("click", function(){
+	  $('#signupForm').submit();
+  });
 </script>
 </body>
 </html>

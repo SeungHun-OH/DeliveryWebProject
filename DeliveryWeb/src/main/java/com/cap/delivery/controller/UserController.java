@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cap.delivery.model.LoginDto;
 import com.cap.delivery.model.LoginValidation;
 import com.cap.delivery.model.SignupDto;
+import com.cap.delivery.model.SignupValidation;
 import com.cap.delivery.service.UserService;
 
 
@@ -28,6 +29,9 @@ public class UserController {
 	
 	@Autowired 
 	private LoginValidation loginValidation;
+	
+	@Autowired
+	private SignupValidation signupValidation;
 	
 	@Autowired
 	private UserService userService;
@@ -57,6 +61,20 @@ public class UserController {
 		return "/user/signupView";
 	}
 	
+	@RequestMapping(value = "/signup", method = RequestMethod.POST)
+	public String signupViewPost(@Valid @ModelAttribute("signupDto") SignupDto signupDto, BindingResult result ,Model model) {
+		logger.info("회원가입 POST");
+		signupValidation.validate(signupDto, result);
+		if (result.hasErrors()) {
+			logger.info("회원가입 에러 검출");
+			return "/user/signupView"; 
+		}
+		return "/user/signupView";
+	}
+	
+	
+	
+	//	ajax부분
 	@ResponseBody
 	@RequestMapping(value = "/ajaxChkId", method = RequestMethod.POST)
 	public String signupChkId(@RequestParam("inputId") String inputId) {
