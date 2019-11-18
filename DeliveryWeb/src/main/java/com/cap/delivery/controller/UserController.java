@@ -2,6 +2,7 @@ package com.cap.delivery.controller;
 
 import javax.validation.Valid;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,9 +73,13 @@ public class UserController {
 			return "/user/signupView"; 
 		}
 		logger.info("toString:"+signupDto.toString());
-		return "/user/signupView";
+		
+		String hashPw = BCrypt.hashpw(signupDto.getUserPwd(), BCrypt.gensalt());
+		signupDto.setUserPwd(hashPw);
+		
+		userService.insertSignup(signupDto);
+		return "redirect: /";
 	}
-	
 	
 	
 	//	ajax부분

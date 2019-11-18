@@ -74,14 +74,14 @@
         <div class="control-group">
 			<div class="form-group floating-label-form-group controls">
               	<label>비밀번호</label>
-              	<form:password cssClass="form-control" placeholder="비밀번호" id="userPwd" path="userPwd"/>
+              	<form:password cssClass="form-control" placeholder="비밀번호" id="userPwd" path="userPwd" maxlength="20"/>
               	<small><form:errors path="userPwd" cssClass="errormsg" /></small>
             </div>
 		</div>
         <div class="control-group">
 			<div class="form-group floating-label-form-group controls">
               	<label>이름</label>
-              	<form:input type="text" cssClass="form-control" placeholder="이름" id="userName" path="userName"/>
+              	<form:input type="text" cssClass="form-control" placeholder="이름" id="userName" path="userName" maxlength="7"/>
               	<small><form:errors path="userName" cssClass="errormsg" /></small>
             </div>
 		</div>
@@ -214,8 +214,13 @@
           }
       }).open();
   }
+  var clicks = false;
   
   $('#btnIdChk').click(function() {
+	  if($('#userId').val().trim() == ''){
+		  alert('아이디를 입력해주세요.');
+		  return false;
+	  }
 	  $.ajax({
 		  type:'POST',
 		  url:'ajaxChkId',
@@ -223,15 +228,24 @@
 		  },
 	 	  success:function(data){
 		  console.log(data);
-		  if(data == 'YES')
+		  console.log(clicks);
+		  if(data == 'YES'){
 			  alert('사용 가능한 아이디입니다.');
+			  clicks = true;
+		  }
 		  else if(data == 'NO')
 			  alert('이미 존재하는 아이디입니다.');
+		  	  return false;
 	  	  }
 	  })
+	  clicks = true;
   });
   
   $('#btnSignupSubmit').on("click", function(){
+	 if(clicks == false){
+		 alert("아이디 중복확인을 해주세요.")
+		 return false;
+	 }
 	  $('#signupForm').submit();
   });
 </script>

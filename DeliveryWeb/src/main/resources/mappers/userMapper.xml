@@ -8,4 +8,34 @@
 		FROM AAA_MEMBER
 		WHERE ID = #{inputId}
 	</select>
+	
+	<insert id="insertSignup">
+		<selectKey keyProperty="memberNo" resultType="integer" order="BEFORE">
+       		SELECT AAA_MNO.NEXTVAL FROM DUAL
+   		</selectKey>
+		INSERT INTO AAA_MEMBER(
+			MNO, 
+			ID,
+			PASS,
+			NAME,
+			BIRTH,
+			EMAIL,
+			PHONE,
+			ADDR1,
+			ADDR2,
+			ADDR3
+		)
+		VALUES(
+			#{memberNo},
+			#{userId},
+			#{userPwd},
+			#{userName},
+			TO_DATE('${userBirthYear}-${userBirthMonth}-${userBirthDay}', 'YYYY-MM-DD'),
+			'${userEmail1}@${userEmail2}',
+			#{userPhone},
+			#{postCode},
+			#{addr1},
+			#{addr2}
+		)
+	</insert>
 </mapper>

@@ -193,10 +193,10 @@
 			    <label for="productWeight">상품부피</label>
 			    <form:select class="form-control" path="productWeight" id="productWeight" style="width: 50%;">
 					<option selected="selected" value="0">＊ 상품부피 선택</option>
-					<option value="4000">극소</option>
-					<option value="6000">소</option>
-					<option value="7000">중</option>
-					<option value="8000">대</option>
+					<option value="4000">극소 (2kg 이하)</option>
+					<option value="6000">소 (5kg 이하)</option>
+					<option value="7000">중 (15kg 이하)</option>
+					<option value="8000">대 (25kg 이하)</option>
 			    </form:select>
 			    <small><form:errors path="productWeight" cssClass="errormsg" /></small>
             </div>

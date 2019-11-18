@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SignupDto {
 
+	private Integer memberNo;
 	private String userId;
 	private String userPwd;
 	private String userName;
@@ -90,6 +91,13 @@ public class SignupDto {
 	public void setUserBirthDay(String userBirthDay) {
 		this.userBirthDay = userBirthDay;
 	}
+	public Integer getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(Integer memberNo) {
+		this.memberNo = memberNo;
+	}
+	
 	@Override
 	public String toString() {
 		return "SignupDto [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName + ", userBirthYear="
