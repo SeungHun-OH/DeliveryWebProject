@@ -9,6 +9,18 @@
 		WHERE ID = #{inputId}
 	</select>
 	
+	<select id="login" resultType="String">
+		SELECT PASS
+		FROM AAA_MEMBER
+		WHERE ID LIKE #{userId}
+	</select>
+	
+	<select id="sessionRegister" resultMap="UserResult">
+		SELECT ID, NAME, PHONE
+		FROM AAA_MEMBER
+		WHERE ID LIKE #{userId}
+	</select>
+	
 	<insert id="insertSignup">
 		<selectKey keyProperty="memberNo" resultType="integer" order="BEFORE">
        		SELECT AAA_MNO.NEXTVAL FROM DUAL
@@ -38,4 +50,10 @@
 			#{addr2}
 		)
 	</insert>
+	
+	<resultMap type="UserVO" id="UserResult">
+		<result property="userId" column="ID"/>
+		<result property="userName" column="NAME"/>
+		<result property="userPhone" column="PHONE"/>
+	</resultMap>
 </mapper>

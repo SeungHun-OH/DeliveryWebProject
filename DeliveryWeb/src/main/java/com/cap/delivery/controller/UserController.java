@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cap.delivery.model.LoginDto;
 import com.cap.delivery.model.LoginValidation;
 import com.cap.delivery.model.SignupDto;
 import com.cap.delivery.model.SignupValidation;
+import com.cap.delivery.model.UserVO;
 import com.cap.delivery.service.UserService;
 
 
@@ -45,14 +47,36 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginViewPost(@Valid @ModelAttribute("loginDto") LoginDto loginDto, BindingResult result ,Model model) {
+	public String loginViewPost(@Valid @ModelAttribute("loginDto") LoginDto loginDto, BindingResult result ,Model model, RedirectAttributes redirect) {
 		logger.info("로그인 POST");
 		loginValidation.validate(loginDto, result);
 		if (result.hasErrors()) {
 			logger.info("로그인 에러 검출");
 			return "/user/loginView"; 
 		}
-		return null;
+		
+		String dbPwd = userService.login(loginDto.getUserId());
+		if(dbPwd == null || !BCrypt.checkpw(loginDto.getUserPwd(), dbPwd)) {
+			logger.info("로그인 실패");
+			model.addAttribute("loginDto", new LoginDto());
+			return "/user/loginView";
+		}
+		
+		UserVO userVO = userService.sessionRegister(loginDto);
+		logger.info("로그인 성공");
+		
+//		if(userVO == null) {
+//			logger.info("로그인 실패");
+//			return "redirect: /user/login";
+//		} 
+		redirect.addFlashAttribute("userVO", userVO);
+		return "redirect: /user/loginSuccess";
+	}
+	
+	@RequestMapping(value = "/loginSuccess")
+	public void loginViewPost(@ModelAttribute("userVO") UserVO userVO) {
+		logger.info("여기옴");
+		System.out.println(userVO.toString());
 	}
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)

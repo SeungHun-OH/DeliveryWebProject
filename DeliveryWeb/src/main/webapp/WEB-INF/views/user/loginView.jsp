@@ -38,15 +38,15 @@
 			<form:form modelAttribute="loginDto" id="loginForm" action="${pageContext.request.contextPath}/user/login" method="post">
 			<div class="control-group">
 				<div class="form-group controls">
-              		<form:input type="text" cssClass="form-control" placeholder="아이디" path="userId" id="userId" maxlength="20" style="font-size: 2rem;"/>
+              		<form:input type="text" cssClass="form-control" placeholder="아이디" path="userId" id="userId" maxlength="20" style="font-size: 1.5rem;"/>
 					<small><form:errors path="userId" cssClass="errormsg" /></small>
 				</div>
 				<div class="form-group controls">
-					<form:input type="password" cssClass="form-control" placeholder="비밀번호" path="userPwd" id="userPwd" maxlength="20" style="font-size: 2rem;"/>
+					<form:input type="password" cssClass="form-control" placeholder="비밀번호" path="userPwd" id="userPwd" maxlength="20" style="font-size: 1.5rem;"/>
 					<small><form:errors path="userPwd" cssClass="errormsg" /></small>
             	</div>
           	</div>
-          	<button class="btn btn-primary" type="submit" style="width:100%; font-size: 30px;"><i class="fas fa-sign-in-alt"></i> 로그인</button>
+          	<button class="btn btn-primary" type="submit" style="width:100%; font-size: 25px;"><i class="fas fa-sign-in-alt"></i> 로그인</button>
           	</form:form>
           </div>
         </div>
