@@ -64,11 +64,14 @@ public class UserController {
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String signupViewPost(@Valid @ModelAttribute("signupDto") SignupDto signupDto, BindingResult result ,Model model) {
 		logger.info("회원가입 POST");
+		logger.info("값 들어온거: "+signupDto.toString());
 		signupValidation.validate(signupDto, result);
 		if (result.hasErrors()) {
 			logger.info("회원가입 에러 검출");
+			model.addAttribute("reloadForm",signupDto);
 			return "/user/signupView"; 
 		}
+		logger.info("toString:"+signupDto.toString());
 		return "/user/signupView";
 	}
 	

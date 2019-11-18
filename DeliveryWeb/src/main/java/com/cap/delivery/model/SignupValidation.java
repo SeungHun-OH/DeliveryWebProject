@@ -1,5 +1,7 @@
 package com.cap.delivery.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
@@ -12,6 +14,22 @@ import org.springframework.validation.Validator;
 public class SignupValidation implements Validator{
 
 	private static final Logger logger = LoggerFactory.getLogger(SignupValidation.class);
+	
+	/** 입력 date가 yyyy-MM-dd 형태로 들어옴 */
+	public  boolean  validationDate(String checkDate){
+
+	   try{
+	         SimpleDateFormat  dateFormat = new  SimpleDateFormat("yyyy-MM-dd");
+
+	         dateFormat.setLenient(false);
+	         dateFormat.parse(checkDate);
+	         return  true;
+
+	       }catch (ParseException  e){
+	         return  false;
+	       }
+
+	}
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -21,6 +39,7 @@ public class SignupValidation implements Validator{
 	@Override
 	public void validate(Object target, Errors errors) {
 		SignupDto signupDto = (SignupDto) target;
+		
 		
 		if(signupDto.getUserId() == null || signupDto.getUserId().trim().isEmpty()) {
 			logger.info("회원가입 아이디 미입력 에러");
@@ -50,7 +69,6 @@ public class SignupValidation implements Validator{
 			logger.info("회원가입 이메일 미입력 에러");
 			errors.rejectValue("userEmail2", "signup.userEmail.required", "이메일을 입력해주세요.");
 		}else if((!Pattern.matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*$", signupDto.getUserEmail1())) || (!Pattern.matches("^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$", signupDto.getUserEmail2()))) {
-//		}else if(!Pattern.matches("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$", signupDto.getUserEmail2())) {
 			logger.info("회원가입 이메일 입력 에러");
 			errors.rejectValue("userEmail2", "signup.userEmail.pattern", "올바른 형식의 이메일을 입력해주세요.");
 		}
@@ -66,6 +84,27 @@ public class SignupValidation implements Validator{
 				(signupDto.getAddr2() == null || signupDto.getAddr2().trim().isEmpty())) {
 			logger.info("회원가입 주소 미입력 에러");
 			errors.rejectValue("addr2", "signup.addr.required", "주소를 입력해주세요.");
+		}
+		if((signupDto.getUserBirthYear() == null || signupDto.getUserBirthYear().trim().isEmpty()) ||
+				signupDto.getUserBirthMonth().equals("0") ||
+				(signupDto.getUserBirthDay() == null || signupDto.getUserBirthDay().trim().isEmpty())) {
+			logger.info("회원가입 생년월일 미입력 에러");
+			errors.rejectValue("userBirthDay", "signup.userBirthDay.required", "생년월일을 입력해주세요.");
+		}else if(!Pattern.matches("^[0-9]*$", signupDto.getUserBirthYear()) || !Pattern.matches("^[0-9]*$", signupDto.getUserBirthMonth()) || !Pattern.matches("^[0-9]*$", signupDto.getUserBirthDay())) {
+			logger.info("회원가입 생년월일 입력 에러");
+			errors.rejectValue("userBirthDay", "signup.userBirthDay.pattern", "숫자만 입력해주세요.");
+		}else if(Integer.parseInt(signupDto.getUserBirthYear()) < 1920 || Integer.parseInt(signupDto.getUserBirthYear()) > 2015) {
+			logger.info("회원가입 출생년도 입력 에러");
+			errors.rejectValue("userBirthDay", "signup.userBirthDay.term", "올바른 출생년도를 입력해주세요.");
+		}else if(Integer.parseInt(signupDto.getUserBirthMonth()) < 0 || Integer.parseInt(signupDto.getUserBirthMonth()) > 12){
+			logger.info("회원가입 출생월 입력 에러");
+			errors.rejectValue("userBirthDay", "signup.userBirthMonth.term", "올바른 출생월을 선택해주세요.");
+		}else if(Integer.parseInt(signupDto.getUserBirthDay()) < 1 || Integer.parseInt(signupDto.getUserBirthDay()) > 31){
+			logger.info("회원가입 출생일 입력 에러");
+			errors.rejectValue("userBirthDay", "signup.userBirthDay.term", "올바른 출생일을 입력해주세요.");
+		}else if(validationDate(signupDto.getUserBirthYear()+"-"+signupDto.getUserBirthMonth()+"-"+signupDto.getUserBirthDay()) == false){
+			logger.info("회원가입 생년월일 날짜 에러");
+			errors.rejectValue("userBirthDay", "signup.userBirthDay.date", "올바른 생년월일을 입력해주세요.");
 		}
 	}
 }

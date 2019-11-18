@@ -8,7 +8,9 @@ public class SignupDto {
 	private String userId;
 	private String userPwd;
 	private String userName;
-	private String userBirth;
+	private String userBirthYear;
+	private String userBirthMonth;
+	private String userBirthDay;
 	private String userEmail1;
 	private String userEmail2;
 	private String userPhone;
@@ -58,12 +60,6 @@ public class SignupDto {
 	public void setAddr2(String addr2) {
 		this.addr2 = addr2;
 	}
-	public String getUserBirth() {
-		return userBirth;
-	}
-	public void setUserBirth(String userBirth) {
-		this.userBirth = userBirth;
-	}
 	public String getUserEmail1() {
 		return userEmail1;
 	}
@@ -75,5 +71,30 @@ public class SignupDto {
 	}
 	public void setUserEmail2(String userEmail2) {
 		this.userEmail2 = userEmail2;
+	}
+	public String getUserBirthYear() {
+		return userBirthYear;
+	}
+	public void setUserBirthYear(String userBirthYear) {
+		this.userBirthYear = userBirthYear;
+	}
+	public String getUserBirthMonth() {
+		return userBirthMonth;
+	}
+	public void setUserBirthMonth(String userBirthMonth) {
+		this.userBirthMonth = userBirthMonth;
+	}
+	public String getUserBirthDay() {
+		return userBirthDay;
+	}
+	public void setUserBirthDay(String userBirthDay) {
+		this.userBirthDay = userBirthDay;
+	}
+	@Override
+	public String toString() {
+		return "SignupDto [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName + ", userBirthYear="
+				+ userBirthYear + ", userBirthMonth=" + userBirthMonth + ", userBirthDay=" + userBirthDay
+				+ ", userEmail1=" + userEmail1 + ", userEmail2=" + userEmail2 + ", userPhone=" + userPhone
+				+ ", postCode=" + postCode + ", addr1=" + addr1 + ", addr2=" + addr2 + "]";
 	}
 }
