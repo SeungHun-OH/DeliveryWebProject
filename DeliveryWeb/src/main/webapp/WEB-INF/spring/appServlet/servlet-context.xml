@@ -23,12 +23,19 @@
 	
 	<beans:bean id="loginInterceptor" class="com.cap.delivery.commons.interceptor.LoginInterceptor"/>
 	<beans:bean id="authInterceptor" class="com.cap.delivery.commons.interceptor.AuthInterceptor"/>
+	<beans:bean id="loginAfterInterceptor" class="com.cap.delivery.commons.interceptor.LoginAfterInterceptor"/>
 	
 	<interceptors>
 		<!-- 로그인 인터셉터  -->
     	<interceptor>
                   <mapping path="/user/loginSuccess"/>
                   <beans:ref bean="loginInterceptor" />
+        </interceptor>
+        <!-- 로그인시 회원가입 방지 인터셉터 -->
+		<interceptor>
+                  <mapping path="/user/login" />
+                  <mapping path="/user/signup" /> 
+                  <beans:ref bean="loginAfterInterceptor" />
         </interceptor>
 	</interceptors>
 	
