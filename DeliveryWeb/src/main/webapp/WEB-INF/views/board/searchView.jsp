@@ -72,7 +72,7 @@
 				    <form:form modelAttribute="searchDto" id="waybillNumSearchForm" method="post" action="${pageContext.request.contextPath}/board/search">
 					<div class="control-group">
 						<div class="form-group controls">
-		              		<form:input type="text" cssClass="form-control" placeholder="예: 01234567890, '-'를 제외한 숫자 11자리" path="waybillNum" id="waybillNum" maxlength="11"/>
+		              		<form:input type="text" cssClass="form-control" placeholder="예: 01234567890, '-'를 제외한 숫자 11자리" path="waybillNum" id="waybillNum" maxlength="12"/>
 		<!--               		<p class="help-block text-danger"></p> -->
 							<small><form:errors path="waybillNum" cssClass="errormsg" /></small>
 							<form:hidden path="clickPage" value="searchView"/>
@@ -83,10 +83,10 @@
 		          	</form:form>
               </div>
               <div class="tab-pane" id="resNum_tab">
-                <form:form modelAttribute="searchDto" id="reservationSearchForm" method="post" action="${pageContext.request.contextPath}/board/search">
+                	<form:form modelAttribute="searchDto" id="reservationSearchForm" method="post" action="${pageContext.request.contextPath}/board/search">
 					<div class="control-group">
 						<div class="form-group controls">
-		              		<form:input type="text" cssClass="form-control" placeholder="예: 01234567890, '-'를 제외한 숫자 12자리" path="reservationNum" id="reservationNum" maxlength="12"/>
+		              		<form:input type="text" cssClass="form-control" placeholder="예: 01234567890, '-'를 제외한 숫자 12자리" path="reservationNum" id="reservationNum" maxlength="13"/>
 		<!--               		<p class="help-block text-danger"></p> -->
 							<small><form:errors path="reservationNum" cssClass="errormsg" /></small>
 							<form:hidden path="clickPage" value="searchView"/>
@@ -115,7 +115,7 @@
       		<th>보내는 분</th>
       		<th>받는 분</th>
       		<th>상품 정보</th>
-<!--       		<th>수량</th> -->
+<!--       	<th>수량</th> -->
        	</tr>
       	</thead>
       	<tbody style="font-size: 13px;">
@@ -134,7 +134,7 @@
       		<th>처리시간</th>
       		<th>상품상태</th>
       		<th>담당 점소</th>
-<!--       		<th>수량</th> -->
+<!--       	<th>수량</th> -->
        	</tr>
       	</thead>
       	<tbody style="font-size: 13px;">

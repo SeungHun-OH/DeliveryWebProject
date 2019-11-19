@@ -11,7 +11,7 @@
 		WHERE WAYBILL_NUMBER = #{waybillNum}
 		</if>
 		<if test="reservationNum != null">
-		SELECT WAYBILL_NUMBER, SE_NAME, RE_NAME, PRODUCT_NAME FROM AAA_DELIVERY_CHART WHERE DNO = (SELECT LPAD(DNO, 12, '0') AS DNO FROM AAA_DELIVERY_CHART WHERE DNO = #{reservationNum})
+		SELECT WAYBILL_NUMBER, SE_NAME, RE_NAME, PRODUCT_NAME FROM AAA_DELIVERY_CHART WHERE DNO = (SELECT LPAD(DNO, 13, '0') AS DNO FROM AAA_DELIVERY_CHART WHERE DNO = #{reservationNum})
 		<!-- 예약번호 0붙일지 말지 결정해야함. 현문이랑 상의할 것-->
 		</if>
 	</select>
@@ -23,7 +23,7 @@
 		WHERE WAYBILL_NUMBER = #{waybillNum}
 		</if>
 		<if test="reservationNum != null">
-		WHERE DNO = (SELECT LPAD(DNO, 12, '0') AS DNO FROM AAA_DELIVERY_CHART WHERE DNO = #{reservationNum})
+		WHERE DNO = (SELECT LPAD(DNO, 13, '0') AS DNO FROM AAA_DELIVERY_CHART WHERE DNO = #{reservationNum})
 		</if>
 		ORDER BY PROCESS_DATE, DLNO
 	</select>
@@ -31,8 +31,13 @@
 	<!-- 택배예약 부분 -->
 	<insert id="reservationInsert" parameterType="ReservationDto">
 		INSERT INTO AAA_DELIVERY_CHART 
-	    	(DNO, WAYBILL_NUMBER, SE_NAME, SE_PHOEN, SE_ADDR1, SE_ADDR2, SE_ADDR3, RE_NAME, RE_PHONE, RE_ADDR1, RE_ADDR2, RE_ADDR3, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_FARE, PRODUCT_FARE_PRICE, CNO <if test="senderReq == null and senderReq.equals('')"> SE_REQ</if>)
-		VALUES (AAA_DNO_SEQ.NEXTVAL, LPAD(AAA_WAYBILLNUM_SEQ.NEXTVAL,11,'0'), #{senderName}, #{senderPhone}, #{senderPostCode}, #{senderAddr1}, #{senderAddr2}, #{receiverName}, #{receiverPhone}, #{receiverPostCode}, #{receiverAddr1}, #{receiverAddr2}, #{productName}, #{productPrice}, #{fareCategoryCode}, #{freightCost}, #{courierCode} <if test="senderReq == null and senderReq.equals('')">,#{senderReq} </if>)
+	    	(DNO, WAYBILL_NUMBER, SE_NAME, SE_PHONE, SE_ADDR1, SE_ADDR2, SE_ADDR3, RE_NAME, RE_PHONE, RE_ADDR1, RE_ADDR2, RE_ADDR3, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_FARE, PRODUCT_FARE_PRICE, CNO <if test="senderReq == null and senderReq.equals('')"> SE_REQ</if>)
+		VALUES (AAA_DNO_SEQ.NEXTVAL, LPAD(AAA_WAYBILLNUM_SEQ.NEXTVAL,12,'0'), #{senderName}, #{senderPhone}, #{senderPostCode}, #{senderAddr1}, #{senderAddr2}, #{receiverName}, #{receiverPhone}, #{receiverPostCode}, #{receiverAddr1}, #{receiverAddr2}, #{productName}, #{productPrice}, #{fareCategoryCode}, #{freightCost}, #{courierCode} <if test="senderReq == null and senderReq.equals('')">,#{senderReq} </if>)
+	</insert>
+	
+	<insert id="reservationInsert2">
+		INSERT INTO AAA_DELIVERY_STATE (DLNO, DELIVERY_TYPE, DNO, WAYBILL_NUMBER)
+		VALUES (AAA_DLNO_SEQ.NEXTVAL, 0, AAA_DNO_SEQ.CURRVAL, LPAD(AAA_WAYBILLNUM_SEQ.CURRVAL,12,'0'))
 	</insert>
 	
 <!-- 	INSERT INTO AAA_DELIVERY_CHART  -->

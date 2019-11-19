@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cap.delivery.model.ReservationDto;
 import com.cap.delivery.model.SearchDto;
@@ -29,7 +30,9 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int reservationInsert(ReservationDto reservationDto) {
-		return sqlSession.insert("boardMapper.reservationInsert", reservationDto);
+	@Transactional
+	public void reservationInsert(ReservationDto reservationDto) {
+		sqlSession.insert("boardMapper.reservationInsert", reservationDto);
+		sqlSession.insert("boardMapper.reservationInsert2");
 	}
 }

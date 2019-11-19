@@ -11,5 +11,5 @@ public interface BoardService {
 
 	SearchResponseVO lookupResult(SearchDto searchDto);
 	List<SearchResponseListVO> lookupListResult(SearchDto searchDto);
-	int reservationInsert(ReservationDto reservationDto);
+	void reservationInsert(ReservationDto reservationDto);
 }

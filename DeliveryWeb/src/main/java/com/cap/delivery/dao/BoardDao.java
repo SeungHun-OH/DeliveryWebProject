@@ -10,5 +10,5 @@ import com.cap.delivery.model.SearchResponseVO;
 public interface BoardDao {
 SearchResponseVO lookupResult(SearchDto searchDto);
 List<SearchResponseListVO> lookupListResult(SearchDto searchDto);
-int reservationInsert(ReservationDto reservationDto);
+void reservationInsert(ReservationDto reservationDto);
 }

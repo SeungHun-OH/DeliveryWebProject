@@ -29,8 +29,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int reservationInsert(ReservationDto reservationDto) {
-		return boardDao.reservationInsert(reservationDto);
+	public void reservationInsert(ReservationDto reservationDto) {
+		boardDao.reservationInsert(reservationDto);
 	}
 
 }
