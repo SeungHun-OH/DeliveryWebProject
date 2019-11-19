@@ -27,4 +27,9 @@ public class LoginDto {
 	public void setUseCookie(boolean useCookie) {
 		this.useCookie = useCookie;
 	}
+	
+	@Override
+	public String toString() {
+		return "LoginDto [userId=" + userId + ", userPwd=" + userPwd + ", useCookie=" + useCookie + "]";
+	}
 }

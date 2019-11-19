@@ -1,5 +1,9 @@
 package com.cap.delivery.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.WebUtils;
 
 import com.cap.delivery.model.LoginDto;
 import com.cap.delivery.model.LoginValidation;
@@ -54,29 +59,43 @@ public class UserController {
 			logger.info("로그인 에러 검출");
 			return "/user/loginView"; 
 		}
+
+		model.addAttribute("loginDto", loginDto);
+		return "forward:loginSuccess";
+	}
+	
+	@RequestMapping(value = "/loginSuccess")
+	public void loginSuccess(@ModelAttribute("loginDto") LoginDto loginDto, BindingResult result, Model model) {
+		logger.info(loginDto.toString());
 		
 		String dbPwd = userService.login(loginDto.getUserId());
 		if(dbPwd == null || !BCrypt.checkpw(loginDto.getUserPwd(), dbPwd)) {
 			logger.info("로그인 실패");
-			model.addAttribute("loginDto", new LoginDto());
-			return "/user/loginView";
+			return ;
 		}
-		
-		UserVO userVO = userService.sessionRegister(loginDto);
 		logger.info("로그인 성공");
-		
-//		if(userVO == null) {
-//			logger.info("로그인 실패");
-//			return "redirect: /user/login";
-//		} 
-		redirect.addFlashAttribute("userVO", userVO);
-		return "redirect: /user/loginSuccess";
+		UserVO userVO = userService.sessionRegister(loginDto);
+		model.addAttribute("userVO", userVO);
+//		[추후에 시간남으면 해야할듯] Java: Client -> Server 데이터 전송시 RSA 암호화 (Spring MVC, JSP) <https://vip00112.tistory.com/40>
 	}
 	
-	@RequestMapping(value = "/loginSuccess")
-	public void loginViewPost(@ModelAttribute("userVO") UserVO userVO) {
-		logger.info("여기옴");
-		System.out.println(userVO.toString());
+	@RequestMapping(value = "/logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession httpSession) {
+		logger.info("로그아웃");
+		Object object = httpSession.getAttribute("login");	//해당 세션 속성명 값을 Object 타입으로 리턴, 없을 경우 null
+		if( object != null) {
+			UserVO userVO = (UserVO) object;
+			httpSession.removeAttribute("login");	//login 세션  제거
+			httpSession.invalidate();	// 현재 생성된 세션 무효화
+			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			if(loginCookie != null) {	// 로그인 유지를 선택했을 경우 loginCookie 값을 초기화
+				loginCookie.setPath("/");	//쿠키의 유효한 디렉토리 설정
+				loginCookie.setMaxAge(0);
+				response.addCookie(loginCookie);
+//				userService.keepLogin(userVO.getUser_id(), null, null);	// DB에 저장한 세션아이디와 자동로그인 유지기간 초기화
+			}
+		}
+		return "/user/logoutView";
 	}
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
