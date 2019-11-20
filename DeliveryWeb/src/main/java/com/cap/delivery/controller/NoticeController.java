@@ -40,9 +40,16 @@ public class NoticeController {
 	
 	@RequestMapping(value="/read", method=RequestMethod.GET)
 	public String read(@RequestParam("noticeNo") int noticeNo, @ModelAttribute("criteria") Criteria criteria, Model model) throws Exception {
-		logger.info("게시글 GET");
+		logger.info("게시글 상세 GET");
 		System.out.println(criteria.toString());
 		model.addAttribute("notice", noticeService.noticeRead(noticeNo));
 		return "/notice/readView";
+	}
+	
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
+	public String modifyGET(@RequestParam("noticeNo") int noticeNo, @ModelAttribute("criteria") Criteria criteria, Model model) throws Exception {
+		logger.info("게시글 수정 GET");
+		model.addAttribute("notice", noticeService.noticeRead(noticeNo));
+		return "/notice/modifyView";
 	}
 }

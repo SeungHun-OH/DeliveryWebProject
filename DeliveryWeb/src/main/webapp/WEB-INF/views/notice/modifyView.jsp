@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -16,7 +17,12 @@
 
   <!-- Bootstrap core CSS -->
   <%@ include file="../../include/header.jsp" %>
-
+  
+  <style type="text/css">
+	.errormsg {
+		color: red;
+	}
+  </style>
 </head>
 
 <body>
@@ -43,18 +49,32 @@
     <div class="container">
       <div class="row">
       	<div class="col-lg-12 col-md-12 mx-auto">
+      	<form:form modelAttribute="notice" id="noticeModifyForm" method="post" action="${pageContext.request.contextPath}/board/search">
 	      	<table class="table" style="text-align: center;">
 				<tbody>
 					<tr style="background: #FFB843; border-top: 2px solid #212529;">
-						<th width="auto"><span style="font-size: 26px; color: #fff; width: 10%;">${notice.noticeNo}</span></th>
-						<th width="auto" style="vertical-align: middle; font-size: 26px; text-align: left;">${notice.title}</th>
+						<th width="10%">
+							<span style="font-size: 26px; color: #fff; width: 10%;">${notice.noticeNo}</span>
+						</th>
+						<th width="auto" style="vertical-align: middle; font-size: 26px;">
+							<form:input cssClass="form-control" path="title" id="title" value="${notice.title}"/>
+							<small><form:errors path="title" cssClass="errormsg" /></small>
+						</th>
 					</tr>
 					<tr style="font-size: 18px;">
-						<th style="text-align: center;">${notice.division}</th>
-						<th style="text-align: right"><fmt:formatDate value="${notice.regDate}" pattern="YYYY년 M월 d일"/></th>
+						<th colspan="2" style="text-align: left">
+							<form:select class="form-control" path="division" id="division" style="width: auto;">
+								<option value="공지사항" <c:if test="${notice.division eq '공지사항'}">selected="selected"</c:if>>공지사항</option>
+								<option value="이벤트" <c:if test="${notice.division eq '이벤트'}">selected="selected"</c:if>>이벤트</option>
+							</form:select>
+							<small><form:errors path="division" cssClass="errormsg" /></small>
+						</th>
 					</tr>
 					<tr>
-						<td colspan="2" style="padding: 60px 30px 60px 30px;">${notice.contents}</td>
+						<td colspan="2" style="padding: 60px 30px 60px 30px;">
+							<form:textarea rows="5" cssClass="form-control" path="contents" id="contents" value="${notice.contents}"></form:textarea>
+							<small><form:errors path="contents" cssClass="errormsg" /></small>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -66,8 +86,9 @@
 			<div style="text-align: right;">
 				<button type="submit" class="btn" id="listBtn">목록</button>
 				<button type="submit" class="btn" id="modBtn">수정</button>
-				<button type="submit" class="btn" id="delBtn">삭제</button>
+				<button type="submit" class="btn" id="canBtn">취소</button>
 			</div>
+		</form:form>
       	</div>
       </div>
     </div>
@@ -77,21 +98,16 @@
   <%@ include file="../../include/footer.jsp" %>
   
   <script>
-  var formObj = $("form[role='form']");
+  var formObj = $('form[role="form"]');
 
   $('#listBtn').on('click', function() {
-	  formObj.attr("method", "get");
-	  formObj.attr("action", "/notice/list");
+	  self.location = '/notice/list?page=${criteria.page}&perPageNum=${criteria.perPageNum}';
+  });
+  $('#modBtn').on('click', function () {
 	  formObj.submit();
   });
-  $("#modBtn").on("click", function () {
-		formObj.attr("action", "/notice/modify");
-		formObj.attr("method", "get");
-		formObj.submit();
-  });
-  $("#delBtn").on("click", function () {
-		formObj.attr("action", "/notice/remove");
-		formObj.submit();
+  $('#canBtn').on('click', function () {
+	  history.go(-1);
   });
   </script>
 </body>
