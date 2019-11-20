@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="noticeMapper">
+	<select id="noticeListCount" resultType="int">
+	<![CDATA[
+        SELECT COUNT(NNO)
+		FROM AAA_DELIVERY_NOTICE
+		WHERE NNO > 0
+	]]>
+	</select>
+	
+	<select id="noticeCriteria" resultMap="NoticeResult">
+	<![CDATA[
+		SELECT * 
+		FROM(
+		      SELECT ROWNUM AS RNUM, A.*
+		          FROM ( SELECT * 
+		                  FROM 
+		                      AAA_DELIVERY_NOTICE
+		                  WHERE 
+		                      NNO > 0
+		                  ORDER BY 
+		                  NNO DESC, REGDATE DESC ) A
+		       WHERE ROWNUM <= #{rowEnd}
+		    )
+		WHERE RNUM >= #{rowStart}
+	]]>
+	</select>
+	
+	<resultMap type="NoticeVO" id="NoticeResult">
+		<result property="noticeNo" column="NNO"/>
+		<result property="title" column="TITLE"/>
+		<result property="contents" column="CONTENTS"/>
+		<result property="regDate" column="REGDATE"/>
+		<result property="division" column="DIVISION"/>
+	</resultMap>
+</mapper>
