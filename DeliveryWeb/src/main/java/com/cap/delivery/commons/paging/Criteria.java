@@ -61,4 +61,10 @@ public class Criteria {
 	public void setLoginId(String loginId) {
 		this.loginId = loginId;
 	}
+
+	@Override
+	public String toString() {
+		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", rowStart=" + rowStart + ", rowEnd=" + rowEnd
+				+ ", loginId=" + loginId + "]";
+	}
 }

@@ -32,10 +32,6 @@
         <div class="col-lg-12 col-md-12 mx-auto">
           <div class="post-heading">
             <h1>공지사항</h1>
-            <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
-            <span class="meta">Posted by
-              <a href="#">Start Bootstrap</a>
-              on August 24, 2019</span>
           </div>
         </div>
       </div>

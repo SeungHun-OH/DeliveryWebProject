@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +35,14 @@ public class NoticeController {
 		model.addAttribute("noticeList", noticeService.noticeCriteria(criteria));
 		model.addAttribute("page", page);
 		model.addAttribute("pageMaker", pageMaker);
-		return "/notice/noticeListView";
+		return "/notice/listView";
+	}
+	
+	@RequestMapping(value="/read", method=RequestMethod.GET)
+	public String read(@RequestParam("noticeNo") int noticeNo, @ModelAttribute("criteria") Criteria criteria, Model model) throws Exception {
+		logger.info("게시글 GET");
+		System.out.println(criteria.toString());
+		model.addAttribute("notice", noticeService.noticeRead(noticeNo));
+		return "/notice/readView";
 	}
 }

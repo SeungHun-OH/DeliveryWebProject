@@ -25,4 +25,9 @@ public class NoticeDaoImpl implements NoticeDao {
 		return sqlSession.selectList("noticeMapper.noticeCriteria", criteria);
 	}
 
+	@Override
+	public NoticeVO noticeRead(Integer noticeNo) {
+		return sqlSession.selectOne("noticeMapper.noticeRead", noticeNo);
+	}
+
 }

@@ -25,4 +25,9 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDao.noticeCriteria(criteria);
 	}
 
+	@Override
+	public NoticeVO noticeRead(Integer noticeNo) {
+		return noticeDao.noticeRead(noticeNo);
+	}
+
 }

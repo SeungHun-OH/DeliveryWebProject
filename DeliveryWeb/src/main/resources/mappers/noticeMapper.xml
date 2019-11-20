@@ -29,6 +29,16 @@
 	]]>
 	</select>
 	
+	<select id="noticeRead" resultMap="NoticeResult">
+	SELECT
+  		NNO, TITLE, CONTENTS, REGDATE, DIVISION
+  	FROM 
+  		AAA_DELIVERY_NOTICE
+  	WHERE 
+  		NNO = #{noticeNo}
+	</select>
+	
+	
 	<resultMap type="NoticeVO" id="NoticeResult">
 		<result property="noticeNo" column="NNO"/>
 		<result property="title" column="TITLE"/>
