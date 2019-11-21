@@ -49,23 +49,26 @@
     <div class="container">
       <div class="row">
       	<div class="col-lg-12 col-md-12 mx-auto">
-      	<form:form modelAttribute="notice" id="noticeModifyForm" method="post" action="${pageContext.request.contextPath}/board/search">
+      	<form:form modelAttribute="notice" id="noticeModifyForm" method="post" action="${pageContext.request.contextPath}/notice/modify">
 	      	<table class="table" style="text-align: center;">
 				<tbody>
 					<tr style="background: #FFB843; border-top: 2px solid #212529;">
 						<th width="10%">
 							<span style="font-size: 26px; color: #fff; width: 10%;">${notice.noticeNo}</span>
+							<form:hidden path="noticeNo" value="${notice.noticeNo}"/>
 						</th>
 						<th width="auto" style="vertical-align: middle; font-size: 26px;">
-							<form:input cssClass="form-control" path="title" id="title" value="${notice.title}"/>
-							<small><form:errors path="title" cssClass="errormsg" /></small>
+							<form:input cssClass="form-control" path="title" id="title" value="${notice.title}" maxlength="50"/>
 						</th>
 					</tr>
+						<tr>
+							<td colspan="2" style="padding: 0px 12px 0px 12px;"><small><form:errors path="title" cssClass="errormsg" /></small></td>
+						</tr>
 					<tr style="font-size: 18px;">
 						<th colspan="2" style="text-align: left">
 							<form:select class="form-control" path="division" id="division" style="width: auto;">
-								<option value="공지사항" <c:if test="${notice.division eq '공지사항'}">selected="selected"</c:if>>공지사항</option>
-								<option value="이벤트" <c:if test="${notice.division eq '이벤트'}">selected="selected"</c:if>>이벤트</option>
+								<option value="1" <c:if test="${notice.division eq '공지사항'}">selected="selected"</c:if>>공지사항</option>
+								<option value="2" <c:if test="${notice.division eq '이벤트'}">selected="selected"</c:if>>이벤트</option>
 							</form:select>
 							<small><form:errors path="division" cssClass="errormsg" /></small>
 						</th>
@@ -78,17 +81,18 @@
 					</tr>
 				</tbody>
 			</table>
-			<form role="form" method="post">
-				<input type="hidden" name="noticeNo" value="${notice.noticeNo}">
+			<input type="hidden" name="page" value="${criteria.page}">
+			<input type="hidden" name="perPageNum" value="${criteria.perPageNum}">
+			</form:form>
+			<form role="form" method="post" name="criteria">
 				<input type="hidden" name="page" value="${criteria.page}">
 				<input type="hidden" name="perPageNum" value="${criteria.perPageNum}">
 			</form>
 			<div style="text-align: right;">
-				<button type="submit" class="btn" id="listBtn">목록</button>
-				<button type="submit" class="btn" id="modBtn">수정</button>
-				<button type="submit" class="btn" id="canBtn">취소</button>
+				<button type="button" class="btn" id="listBtn">목록</button>
+				<button type="button" class="btn" id="modBtn">수정</button>
+				<button type="button" class="btn" id="canBtn">취소</button>
 			</div>
-		</form:form>
       	</div>
       </div>
     </div>
@@ -104,10 +108,14 @@
 	  self.location = '/notice/list?page=${criteria.page}&perPageNum=${criteria.perPageNum}';
   });
   $('#modBtn').on('click', function () {
-	  formObj.submit();
+	  if(('${notice.title}' == $('#title').val()) && ('${notice.contents}' == $('#contents').val())){
+		  alert("게시글을 수정 후 다시 클릭해주세요.");
+		  return false;
+	  }
+	  	$('#noticeModifyForm').submit();
   });
   $('#canBtn').on('click', function () {
-	  history.go(-1);
+	  self.location = '/notice/read?page=${criteria.page}&perPageNum=${criteria.perPageNum}&noticeNo=${notice.noticeNo}'
   });
   </script>
 </body>

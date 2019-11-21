@@ -38,6 +38,23 @@
   		NNO = #{noticeNo}
 	</select>
 	
+	<update id="noticeModify">
+  	UPDATE AAA_DELIVERY_NOTICE
+  	SET
+  		TITLE = #{title}
+  		, CONTENTS = #{contents}
+  		<choose>
+  		<when test="division == 1">
+  		, DIVISION = '공지사항'
+  		</when>
+  		<when test="division == 2">
+  		, DIVISION = '이벤트'
+  		</when>
+  		</choose>
+  		, REGDATE = SYSDATE
+  	WHERE
+  		NNO = #{noticeNo}
+  	</update>
 	
 	<resultMap type="NoticeVO" id="NoticeResult">
 		<result property="noticeNo" column="NNO"/>

@@ -30,4 +30,8 @@ public class NoticeDaoImpl implements NoticeDao {
 		return sqlSession.selectOne("noticeMapper.noticeRead", noticeNo);
 	}
 
+	@Override
+	public void noticeModify(NoticeVO noticeVO) {
+		sqlSession.update("noticeMapper.noticeModify", noticeVO);
+	}
 }

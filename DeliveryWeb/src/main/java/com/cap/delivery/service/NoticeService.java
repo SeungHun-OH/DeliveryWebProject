@@ -9,4 +9,5 @@ public interface NoticeService {
 	int noticeListCount();
 	List<NoticeVO> noticeCriteria(Criteria criteria);
 	NoticeVO noticeRead(Integer noticeNo);
+	void noticeModify(NoticeVO noticeVO);
 }

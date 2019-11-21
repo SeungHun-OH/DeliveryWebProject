@@ -30,4 +30,9 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDao.noticeRead(noticeNo);
 	}
 
+	@Override
+	public void noticeModify(NoticeVO noticeVO) {
+		noticeDao.noticeModify(noticeVO);
+	}
+
 }
