@@ -32,6 +32,9 @@ public class NoticeValidation implements Validator{
 		if(noticeVO.getDivision() == null || noticeVO.getDivision().trim().isEmpty()) {
 			logger.info("게시글 구분 미입력 에러");
 			errors.rejectValue("division", "notice.division.required", "올바른 구분을 선택해주세요.");
+		}else if(noticeVO.getDivision().equals("0")) {
+			logger.info("게시글 구분 선택 에러");
+			errors.rejectValue("division", "notice.division.noSelect", "구분을 선택해주세요.");
 		}else if(!Pattern.matches("^[1-2]$", noticeVO.getDivision())) {
 			logger.info("게시글 구분 패턴 에러");
 			errors.rejectValue("division", "notice.division.pattern", "올바른 구분을 선택해주세요.");

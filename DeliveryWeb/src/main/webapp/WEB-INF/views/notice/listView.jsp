@@ -63,6 +63,9 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<div style="text-align: right;">
+			<button type="button" class="btn btn-primary" id="wriBtn">글쓰기</button>
+			</div>
       	</div>
         <div class="col-lg-12 col-md-12 mx-auto">
      		<ul class="pagination justify-content-center">
@@ -99,6 +102,9 @@
 			alert("게시글 삭제가 완료되었습니다.")
 		}
   })
+  $("#wriBtn").on("click", function () {
+	  location.href='/notice/write';
+  });
   </script>
 </body>
 </html>

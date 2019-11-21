@@ -10,4 +10,6 @@ public interface NoticeDao {
 	List<NoticeVO> noticeCriteria(Criteria criteria);
 	NoticeVO noticeRead(Integer noticeNo);
 	void noticeModify(NoticeVO noticeVO);
+	void noticeDelete(int noticeNo);
+	void noticeInsert(NoticeVO noticeVO);
 }

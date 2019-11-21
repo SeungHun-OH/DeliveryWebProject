@@ -49,16 +49,12 @@
     <div class="container">
       <div class="row">
       	<div class="col-lg-12 col-md-12 mx-auto">
-      	<form:form modelAttribute="notice" id="noticeModifyForm" method="post" action="${pageContext.request.contextPath}/notice/modify">
+      	<form:form modelAttribute="notice" id="noticeWriteForm" method="post" action="${pageContext.request.contextPath}/notice/write">
 	      	<table class="table" style="text-align: center;">
 				<tbody>
 					<tr style="background: #FFB843; border-top: 2px solid #212529;">
-						<th width="10%">
-							<span style="font-size: 26px; color: #fff; width: 10%;">${notice.noticeNo}</span>
-							<form:hidden path="noticeNo" value="${notice.noticeNo}"/>
-						</th>
 						<th width="auto" style="vertical-align: middle; font-size: 26px;">
-							<form:input cssClass="form-control" path="title" id="title" value="${notice.title}" maxlength="50"/>
+							<form:input cssClass="form-control" path="title" id="title" maxlength="50" placeholder="제목을 입력해주세요."/>
 						</th>
 					</tr>
 						<tr>
@@ -67,15 +63,16 @@
 					<tr style="font-size: 18px;">
 						<th colspan="2" style="text-align: left">
 							<form:select class="form-control" path="division" id="division" style="width: auto;">
-								<option value="1" <c:if test="${notice.division eq '공지사항'}">selected="selected"</c:if>>공지사항</option>
-								<option value="2" <c:if test="${notice.division eq '이벤트'}">selected="selected"</c:if>>이벤트</option>
+								<option value="0" <c:if test="${empty reload}">selected="selected"</c:if>>선택</option>
+								<option value="1" <c:if test="${reload eq 1}">selected="selected"</c:if>>공지사항</option>
+								<option value="2" <c:if test="${reload eq 2}">selected="selected"</c:if>>이벤트</option>
 							</form:select>
 							<small><form:errors path="division" cssClass="errormsg" /></small>
 						</th>
 					</tr>
 					<tr>
 						<td colspan="2" style="padding: 60px 30px 60px 30px;">
-							<form:textarea rows="10" cssClass="form-control" path="contents" id="contents" value="${notice.contents}" maxlength="500"></form:textarea>
+							<form:textarea rows="10" cssClass="form-control" path="contents" id="contents" value="${notice.contents}" maxlength="500" placeholder="내용을 입력해주세요."></form:textarea>
 							<p style="margin: 0px;" id="counter"></p>
 							<small><form:errors path="contents" cssClass="errormsg" /></small>
 						</td>
@@ -84,16 +81,13 @@
 			</table>
 			<input type="hidden" name="page" value="${criteria.page}">
 			<input type="hidden" name="perPageNum" value="${criteria.perPageNum}">
-			</form:form>
-			<form role="form" method="post" name="criteria">
-				<input type="hidden" name="page" value="${criteria.page}">
-				<input type="hidden" name="perPageNum" value="${criteria.perPageNum}">
-			</form>
+		
 			<div style="text-align: right;">
 				<button type="button" class="btn btn-primary" id="listBtn">목록</button>
-				<button type="button" class="btn btn-primary" id="modBtn">수정</button>
-				<button type="button" class="btn btn-primary" id="canBtn">취소</button>
+				<button type="reset" class="btn btn-primary" id="resBtn">초기화</button>
+				<button type="button" class="btn btn-primary" id="subBtn">저장</button>
 			</div>
+			</form:form>
       	</div>
       </div>
     </div>
@@ -111,20 +105,16 @@
       });
   });
       
-  var formObj = $('form[role="form"]');
 
   $('#listBtn').on('click', function() {
-	  self.location = '/notice/list?page=${criteria.page}&perPageNum=${criteria.perPageNum}';
+	  self.location = '/notice/list';
   });
-  $('#modBtn').on('click', function () {
-	  if(('${notice.title}' == $('#title').val()) && ('${notice.contents}' == $('#contents').val())){
-		  alert("게시글을 수정 후 다시 클릭해주세요.");
-		  return false;
-	  }
-	  	$('#noticeModifyForm').submit();
+  $('#resBtn').on('click', function () {
+	  if(confirm("초기화 하시겠습니까?") == false)
+	  		return false;
   });
-  $('#canBtn').on('click', function () {
-	  self.location = '/notice/read?page=${criteria.page}&perPageNum=${criteria.perPageNum}&noticeNo=${notice.noticeNo}'
+  $('#subBtn').on('click', function () {
+	  $('#noticeWriteForm').submit();
   });
   </script>
 </body>

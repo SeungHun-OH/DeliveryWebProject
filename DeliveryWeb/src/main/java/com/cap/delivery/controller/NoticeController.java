@@ -65,12 +65,10 @@ public class NoticeController {
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String modifyPOST(@Valid @ModelAttribute("notice") NoticeVO noticeVO, BindingResult result, Criteria criteria, Model model, RedirectAttributes redirect) {
 		logger.info("게시글 수정 POST");
-		System.out.println(noticeVO.toString());
-		System.out.println(criteria.toString());
 		
 		noticeValidation.validate(noticeVO, result);
 		if(result.hasErrors()) {
-			logger.info("에러검철");
+			logger.info("에러검출");
 			return "/notice/modifyView";
 		}
 		noticeService.noticeModify(noticeVO);
@@ -79,4 +77,37 @@ public class NoticeController {
 		redirect.addFlashAttribute("msg", "modSuccess");
 		return "redirect:/notice/list";
 	}
+	
+	@RequestMapping(value="/remove", method=RequestMethod.POST)
+	public String removePOST(@RequestParam("noticeNo") int noticeNo, Criteria criteria, RedirectAttributes redirectAttributes) {
+		logger.info("게시글 삭제 POST");
+		noticeService.noticeDelete(noticeNo);
+		redirectAttributes.addAttribute("page", criteria.getPage());
+		redirectAttributes.addAttribute("perPageNum", criteria.getPerPageNum());
+		redirectAttributes.addFlashAttribute("msg", "delSuccess");
+		return "redirect:/notice/list";
+	}
+	
+	@RequestMapping(value="/write", method=RequestMethod.GET)
+	public String writeGET(Model model) {
+		logger.info("게시글 쓰기 GET");
+		model.addAttribute("notice", new NoticeVO());
+		return "/notice/writeView";
+	}
+	
+	@RequestMapping(value="/write", method=RequestMethod.POST)
+	public String writePOST(@Valid @ModelAttribute("notice") NoticeVO noticeVO, BindingResult result, Model model, RedirectAttributes redirect) {
+		logger.info("게시글 쓰기 POST");
+		
+		noticeValidation.validate(noticeVO, result);
+		if(result.hasErrors()) {
+			logger.info("에러검출");
+			model.addAttribute("reload", noticeVO.getDivision());
+			return "/notice/writeView";
+		}
+		noticeService.noticeInsert(noticeVO);
+		redirect.addFlashAttribute("msg", "regSuccess");
+		return "redirect:/notice/list";
+	}
+	
 }

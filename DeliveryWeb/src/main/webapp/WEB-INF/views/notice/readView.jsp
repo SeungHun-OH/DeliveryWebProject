@@ -64,9 +64,9 @@
 				<input type="hidden" name="perPageNum" value="${criteria.perPageNum}">
 			</form>
 			<div style="text-align: right;">
-				<button type="submit" class="btn" id="listBtn">목록</button>
-				<button type="submit" class="btn" id="modBtn">수정</button>
-				<button type="submit" class="btn" id="delBtn">삭제</button>
+				<button type="button" class="btn btn-primary" id="listBtn">목록</button>
+				<button type="button" class="btn btn-primary" id="modBtn">수정</button>
+				<button type="button" class="btn btn-primary" id="delBtn">삭제</button>
 			</div>
       	</div>
       </div>
@@ -90,6 +90,8 @@
 		formObj.submit();
   });
   $("#delBtn").on("click", function () {
+	  	if(confirm("게시글을 삭제하시겠습니까?") == false)
+	  		return false;	
 		formObj.attr("action", "/notice/remove");
 		formObj.submit();
   });
