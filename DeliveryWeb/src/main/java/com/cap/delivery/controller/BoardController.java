@@ -66,8 +66,12 @@ public class BoardController {
 		SearchResponseVO responseVO = boardService.lookupResult(searchDto);
 		List<SearchResponseListVO> responseListVO = boardService.lookupListResult(searchDto);
 		
-		model.addAttribute("response", responseVO);
-		model.addAttribute("responseList", responseListVO);
+		if(responseVO != null && responseListVO != null) {
+			model.addAttribute("response", responseVO);
+			model.addAttribute("responseList", responseListVO);
+		}else {
+			model.addAttribute("noResult", "NO");
+		}
 		return "/board/searchView";
 	}
 	

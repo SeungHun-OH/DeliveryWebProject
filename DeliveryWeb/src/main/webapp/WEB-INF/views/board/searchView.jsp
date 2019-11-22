@@ -103,51 +103,51 @@
         </div>
   		</div>
   	</div>
-    <div class="row">
+    <div class="row" style="margin-top: 40px;">
       <div class="col-lg-12 col-md-12 mx-auto">
       <div class="col">
-		<c:if test="${!empty response}">
-        <h5>조회결과</h5>
-		<table class="table table-hover" style="text-align: center;">
-     	<thead class="thead-light">
-      	<tr>
-      		<th>운송장 번호</th>
-      		<th>보내는 분</th>
-      		<th>받는 분</th>
-      		<th>상품 정보</th>
-<!--       	<th>수량</th> -->
-       	</tr>
-      	</thead>
-      	<tbody style="font-size: 13px;">
-      	<tr>
-      		<td>${response.waybillNum}</td>
-      		<td>${response.senderName}</td>
-      		<td>${response.receiverName}</td>
-      		<td>${response.productName}</td>
-       	</tr>
-	    </tbody>
-		</table>
-		<table class="table table-hover" style="text-align: center;">
-     	<thead class="thead-light">
-      	<tr>
-      		<th>단계</th>
-      		<th>처리시간</th>
-      		<th>상품상태</th>
-      		<th>담당 점소</th>
-<!--       	<th>수량</th> -->
-       	</tr>
-      	</thead>
-      	<tbody style="font-size: 13px;">
-      	<c:forEach var="deliveryInfo" items="${responseList}">
-      	<tr>
-      		<td>배송단계</td>
-      		<td>${deliveryInfo.deliveryStep}</td>
-      		<td>${deliveryInfo.processTime}</td>
-      		<td>${deliveryInfo.productStatus}</td>
-       	</tr>
-       	</c:forEach>
-	    </tbody>
-		</table>
+		<c:if test="${response ne null}">
+			<table class="table table-hover" style="text-align: center;">
+	     	<thead class="thead-light">
+	      	<tr>
+	      		<th>운송장 번호</th>
+	      		<th>보내는 분</th>
+	      		<th>받는 분</th>
+	      		<th>상품 정보</th>
+	       	</tr>
+	      	</thead>
+	      	<tbody style="font-size: 13px;">
+	      	<tr>
+	      		<td>${response.waybillNum}</td>
+	      		<td>${response.senderName}</td>
+	      		<td>${response.receiverName}</td>
+	      		<td>${response.productName}</td>
+	       	</tr>
+		    </tbody>
+			</table>
+			<table class="table table-hover" style="text-align: center;">
+	     	<thead class="thead-light">
+	      	<tr>
+	      		<th>단계</th>
+	      		<th>처리시간</th>
+	      		<th>상품상태</th>
+	      		<th>담당 점소</th>
+	       	</tr>
+	      	</thead>
+	      	<tbody style="font-size: 13px;">
+	      	<c:forEach var="deliveryInfo" items="${responseList}">
+	      	<tr>
+	      		<td>배송단계</td>
+	      		<td>${deliveryInfo.deliveryStep}</td>
+	      		<td>${deliveryInfo.processTime}</td>
+	      		<td>${deliveryInfo.productStatus}</td>
+	       	</tr>
+	       	</c:forEach>
+		    </tbody>
+			</table>
+		</c:if>
+		<c:if test="${noResult eq 'NO'}">
+			<p style="font-size: 30px; font-weight: bold; text-align: center;">조회된 결과가 없습니다</p>
 		</c:if>
       </div>
      </div>
