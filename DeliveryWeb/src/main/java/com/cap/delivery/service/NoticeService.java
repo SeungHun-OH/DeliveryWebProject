@@ -12,4 +12,5 @@ public interface NoticeService {
 	void noticeModify(NoticeVO noticeVO);
 	void noticeDelete(int noticeNo);
 	void noticeInsert(NoticeVO noticeVO);
+	List<NoticeVO> mainList();
 }

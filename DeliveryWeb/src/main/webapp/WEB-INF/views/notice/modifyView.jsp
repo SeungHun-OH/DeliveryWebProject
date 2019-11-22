@@ -66,7 +66,7 @@
 						</tr>
 					<tr style="font-size: 18px;">
 						<th colspan="2" style="text-align: left">
-							<form:select class="form-control" path="division" id="division" style="width: auto;">
+							<form:select cssClass="form-control" path="division" id="division" style="width: auto;">
 								<option value="1" <c:if test="${notice.division eq '공지사항'}">selected="selected"</c:if>>공지사항</option>
 								<option value="2" <c:if test="${notice.division eq '이벤트'}">selected="selected"</c:if>>이벤트</option>
 							</form:select>

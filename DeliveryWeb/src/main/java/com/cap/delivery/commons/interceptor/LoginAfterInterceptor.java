@@ -14,7 +14,7 @@ public class LoginAfterInterceptor extends HandlerInterceptorAdapter{
 		// 로그인 처리 후 로그인 페이지 or 회원가입 페이지로 이동할 경우
 		HttpSession session = request.getSession();
 		if(session.getAttribute("login") != null) {
-			response.sendRedirect(request.getContextPath() + "/");
+			response.sendRedirect(request.getContextPath() + "/index");
 			return false;
 		}
 		return true;

@@ -121,7 +121,7 @@ public class UserController {
 		signupDto.setUserPwd(hashPw);
 		
 		userService.insertSignup(signupDto);
-		return "redirect: /";
+		return "redirect: /index";
 	}
 	
 	

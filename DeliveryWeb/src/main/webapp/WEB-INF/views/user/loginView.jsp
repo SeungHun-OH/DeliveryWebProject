@@ -26,6 +26,7 @@
 <body>
   <!-- Navigation -->
   <%@ include file="../../include/nav.jsp" %>
+  
   <!-- Page Header -->
   <header class="masthead" style="background-image: url('${pageContext.request.contextPath}/resources/img/courier-services.jpg'); height: 100vh; margin-bottom: 0px;">
     <div class="overlay"></div>
@@ -53,5 +54,6 @@
       </div>
     </div>
   </header>
+  <%@ include file="../../include/footer.jsp" %>
   </body>
   </html>

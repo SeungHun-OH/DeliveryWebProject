@@ -44,4 +44,9 @@ public class NoticeDaoImpl implements NoticeDao {
 	public void noticeInsert(NoticeVO noticeVO) {
 		sqlSession.insert("noticeMapper.noticeInsert", noticeVO);
 	}
+
+	@Override
+	public List<NoticeVO> mainList() {
+		return sqlSession.selectList("noticeMapper.mainList");
+	}
 }

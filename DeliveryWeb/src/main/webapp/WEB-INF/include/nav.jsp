@@ -4,7 +4,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand" href="${pageContext.request.contextPath}/">Avery</a>
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/index">Avery</a>
       <c:if test="${empty login}">
 	  <!--  아이콘 참조     https://fontawesome.com/icons/sign-in-alt?style=solid -->
       <p style="margin: 0px 0px 0px 0px;"><a class="navbar-brand" href="${pageContext.request.contextPath}/user/login" style="font-size: 15px; text-decoration: underline;"><i class="fas fa-sign-in-alt"></i> 로그인</a></p>
@@ -27,16 +27,16 @@
 <%--             <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a> --%>
 <!--           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/board/search">Search</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/board/search">택배조회</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/board/reservation">Reservation</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/board/reservation">택배예약</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/post">Sample Post</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/support/inquiry">고객문의</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/notice/list">Notice</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/notice/list">공지사항</a>
           </li>
         </ul>
       </div>

@@ -62,7 +62,7 @@
 						</tr>
 					<tr style="font-size: 18px;">
 						<th colspan="2" style="text-align: left">
-							<form:select class="form-control" path="division" id="division" style="width: auto;">
+							<form:select cssClass="form-control" path="division" id="division" style="width: auto;">
 								<option value="0" <c:if test="${empty reload}">selected="selected"</c:if>>선택</option>
 								<option value="1" <c:if test="${reload eq 1}">selected="selected"</c:if>>공지사항</option>
 								<option value="2" <c:if test="${reload eq 2}">selected="selected"</c:if>>이벤트</option>

@@ -80,6 +80,15 @@
 		)
 	</insert>
 	
+	<select id="mainList" resultMap="NoticeResult">
+	<![CDATA[
+		SELECT *
+		FROM AAA_DELIVERY_NOTICE
+		WHERE ROWNUM <=5
+		ORDER BY NNO DESC
+	]]>
+	</select>
+	
 	<resultMap type="NoticeVO" id="NoticeResult">
 		<result property="noticeNo" column="NNO"/>
 		<result property="title" column="TITLE"/>

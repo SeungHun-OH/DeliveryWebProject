@@ -45,4 +45,9 @@ public class NoticeServiceImpl implements NoticeService {
 		noticeDao.noticeInsert(noticeVO);
 	}
 
+	@Override
+	public List<NoticeVO> mainList() {
+		return noticeDao.mainList();
+	}
+
 }
