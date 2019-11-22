@@ -38,7 +38,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 				}
 				
 				Object destination = httpSession.getAttribute("destination");
-				response.sendRedirect(destination != null ? (String)destination : "/index");
+				response.sendRedirect(destination != null ? (String)destination : "/");
 			}
 	}
 	

@@ -145,7 +145,6 @@
   <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script>
   $(document).ready(function () {
-	   $(function () {
           $('#userPhone').keydown(function (event) {
            var key = event.charCode || event.keyCode || 0;
            $text = $(this); 
@@ -174,7 +173,6 @@
        if('${reloadForm.userBirthMonth}' != ''){
 			  $('#userBirthMonth').val('${reloadForm.userBirthMonth}').prop('selected', true);
 	   }
-  	});
   });
   var themeObj = {
 	//bgColor: "", //바탕 배경색

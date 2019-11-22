@@ -16,7 +16,6 @@ import com.cap.delivery.model.NoticeVO;
 import com.cap.delivery.model.SearchDto;
 import com.cap.delivery.service.NoticeService;
 
-@RequestMapping("/")
 @Controller
 public class HomeController {
 
@@ -25,13 +24,13 @@ public class HomeController {
 	@Autowired
 	private NoticeService noticeService;
 	
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String indexMainGET(Model model) {
 		logger.info("메인페이지입니다.");
 		model.addAttribute("searchDto", new SearchDto());
 		List<NoticeVO> noticeList = noticeService.mainList();
 		model.addAttribute("noticeList", noticeList);
-		return "/home/index";
+		return "home/index";
 	}
 	
 	@RequestMapping("/about")

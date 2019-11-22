@@ -16,6 +16,7 @@ public class InquiryVO {
 	private String productName;
 	private String title;
 	private String contents;
+	private String loginId;
 	
 	public String getInquiryNo() {
 		return inquiryNo;
@@ -82,5 +83,11 @@ public class InquiryVO {
 	}
 	public void setContents(String contents) {
 		this.contents = contents;
+	}
+	public String getLoginId() {
+		return loginId;
+	}
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
 	}
 }

@@ -21,6 +21,21 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <!-- max upload size in bytes -->
+    <beans:property name="maxUploadSize" value="3145728" /> <!-- 3MB -->
+    <!-- max size of file in memory (in bytes) -->
+    <beans:property name="maxInMemorySize" value="1048576" /> <!-- 1MB -->
+    <beans:property name="defaultEncoding" value="utf-8" />
+    </beans:bean>
+	
+	<!-- 파일업로드를 위한 디렉토리 설정 -->
+    <!-- String uploadPath=new String("d:/upload"); -->
+    <beans:bean id="uploadPath" class="java.lang.String">
+        <beans:constructor-arg value="c:/upload" />
+    </beans:bean>
+	
+	
 	<beans:bean id="loginInterceptor" class="com.cap.delivery.commons.interceptor.LoginInterceptor"/>
 	<beans:bean id="authInterceptor" class="com.cap.delivery.commons.interceptor.AuthInterceptor"/>
 	<beans:bean id="loginAfterInterceptor" class="com.cap.delivery.commons.interceptor.LoginAfterInterceptor"/>

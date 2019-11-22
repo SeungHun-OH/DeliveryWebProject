@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="supportMapper">
+	<insert id="inquiryInsert">
+	  	INSERT INTO AAA_DELIVERY_INQUIRY (
+  		INO
+  		, WAYBILL_NUMBER
+  		, NAME
+  		, PHONE
+  		, ADDR1
+  		, ADDR2
+  		, ADDR3
+  		, INQUIRY_TYPE
+  		, PRODUCT_NAME
+  		, TITLE
+  		, contents
+  		<if test="loginId != null">
+   		, loginId
+		</if>
+  	) VALUES (
+		AAA_INO_SEQ.NEXTVAL
+		, #{waybillNum}
+  		, #{name}
+  		, #{phone}
+  		, #{postCode}
+  		, #{addr1}
+  		, #{addr2}
+  		, #{inquiryType}
+  		, #{productName}
+  		, #{title}
+  		, #{contents}
+  		<if test="loginId != null">
+  		, #{loginId}
+  		</if>
+  		)
+	</insert>
+
+	<resultMap type="InquiryVO" id="InquiryResult">
+		<result property="inquiryNo" column="INO"/>
+		<result property="waybillNum" column="WAYBILL_NUMBER"/>
+		<result property="name" column="NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="postCode" column="ADDR1"/>
+		<result property="addr1" column="ADDR2"/>
+		<result property="addr2" column="ADDR3"/>
+		<result property="inquiryType" column="INQUIRY_TYPE"/>
+		<result property="productName" column="PRODUCT_NAME"/>
+		<result property="title" column="TITLE"/>
+		<result property="contents" column="CONTENTS"/>
+		<result property="loginId" column="LOGIN_ID"/>
+	</resultMap>
+</mapper>

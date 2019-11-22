@@ -9,7 +9,7 @@
 <body>
 <script>
 	alert("로그아웃 되었습니다.");
-	self.location = "/index";
+	self.location = "/";
 </script>
 </body>
 </html>
