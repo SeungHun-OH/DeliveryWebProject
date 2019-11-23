@@ -11,7 +11,7 @@ import org.springframework.validation.Validator;
 @Component
 public class InquiryValidation implements Validator{
 
-	private static final Logger logger = LoggerFactory.getLogger(SignupValidation.class);
+	private static final Logger logger = LoggerFactory.getLogger(InquiryValidation.class);
 	
 	@Override
 	public boolean supports(Class<?> clazz) {

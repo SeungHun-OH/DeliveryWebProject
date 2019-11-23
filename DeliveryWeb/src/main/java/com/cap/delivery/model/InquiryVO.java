@@ -90,4 +90,12 @@ public class InquiryVO {
 	public void setLoginId(String loginId) {
 		this.loginId = loginId;
 	}
+	
+	@Override
+	public String toString() {
+		return "InquiryVO [inquiryNo=" + inquiryNo + ", waybillNum=" + waybillNum + ", name=" + name + ", phone="
+				+ phone + ", postCode=" + postCode + ", addr1=" + addr1 + ", addr2=" + addr2 + ", inquiryType="
+				+ inquiryType + ", productName=" + productName + ", title=" + title + ", contents=" + contents
+				+ ", loginId=" + loginId + "]";
+	}
 }

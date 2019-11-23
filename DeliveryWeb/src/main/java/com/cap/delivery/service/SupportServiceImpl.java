@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cap.delivery.dao.SupportDao;
+import com.cap.delivery.model.FileVO;
 import com.cap.delivery.model.InquiryVO;
 
 @Service
@@ -35,8 +36,8 @@ public class SupportServiceImpl implements SupportService {
 	}
 
 	@Override
-	public void insertInquiry(InquiryVO inquiryVO) {
-		supportDao.insertInquiry(inquiryVO);
+	public void insertInquiry(InquiryVO inquiryVO, FileVO fileVO) {
+		supportDao.insertInquiry(inquiryVO, fileVO);
 	}
 
 }

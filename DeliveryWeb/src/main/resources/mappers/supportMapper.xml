@@ -5,37 +5,52 @@
 <mapper namespace="supportMapper">
 	<insert id="inquiryInsert">
 	  	INSERT INTO AAA_DELIVERY_INQUIRY (
-  		INO
-  		, WAYBILL_NUMBER
-  		, NAME
-  		, PHONE
-  		, ADDR1
-  		, ADDR2
-  		, ADDR3
-  		, INQUIRY_TYPE
-  		, PRODUCT_NAME
-  		, TITLE
-  		, contents
-  		<if test="loginId != null">
-   		, loginId
-		</if>
-  	) VALUES (
-		AAA_INO_SEQ.NEXTVAL
-		, #{waybillNum}
-  		, #{name}
-  		, #{phone}
-  		, #{postCode}
-  		, #{addr1}
-  		, #{addr2}
-  		, #{inquiryType}
-  		, #{productName}
-  		, #{title}
-  		, #{contents}
-  		<if test="loginId != null">
-  		, #{loginId}
-  		</if>
+	  		INO
+	  		, WAYBILL_NUMBER
+	  		, NAME
+	  		, PHONE
+	  		, ADDR1
+	  		, ADDR2
+	  		, ADDR3
+	  		, INQUIRY_TYPE
+	  		, PRODUCT_NAME
+	  		, TITLE
+	  		, CONTENTS
+	  		<if test="loginId != null and !loginId.equals('')">
+	   		, LOGIN_ID
+			</if>
+  		) VALUES (
+			AAA_INO_SEQ.NEXTVAL
+			, #{waybillNum}
+	  		, #{name}
+	  		, #{phone}
+	  		, #{postCode}
+	  		, #{addr1}
+	  		, #{addr2}
+	  		, #{inquiryType}
+	  		, #{productName}
+	  		, #{title}
+	  		, #{contents}
+	  		<if test="loginId != null and !loginId.equals('')">
+	  		, #{loginId}
+	  		</if>
   		)
 	</insert>
+
+	<insert id="fileInsert">
+		INSERT INTO AAA_DELIVERY_FILE (
+			INO
+			, FNO
+			, FILE_NAME
+			, FILE_LOCATION
+			, FILE_SIZE)
+		VALUES (
+			AAA_INO_SEQ.CURRVAL
+			, AAA_FNO_SEQ.NEXTVAL
+			, #{fileName}
+			, #{fileLocation}
+			, #{fileSize})
+  	</insert>
 
 	<resultMap type="InquiryVO" id="InquiryResult">
 		<result property="inquiryNo" column="INO"/>

@@ -54,7 +54,7 @@
 
 </head>
 
-<body>
+<body class="content-wrapper">
 
   <!-- Navigation -->
   <%@ include file="../../include/nav.jsp" %>
@@ -131,8 +131,6 @@
 			<div class="form-group floating-label-form-group controls">
               	<label>유형</label>
               	<form:select cssClass="form-control" path="inquiryType" id="inquiryType">
-<%-- 					<option value="0" <c:if test="${empty reload}">selected="selected"</c:if>>선택</option> --%>
-<%-- 					<option value="2" <c:if test="${reload eq 2}">selected="selected"</c:if>>이벤트</option> --%>
 					<option value="0" selected="selected">선택</option>
 					<option value="1">배송확인</option>
 					<option value="2">배송지연</option>
@@ -171,7 +169,7 @@
 		</div>
 	  </div>
 	  </div>
-	  
+	  <form:hidden path="loginId" value="${loginId}"/>
 	  <div class="col-lg-12 col-md-12 mx-auto">
       <div class="card" style="border: none; margin-bottom: 40px; font-weight: 800; margin-top: 20px;">
         <div class="card-header" style="margin-bottom: 20px;">
@@ -179,9 +177,9 @@
         </div>
         <div class="fileDrop">
 			<p style="margin: 0px;"><i id="dragMsg" style="color: #C2C5CC">이미지를 드래그 해주세요.</i></p>
-			<ul class="uploadedList" style="display:inline-block;"></ul>
+			<ul class="uploadedList" style="display:inline-block; padding: 0px;"></ul>
 		</div>
-		
+		<small><span class="errormsg">${error}</span></small>
 	  </div>
 	  </div>
 	  <button class="btn w-100 btnSubmit" style="font-size: 20px;" type="button" id="btnInqSubmit">문의신청</button>
@@ -255,13 +253,9 @@
 			var formData = new FormData();
 			var fileSize = new Array();
 			for (var i = 0; i < files.length; i++) {
-				if(checkImageType(files[i].name)){
 					formData.append("file", files[i]); //폼에 file 변수 추가
 					fileSize[i] = files[i].size;
-				}else {
-					alert("첨부파일 형식을 확인해주세요.")
-					return false;
-				}
+				
 			}
 			//서버에 파일 업로드(백그라운드에서 실행됨)
 			// contentType: false => multipart/form-data로 처리됨
@@ -284,10 +278,10 @@
 						for(var item in obj){
 							console.log(obj[item]);
 							var str = "<span>";
-							str = "<li><input type='hidden' name='fileLocationArr' value='"+ obj[item] + "'>"
+							str = "<li style='margin-top:7px;'><input type='hidden' name='fileLocationArr' value='"+ obj[item] + "'>"
 							str += "<input type='hidden' name='fileSizeArr' value='"+ fileSize[index] + "'>"
 							str += "<input type='hidden' name='fileNameArr' value='"+ getOriginalName(obj[item]) + "'>"
-							str += "<span style='margin-top:20px;'><img src='${path}/upload/displayFile?fileName="+ obj[item] + "'></span>";
+							str += "<span><img src='${path}/upload/displayFile?fileName="+ obj[item] + "'></span>";
 							str += "<div class='file-info'><a data-lightbox='uploadImages' href='${path}/upload/displayFile?fileName="+ getImageLink(obj[item])+ "'>";
 							str += getOriginalName(obj[item])+"</a>"
 							str += "<a name='fileLocation' href='"+obj[item]+"' class='delBtn'>[X]</a></div></li>";
