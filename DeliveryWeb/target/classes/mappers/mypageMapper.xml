@@ -9,7 +9,7 @@
 	WHERE st.PROCESS_DATE IN (SELECT MAX(PROCESS_DATE) FROM AAA_DELIVERY_STATE GROUP BY WAYBILL_NUMBER) 
 		AND #{loginName} IN (ch.SE_NAME, ch.RE_NAME) 
 		AND #{phone} IN (ch.se_phone, ch.re_phone)
-	<if test="startDate != null and endDate != null">
+	<if test='(startDate != null and startDate != "") or (endDate != null and endDate != "")'>
 	<![CDATA[
 		AND PROCESS_DATE >= TO_DATE(#{startDate},'YYYY-MM-DD')
 		AND PROCESS_DATE <  TO_DATE(#{endDate},'YYYY-MM-DD')+1

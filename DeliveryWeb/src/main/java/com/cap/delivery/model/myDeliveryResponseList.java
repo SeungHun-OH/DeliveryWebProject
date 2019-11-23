@@ -1,11 +1,13 @@
 package com.cap.delivery.model;
 
+import java.util.Date;
+
 public class myDeliveryResponseList {
 
 	private String productName;
 	private String waybillNum;
 	private String senderName;
-	private String processTime;
+	private Date processTime;
 	private String deliveryStep;
 	
 	public String getDeliveryStep() {
@@ -32,10 +34,10 @@ public class myDeliveryResponseList {
 	public void setSenderName(String senderName) {
 		this.senderName = senderName;
 	}
-	public String getProcessTime() {
+	public Date getProcessTime() {
 		return processTime;
 	}
-	public void setProcessTime(String processTime) {
+	public void setProcessTime(Date processTime) {
 		this.processTime = processTime;
 	}
 	@Override

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -52,42 +53,89 @@
     <div class="row">
       <div class="col-lg-12 col-md-12 mx-auto">
       	<form:form modelAttribute="myDelivery" id="myDeliveryForm" method="post" action="${pageContext.request.contextPath}/mypage/mydelivery">
-      	<div class="control-group">
+<!--       	<div class="control-group"> -->
+<!-- 			<div class="form-group floating-label-form-group controls"> -->
+<!-- 				<label>비밀번호</label> -->
+<%--               	<form:input type="text" cssClass="form-control w-50" placeholder="시작날짜" id="startDate" path="startDate" style="float: left;"/> --%>
+<!--               	<label>비밀번호</label> -->
+<%--               	<form:input type="text" cssClass="form-control w-50" placeholder="종료날짜" id="endDate" path="endDate" style="float: left;"/> --%>
+<%--               	<small><form:errors path="startDate" cssClass="errormsg" /></small> --%>
+<%--               	<small><form:errors path="endDate" cssClass="errormsg" /></small> --%>
+<!--             </div> -->
+<!-- 		</div> -->
+		<div class="control-group">
 			<div class="form-group floating-label-form-group controls">
-              	<form:input type="text" cssClass="form-control w-50" placeholder="시작날짜" id="startDate" path="startDate" style="float: left;"/>
-              	<form:input type="text" cssClass="form-control w-50" placeholder="종료날짜" id="endDate" path="startDate" style="float: left;"/>
-              	<small><form:errors path="startDate" cssClass="errormsg" /></small>
-              	<small><form:errors path="endDate" cssClass="errormsg" /></small>
+              	<label>이메일</label>
+              	<div class="input-group">
+              	<span class="input-group-btn" style="margin: auto;">
+					<i class="far fa-calendar-alt" style="margin-left: 10px; font-size: 25px;"></i>
+	      		</span>
+				<form:input type="text" cssClass="form-control" placeholder="시작날짜" id="startDate" path="startDate" style="margin-left: 15px;"/>
+				<span class="input-group-btn" style="margin: auto;">
+				부터
+				</span>
+				<span class="input-group-btn" style="margin: auto;">
+					<i class="far fa-calendar-alt" style="margin-left: 10px; font-size: 25px;"></i>
+	      		</span>
+	      		<form:input type="text" cssClass="form-control" placeholder="종료날짜" id="endDate" path="endDate" style="margin-left: 15px;"/>
+	      		<span class="input-group-btn" style="margin: auto;">
+				까지
+				</span>
+			</div>
+            <small><form:errors path="startDate" cssClass="errormsg" /></small>
+            <small><form:errors path="endDate" cssClass="errormsg" /></small>
             </div>
 		</div>
-		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+		<div class="btn-group btn-group-toggle" data-toggle="buttons" style="margin-top: 10px;">
 		<label class="btn btn-light" for="mr-1">
-			<input type="radio" class="radio-value" name="momentRadio" id="mr-1" value="1week"> 1주일
+			<input type="radio" class="radio-value" name="dateBtn" id="mr-1" value="1week"> 1주일
 		</label>
 		<label class="btn btn-light" for="mr-2">
-			<input type="radio" class="radio-value" name="momentRadio" id="mr-2" value="1month"> 1개월
+			<input type="radio" class="radio-value" name="dateBtn" id="mr-2" value="1month"> 1개월
 		</label>
 		<label class="btn btn-light" for="mr-3">
-			<input type="radio" class="radio-value" name="momentRadio" id="mr-3" value="3month"> 3개월
+			<input type="radio" class="radio-value" name="dateBtn" id="mr-3" value="3month"> 3개월
 		</label>
-		<label class="btn btn-light active" for="mr-4">
-			<input type="radio" class="radio-value" name="momentRadio" id="mr-4" checked="checked" value="all"> 전체시기
+		<label class="btn btn-light" for="mr-4">
+			<input type="radio" class="radio-value" name="dateBtn" id="mr-4"value="all"> 전체시기
 		</label>
 		</div>
-		<button type="button" class="btn btn-info" id="lookupBtn">조회</button>
+		
+		<table class="table table-hover table-bordered" style="margin-top: 20px;">
+		<thead class="thead-light">
+			<tr style="text-align: center;">
+				<th>상품이름</th>
+				<th>송장번호</th>
+				<th>보내는 분</th>
+				<th>배송일자</th>
+				<th>배송상태</th>
+			</tr>
+		</thead>
+		<tbody>
+		<c:choose>
+		<c:when test="${!empty responseList}">
+		<c:forEach items="${responseList}" var="response">
+			<tr style="font-size: 15px;">
+				<td>${response.productName}</td>
+				<td>${response.waybillNum}</td>
+				<td>${response.senderName}</td>
+				<td><fmt:formatDate value="${response.processTime}" pattern="YYYY년 M월 d일"/></td>
+				<td>${response.deliveryStep}</td>
+			</tr>
+		</c:forEach>
+		</c:when>
+		<c:when test="${empty responseList}">
+			<tr>
+				<td colspan="5" style="font-size: 35px; text-align: center;">배송정보가 없습니다.</td>
+			<tr>
+		</c:when>
+		</c:choose>
+		</tbody>
+		</table>
+		<form:hidden path="loginName" value="${myDelivery.loginName}"/>
+		<form:hidden path="phone" value="${myDelivery.phone}"/>
+		<button type="button" class="btn btn-info w-100" id="lookupBtn" style="margin-top: 10px;">조회</button>
 		</form:form>
-	    
-	    
-	 	
-		<table class="table" id="lookupTable">
-		<tr id="tableHeader">
-			<th>상품이름</th>
-			<th>송장번호</th>
-			<th>보내는 분</th>
-			<th>배송일자</th>
-			<th>배송상태</th>
-		</tr>
-	</table>
       </div>
     </div>
   </div>
@@ -134,6 +182,7 @@
   <%@ include file="../../include/footer.jsp" %>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
+  	
   
 	function modalShow(e) {
 		var sendData = JSON.stringify({waybill_Num:e.getAttribute('id')});
@@ -144,21 +193,28 @@
 	}
 	
 	$(function() {
-		
+		if('${activeBtn}' != ''){
+	  		$('input[value="${activeBtn}"]').parents("label").addClass('active');
+	  		$('input[value="${activeBtn}"]').prop("checked", true)
+		}else{
+	  		$('#mr-4').parents("label").addClass('active');
+	  		$('#mr-4').prop("checked", true)
+		}
+	  	
        	$('label.btn.btn-light').on('change',function(){
-			if($('input[name="momentRadio"]:checked').val() == '1week'){
+			if($('input[name="dateBtn"]:checked').val() == '1week'){
 				alert("1주일");
 	             $('#startDate').datepicker('setDate', '-7D'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 	             $('#endDate').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
-			}else if($('input[name="momentRadio"]:checked').val() == '1month'){
+			}else if($('input[name="dateBtn"]:checked').val() == '1month'){
 				alert("1개월");
 				$('#startDate').datepicker('setDate', '-1M'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 	            $('#endDate').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
-			}else if($('input[name="momentRadio"]:checked').val() == '3month'){
+			}else if($('input[name="dateBtn"]:checked').val() == '3month'){
 				alert("3개월");
 				$('#startDate').datepicker('setDate', '-3M'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 	            $('#endDate').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
-			}else if($('input[name="momentRadio"]:checked').val() == 'all'){
+			}else if($('input[name="dateBtn"]:checked').val() == 'all'){
 				alert("전체");
 				$('#startDate').datepicker('setDate', null); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 	            $('#endDate').datepicker('setDate', null); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
@@ -207,39 +263,7 @@
 //      $('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 //      $('#datepicker2').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
            $('#lookupBtn').click(function() {
-	           	var sendData = JSON.stringify({startDate:$('input[id="startDate"]').val(), endDate:$('input[id="endDate"]').val()});
-	           	$.ajax({
-	   				type : 'post',
-	   				url : '/mypage/deliveryDetail',
-	   				data : sendData,
-	   				dataType : 'json',
-	   				contentType:'application/json;charset=UTF-8',
-	   				success : function (data) {
-	   					console.log(data);
-	   					varTr = '';
-	   					
-	   					$.each(data.result, function(key,value){
-	   						if(value != null){
-	   							varTr+='<td>'+value+'</td>';
-	   						}
-	   					});
-	   					$('#infoTr').after('<tr class="infoSub">'+varTr+'</tr>');
-	   					
-	   					$.each(data.resultList, function(index1){
-	   						var valTr2 = '';
-	   						$.each(data.resultList[index1], function(key,value){
-	   							if(value != '0' && value != null){
-	   								valTr2+='<td>'+value+'</td>';
-	   							}
-	   						});
-	   						$('#stepTr').after('<tr class="stepSub">'+valTr2+'</tr>');
-	   					});
-	   					$("#myModal").modal('show');
-	   				},
-	   				error : function (request,status,error) {
-	   					alert('실패');
-	   				}
-	   			});
+        	   $('#myDeliveryForm').submit();
  			});
 </script>
 </body>

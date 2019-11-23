@@ -11,11 +11,6 @@ public class MyDeliveryDto {
 	private String loginName;
 	private String phone;
 	
-	public MyDeliveryDto(UserVO userVO) {
-		this.loginName = userVO.getUserName();
-		this.phone = userVO.getUserPhone();
-	}
-	
 	public String getStartDate() {
 		return startDate;
 	}
@@ -39,5 +34,15 @@ public class MyDeliveryDto {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	
+	public void setSessionInfo(String userName, String userPhone) {
+		this.loginName = userName;
+		this.phone = userPhone;
+	}
+	@Override
+	public String toString() {
+		return "MyDeliveryDto [startDate=" + startDate + ", endDate=" + endDate + ", loginName=" + loginName
+				+ ", phone=" + phone + "]";
 	}
 }
