@@ -51,7 +51,8 @@
         	<mapping path="/notice/modify"/>
         	<mapping path="/notice/write"/>
         	<mapping path="/notice/remove"/>
-        	<beans:ref bean="authInterceptor" />
+        	<mapping path="/mypage/**"/>
+        	<beans:ref bean="authInterceptor"/>
         </interceptor>
         <!-- 로그인시 회원가입 방지 인터셉터 -->
 		<interceptor>

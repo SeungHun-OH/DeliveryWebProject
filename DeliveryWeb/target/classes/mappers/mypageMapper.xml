@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypageMapper">
+	<select id="myDeliveryList" resultMap="myDeliveryResponseResult">
+	SELECT ch.PRODUCT_NAME, ch.WAYBILL_NUMBER, ch.SE_NAME, st.PROCESS_DATE, st.DELIVERY_INFORMATION
+	FROM AAA_DELIVERY_STATE st INNER JOIN AAA_DELIVERY_CHART ch ON st.WAYBILL_NUMBER = ch.WAYBILL_NUMBER
+	WHERE st.PROCESS_DATE IN (SELECT MAX(PROCESS_DATE) FROM AAA_DELIVERY_STATE GROUP BY WAYBILL_NUMBER) 
+		AND #{loginName} IN (ch.SE_NAME, ch.RE_NAME) 
+		AND #{phone} IN (ch.se_phone, ch.re_phone)
+	<if test="startDate != null and endDate != null">
+	<![CDATA[
+		AND PROCESS_DATE >= TO_DATE(#{startDate},'YYYY-MM-DD')
+		AND PROCESS_DATE <  TO_DATE(#{endDate},'YYYY-MM-DD')+1
+	]]>
+	</if>
+	ORDER BY st.PROCESS_DATE DESC
+	</select>
+	
+	<resultMap type="myDeliveryResponseList" id="myDeliveryResponseResult">
+		<result property="productName" column="PRODUCT_NAME"/>
+		<result property="waybillNum" column="WAYBILL_NUMBER"/>
+		<result property="senderName" column="SE_NAME"/>
+		<result property="processTime" column="PROCESS_DATE"/>
+		<result property="deliveryStep" column="DELIVERY_INFORMATION"/>
+	</resultMap>
+</mapper>
