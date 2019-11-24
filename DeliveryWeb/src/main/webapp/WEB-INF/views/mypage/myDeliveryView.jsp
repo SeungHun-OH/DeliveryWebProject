@@ -153,22 +153,31 @@
         </div>
         <!-- Modal body -->
         <div class="modal-body">
-        <table class="table">
-        	<tr id="infoTr">
+        <table class="table table-bordered" style="text-align: center;">
+        	<tr>
         		<th>운송장번호</th>
         		<th>보내는 분</th>
         		<th>받는 분</th>
-        		<th>상품 정보</th>
-        		<th>수량</th>
+        		<th>상품명</th>
+        	</tr>
+        	<tr id="info" style="font-size: 14px;">
+        		<td></td>
+        		<td></td>
+        		<td></td>
+        		<td></td>
         	</tr>
         </table>
-        <table class="table">
-        	<tr id="stepTr">
-	       		<th>단계</th>
-	       		<th>처리</th>
-	       		<th>상품상태</th>
-	       		<th>담당점소</th>
-        	</tr>
+        <table class="table table-bordered" style="text-align: center;">
+        	<thead>
+	        	<tr id="step">
+		       		<th>단계</th>
+		       		<th>처리</th>
+		       		<th>상품상태</th>
+		       		<th>담당점소</th>
+	        	</tr>
+        	</thead>
+        	<tbody id="stepBody" style="font-size: 14px;">
+        	</tbody>
         </table>
         </div>
         <!-- Modal footer -->
@@ -265,6 +274,39 @@
            $('#lookupBtn').click(function() {
         	   $('#myDeliveryForm').submit();
  			});
+ 			
+ 		   $('#myDeliveryForm tbody tr').click(function() {
+ 			  var tr = $(this);
+ 			  var td = tr.children('td');
+ 			  var sendData = JSON.stringify({"waybillNum": td.eq(1).text()});
+ 			  $('.stepDetail').remove();
+ 			 $.ajax({
+ 				type : 'post',
+ 				url : '/mypage/mydeliveryDetail',
+ 				data : sendData,
+ 				dataType : 'json',
+ 				contentType:'application/json;charset=UTF-8',
+ 				success : function (data) {
+ 					console.log(data);
+					var i = 0;
+					$.each(data.response, function(key,value){
+							$('#info').children().eq(i++).text(value);
+					});
+					$.each(data.responseList, function(index){
+						var dataTr ='<tr class="stepDetail"><td>단계</td>';
+						$.each(data.responseList[index], function(key,value){
+							dataTr+='<td>'+value+'</td>';
+						});
+						dataTr +='</tr>'
+						$('#stepBody').append(dataTr);
+					});
+					$("#myModal").modal('show');
+ 				},
+ 				error : function (request,status,error) {
+ 					alert('실패');
+ 				}
+ 			});
+ 		  });
 </script>
 </body>
 </html>

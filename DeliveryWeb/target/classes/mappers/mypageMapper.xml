@@ -18,6 +18,30 @@
 	ORDER BY st.PROCESS_DATE DESC
 	</select>
 	
+	<select id="responseDelivery" resultMap="SearchResponseResult">
+	    SELECT WAYBILL_NUMBER, SE_NAME, RE_NAME, PRODUCT_NAME
+		FROM AAA_DELIVERY_CHART
+		WHERE WAYBILL_NUMBER = #{waybillNum}
+	</select>
+	<select id="responseDeliveryList" resultMap="SearchResponseListResult">
+	    SELECT DELIVERY_INFORMATION, PROCESS_DATE, DELIVERY_LOCATION
+		FROM AAA_DELIVERY_STATE
+		WHERE WAYBILL_NUMBER = #{waybillNum}
+        ORDER BY PROCESS_DATE, DLNO
+	</select>
+	
+	<resultMap type="SearchResponseVO" id="SearchResponseResult">
+		<result property="waybillNum" column="WAYBILL_NUMBER"/>
+		<result property="senderName" column="SE_NAME"/>
+		<result property="receiverName" column="RE_NAME"/>
+		<result property="productName" column="PRODUCT_NAME"/>
+	</resultMap>
+	<resultMap type="SearchResponseListVO" id="SearchResponseListResult">
+		<result property="deliveryStep" column="DELIVERY_INFORMATION"/>
+		<result property="processTime" column="PROCESS_DATE"/>
+		<result property="productStatus" column="DELIVERY_LOCATION"/>
+	</resultMap>
+	
 	<resultMap type="myDeliveryResponseList" id="myDeliveryResponseResult">
 		<result property="productName" column="PRODUCT_NAME"/>
 		<result property="waybillNum" column="WAYBILL_NUMBER"/>
