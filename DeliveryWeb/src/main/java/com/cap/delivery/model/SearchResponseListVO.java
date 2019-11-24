@@ -4,10 +4,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SearchResponseListVO {
-
+	private String deliveryType;
 	private String deliveryStep;
 	private String processTime;
 	private String productStatus;
+	
 	
 	public String getDeliveryStep() {
 		return deliveryStep;
@@ -27,10 +28,11 @@ public class SearchResponseListVO {
 	public void setProductStatus(String productStatus) {
 		this.productStatus = productStatus;
 	}
-	
-	@Override
-	public String toString() {
-		return "SearchResponseListVO [deliveryStep=" + deliveryStep + ", processTime=" + processTime
-				+ ", productStatus=" + productStatus + "]";
+	public String getDeliveryType() {
+		return deliveryType;
 	}
+	public void setDeliveryType(String deliveryType) {
+		this.deliveryType = deliveryType;
+	}
+	
 }

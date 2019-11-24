@@ -25,7 +25,7 @@
 	</select>
 	
 	<select id="responseDeliveryList" resultMap="SearchResponseListResult">
-	    SELECT DELIVERY_INFORMATION, PROCESS_DATE, DELIVERY_LOCATION
+	    SELECT DELIVERY_INFORMATION, PROCESS_DATE, DELIVERY_LOCATION, DELIVERY_TYPE
 		FROM AAA_DELIVERY_STATE
 		WHERE WAYBILL_NUMBER = #{waybillNum}
         ORDER BY PROCESS_DATE, DLNO
@@ -63,6 +63,7 @@
 		<result property="deliveryStep" column="DELIVERY_INFORMATION"/>
 		<result property="processTime" column="PROCESS_DATE"/>
 		<result property="productStatus" column="DELIVERY_LOCATION"/>
+		<result property="deliveryType" column="DELIVERY_TYPE"/>
 	</resultMap>
 	
 	<resultMap type="myDeliveryResponseList" id="myDeliveryResponseResult">

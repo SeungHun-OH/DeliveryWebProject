@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -124,7 +125,7 @@
 		</c:forEach>
 		</c:when>
 		<c:when test="${empty responseList}">
-			<tr>
+			<tr id="noTr">
 				<td colspan="5" style="font-size: 35px; text-align: center;">배송정보가 없습니다.</td>
 			<tr>
 		</c:when>
@@ -181,7 +182,8 @@
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button id="btnCancel" type="button" class="btn btn-warning cancel">취소</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
         </div>
       </div>
     </div>
@@ -276,6 +278,8 @@
  			
  		   $('#myDeliveryForm tbody tr').click(function() {
  			  var tr = $(this);
+ 			  if(tr.attr("id") == 'noTr')
+ 				  return false;
  			  var td = tr.children('td');
  			  var sendData = JSON.stringify({"waybillNum": td.eq(1).text()});
  			  $('.stepDetail').remove();
@@ -291,20 +295,33 @@
 					$.each(data.response, function(key,value){
 							$('#info').children().eq(i++).text(value);
 					});
+					var type;
 					$.each(data.responseList, function(index){
-						var dataTr ='<tr class="stepDetail"><td>단계</td>';
+						var dataTr ='<tr class="stepDetail">';
 						$.each(data.responseList[index], function(key,value){
 							dataTr+='<td>'+value+'</td>';
+							if(key == 'deliveryType')
+								type = value; 
 						});
 						dataTr +='</tr>'
 						$('#stepBody').append(dataTr);
 					});
-					$("#myModal").modal('show');
+					if(type > 0)
+						$('#btnCancel').hide();
+					else
+						$('#btnCancel').show();
+					$('#myModal').modal('show');
  				},
  				error : function (request,status,error) {
  					alert('실패');
  				}
  			});
+ 		  });
+ 		   
+ 		  $('.cancel').click(function() {
+ 			  if(confirm("취소하시겠습니까?") == true){
+// 				여기 구현해야함
+ 			  }
  		  });
 </script>
 </body>
