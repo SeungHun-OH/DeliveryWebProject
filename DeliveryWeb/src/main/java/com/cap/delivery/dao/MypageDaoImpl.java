@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.cap.delivery.model.MyDeliveryDto;
 import com.cap.delivery.model.SearchResponseListVO;
 import com.cap.delivery.model.SearchResponseVO;
+import com.cap.delivery.model.UserInfoVO;
 import com.cap.delivery.model.myDeliveryResponseList;
 
 @Repository
@@ -30,6 +31,21 @@ public class MypageDaoImpl implements MypageDao {
 	@Override
 	public List<SearchResponseListVO> responseDeliveryList(String waybillNum) {
 		return sqlSession.selectList("mypageMapper.responseDeliveryList", waybillNum);
+	}
+
+	@Override
+	public UserInfoVO getUserInfo(String userId) {
+		return sqlSession.selectOne("mypageMapper.getUserInfo", userId);
+	}
+
+	@Override
+	public String getUserPwd(String userId) {
+		return sqlSession.selectOne("mypageMapper.getUserPwd", userId);
+	}
+	
+	@Override
+	public void modifyUserInfo(UserInfoVO userInfoVO) {
+		sqlSession.update("mypageMapper.modifyUserInfo", userInfoVO);
 	}
 
 }

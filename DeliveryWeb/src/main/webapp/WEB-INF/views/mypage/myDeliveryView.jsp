@@ -24,6 +24,15 @@
 	/*datepicer input 롤오버 시 손가락 모양 표시*/
 	.hasDatepicker{cursor: pointer;}
 	.modal-lg{max-width: 1200px;}
+	.errormsg {
+		color: red;
+	}
+	.btnSubmit{
+		background: #FFB843;
+	}
+	.btnSubmit:hover{
+		background: #E3A538;
+	}
   </style>
 	
 </head>
@@ -53,16 +62,6 @@
     <div class="row">
       <div class="col-lg-12 col-md-12 mx-auto">
       	<form:form modelAttribute="myDelivery" id="myDeliveryForm" method="post" action="${pageContext.request.contextPath}/mypage/mydelivery">
-<!--       	<div class="control-group"> -->
-<!-- 			<div class="form-group floating-label-form-group controls"> -->
-<!-- 				<label>비밀번호</label> -->
-<%--               	<form:input type="text" cssClass="form-control w-50" placeholder="시작날짜" id="startDate" path="startDate" style="float: left;"/> --%>
-<!--               	<label>비밀번호</label> -->
-<%--               	<form:input type="text" cssClass="form-control w-50" placeholder="종료날짜" id="endDate" path="endDate" style="float: left;"/> --%>
-<%--               	<small><form:errors path="startDate" cssClass="errormsg" /></small> --%>
-<%--               	<small><form:errors path="endDate" cssClass="errormsg" /></small> --%>
-<!--             </div> -->
-<!-- 		</div> -->
 		<div class="control-group">
 			<div class="form-group floating-label-form-group controls">
               	<label>이메일</label>

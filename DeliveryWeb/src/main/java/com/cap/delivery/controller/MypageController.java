@@ -4,24 +4,31 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cap.delivery.model.MyDeliveryDto;
+import com.cap.delivery.model.MyDeliveryValidation;
 import com.cap.delivery.model.SearchResponseListVO;
 import com.cap.delivery.model.SearchResponseVO;
+import com.cap.delivery.model.UserInfoVO;
+import com.cap.delivery.model.UserInfoValidation;
 import com.cap.delivery.model.UserVO;
 import com.cap.delivery.model.myDeliveryResponseList;
 import com.cap.delivery.service.MypageService;
@@ -37,9 +44,21 @@ public class MypageController {
 	@Autowired
 	private MypageService mypageService;
 	
+	@Autowired
+	private MyDeliveryValidation myDeliveryValidation;
+	
+	@Autowired
+	private UserInfoValidation userInfoValidation;
+	
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	public String mypageViewGET(Model model) {
+		
+		return "mypage/mypageView";
+	}
+	
 	@RequestMapping(value = "/mydelivery", method = RequestMethod.GET)
-	public String searchViewGet(Model model, HttpSession session, MyDeliveryDto myDeliveryDto) {
-		logger.info("마이페이지 내 운송장 GET");
+	public String mydeliveryGET(Model model, HttpSession session, MyDeliveryDto myDeliveryDto) {
+		logger.info("mypage 내 운송장 GET");
 		UserVO userVO = (UserVO)session.getAttribute("login");
 		myDeliveryDto.setSessionInfo(userVO.getUserName(),userVO.getUserPhone()); 
 		List<myDeliveryResponseList> response = mypageService.myDeliveryList(myDeliveryDto);
@@ -49,14 +68,52 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/mydelivery", method = RequestMethod.POST)
-	public String searchViewPOST(@ModelAttribute("myDelivery") MyDeliveryDto myDeliveryDto, Model model, @RequestParam(value="dateBtn") String clickBtn) {
-		logger.info("마이페이지 내 운송장 POST");
+	public String mydeliveryPOST(@Valid @ModelAttribute("myDelivery") MyDeliveryDto myDeliveryDto, BindingResult result, Model model, @RequestParam(value="dateBtn") String clickBtn) {
+		logger.info("mypage 내 운송장 POST");
+		myDeliveryValidation.validate(myDeliveryDto, result);
+		if(result.hasErrors()) {
+			logger.info("에러 검출");
+			return "/mypage/myDeliveryView";
+		}
 		List<myDeliveryResponseList> response = mypageService.myDeliveryList(myDeliveryDto);
 		model.addAttribute("responseList", response);
 		model.addAttribute("activeBtn",clickBtn);
 		return "/mypage/myDeliveryView";
 	}
 	
+	@RequestMapping(value = "/myinfo", method = RequestMethod.GET)
+	public String myinfoViewGET(Model model, HttpSession session) {
+		logger.info("mypage 정보수정 GET");
+		UserVO userVO = (UserVO)session.getAttribute("login");
+		UserInfoVO userinfo = mypageService.getUserInfo(userVO.getUserId());
+		userinfo.emailDivide(userinfo.getUserEmail());
+		userinfo.birthChange(userinfo.getUserBirth());
+		model.addAttribute("userinfo", userinfo);
+		return "mypage/myinfoView";
+	}
+	
+	@RequestMapping(value = "/myinfo", method = RequestMethod.POST)
+	public String myinfoViewPOST(@ModelAttribute("userinfo") UserInfoVO userInfoVO, BindingResult result, Model model, HttpSession session, RedirectAttributes redirect) {
+		logger.info("mypage 정보수정 POST");
+		UserVO userVO = (UserVO)session.getAttribute("login");
+		userInfoValidation.validate(userInfoVO, result);
+		if(result.hasErrors()) {
+			logger.info("에러 검출");
+			return "mypage/myinfoView";
+		}
+		if(!BCrypt.checkpw(userInfoVO.getUserPwd(), mypageService.getUserPwd(userVO.getUserId()))){
+			model.addAttribute("msg","비밀번호를 확인해주세요.");
+			return "mypage/myinfoView";
+		}
+		System.out.println(userInfoVO.toString());
+		userInfoVO.setUserId(userVO.getUserId());
+		mypageService.modifyUserInfo(userInfoVO);
+		redirect.addFlashAttribute("msg", "정보 수정이 완료되었습니다.");
+		return "redirect:/mypage/myinfo";
+	}
+	
+	
+	//	ajax 부분
 	@ResponseBody
 	@RequestMapping(value = "/mydeliveryDetail", method = RequestMethod.POST)
 	public HashMap<String, Object> ajaxMydeliveryDeliveryPOST(@RequestBody String reciveData) throws Exception {

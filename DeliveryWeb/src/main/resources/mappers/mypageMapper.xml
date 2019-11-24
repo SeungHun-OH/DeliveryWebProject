@@ -23,12 +23,30 @@
 		FROM AAA_DELIVERY_CHART
 		WHERE WAYBILL_NUMBER = #{waybillNum}
 	</select>
+	
 	<select id="responseDeliveryList" resultMap="SearchResponseListResult">
 	    SELECT DELIVERY_INFORMATION, PROCESS_DATE, DELIVERY_LOCATION
 		FROM AAA_DELIVERY_STATE
 		WHERE WAYBILL_NUMBER = #{waybillNum}
         ORDER BY PROCESS_DATE, DLNO
 	</select>
+	
+	<select id="getUserInfo" resultMap="UserInfoResult">
+		SELECT MNO, ID, NAME, BIRTH, EMAIL, PHONE, ADDR1, ADDR2, ADDR3, JOIN_DATE
+        FROM AAA_MEMBER
+        WHERE ID IN #{userId}
+	</select>
+	
+	<select id="getUserPwd" resultType="String">
+		SELECT PASS
+		FROM AAA_MEMBER
+		WHERE ID = #{userId}
+	</select>
+	
+	<insert id="modifyUserInfo">
+		UPDATE AAA_MEMBER SET EMAIL = '${userEmail1}@${userEmail2}', PHONE = #{userPhone}, ADDR1 = #{postCode}, ADDR2 = #{addr1}, ADDR3 = #{addr2}
+	    WHERE ID = #{userId}
+	</insert>
 	
 	<resultMap type="SearchResponseVO" id="SearchResponseResult">
 		<result property="waybillNum" column="WAYBILL_NUMBER"/>
@@ -48,5 +66,17 @@
 		<result property="senderName" column="SE_NAME"/>
 		<result property="processTime" column="PROCESS_DATE"/>
 		<result property="deliveryStep" column="DELIVERY_INFORMATION"/>
+	</resultMap>
+	
+	<resultMap type="UserInfoVO" id="UserInfoResult">
+		<result property="userId" column="ID"/>
+		<result property="userName" column="NAME"/>
+		<result property="userPhone" column="PHONE"/>
+		<result property="userBirth" column="BIRTH"/>
+		<result property="userEmail" column="EMAIL"/>
+		<result property="postCode" column="ADDR1"/>
+		<result property="addr1" column="ADDR2"/>
+		<result property="addr2" column="ADDR3"/>
+		<result property="joinDate" column="JOIN_DATE"/>
 	</resultMap>
 </mapper>

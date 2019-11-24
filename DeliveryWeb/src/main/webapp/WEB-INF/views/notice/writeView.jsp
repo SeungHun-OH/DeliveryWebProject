@@ -52,7 +52,7 @@
       	<form:form modelAttribute="notice" id="noticeWriteForm" method="post" action="${pageContext.request.contextPath}/notice/write">
 	      	<table class="table" style="text-align: center;">
 				<tbody>
-					<tr style="background: #FFB843; border-top: 2px solid #212529;">
+					<tr style="background: #FFB843;">
 						<th width="auto" style="vertical-align: middle; font-size: 26px;">
 							<form:input cssClass="form-control" path="title" id="title" maxlength="50" placeholder="제목을 입력해주세요."/>
 						</th>

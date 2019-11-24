@@ -14,5 +14,6 @@
 	  	<typeAlias type="com.cap.delivery.model.InquiryVO" alias="InquiryVO"/>
 	  	<typeAlias type="com.cap.delivery.model.MyDeliveryDto" alias="MyDeliveryDto"/>
 	  	<typeAlias type="com.cap.delivery.model.myDeliveryResponseList" alias="myDeliveryResponseList"/>
+	  	<typeAlias type="com.cap.delivery.model.UserInfoVO" alias="UserInfoVO"/>
 	  </typeAliases>
 </configuration>

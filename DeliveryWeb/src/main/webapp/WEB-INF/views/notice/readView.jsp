@@ -45,7 +45,7 @@
       	<div class="col-lg-12 col-md-12 mx-auto">
 	      	<table class="table" style="text-align: center;">
 				<tbody>
-					<tr style="background: #FFB843; border-top: 2px solid #212529;">
+					<tr style="background: #FFB843;">
 						<th width="auto"><span style="font-size: 26px; color: #fff; width: 10%;">${notice.noticeNo}</span></th>
 						<th width="auto" style="vertical-align: middle; font-size: 26px; text-align: left;">${notice.title}</th>
 					</tr>

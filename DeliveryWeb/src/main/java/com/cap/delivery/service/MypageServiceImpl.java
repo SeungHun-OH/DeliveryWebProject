@@ -9,6 +9,7 @@ import com.cap.delivery.dao.MypageDao;
 import com.cap.delivery.model.MyDeliveryDto;
 import com.cap.delivery.model.SearchResponseListVO;
 import com.cap.delivery.model.SearchResponseVO;
+import com.cap.delivery.model.UserInfoVO;
 import com.cap.delivery.model.myDeliveryResponseList;
 
 @Service
@@ -31,4 +32,20 @@ public class MypageServiceImpl implements MypageService{
 	public List<SearchResponseListVO> responseDeliveryList(String waybillNum) {
 		return mypageDao.responseDeliveryList(waybillNum);
 	}
+
+	@Override
+	public UserInfoVO getUserInfo(String userId) {
+		return mypageDao.getUserInfo(userId);
+	}
+
+	@Override
+	public String getUserPwd(String userId) {
+		return mypageDao.getUserPwd(userId);
+	}
+	
+	@Override
+	public void modifyUserInfo(UserInfoVO userInfoVO) {
+		mypageDao.modifyUserInfo(userInfoVO);
+	}
+	
 }

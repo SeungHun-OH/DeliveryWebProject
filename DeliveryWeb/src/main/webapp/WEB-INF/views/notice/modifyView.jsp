@@ -52,7 +52,7 @@
       	<form:form modelAttribute="notice" id="noticeModifyForm" method="post" action="${pageContext.request.contextPath}/notice/modify">
 	      	<table class="table" style="text-align: center;">
 				<tbody>
-					<tr style="background: #FFB843; border-top: 2px solid #212529;">
+					<tr style="background: #FFB843;">
 						<th width="10%">
 							<span style="font-size: 26px; color: #fff; width: 10%;">${notice.noticeNo}</span>
 							<form:hidden path="noticeNo" value="${notice.noticeNo}"/>

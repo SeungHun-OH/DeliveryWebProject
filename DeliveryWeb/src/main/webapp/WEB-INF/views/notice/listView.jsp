@@ -44,7 +44,7 @@
       <div class="row">
       	<div class="col-lg-12 col-md-12 mx-auto">
 	      	<table class="table table-hover " style="text-align: center;">
-				<thead style="background: #FFB843; border-top: 2px solid #212529;">
+				<thead style="background: #FFB843;">
 					<tr>
 						<th width="15%">번호</th>
 						<th width="20%">구분</th>
