@@ -105,7 +105,7 @@
 		<thead class="thead-light">
 			<tr style="text-align: center;">
 				<th>상품이름</th>
-				<th>송장번호</th>
+				<th>운송장번호</th>
 				<th>보내는 분</th>
 				<th>배송일자</th>
 				<th>배송상태</th>

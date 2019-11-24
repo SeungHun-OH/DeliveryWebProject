@@ -33,8 +33,8 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading" style="margin-top: 180px; padding: 100px 20px 100px 20px; background: rgba(255, 255, 255, 0.4); border-radius: 25px;">
-            <h1 style="margin-bottom: 100px;">Avery</h1>
+          <div class="site-heading" style="margin-top: 250px; padding: 100px 40px 100px 40px; background: rgba(255, 255, 255, 0.4);">
+            <h1 style="margin-bottom: 100px;">TeamAvery</h1>
 <!--             <span class="subheading">A Blog Theme by Start Bootstrap</span> -->
 			<form:form modelAttribute="loginDto" id="loginForm" action="${pageContext.request.contextPath}/user/login" method="post">
 			<div class="control-group">
@@ -54,6 +54,11 @@
       </div>
     </div>
   </header>
-  <%@ include file="../../include/footer.jsp" %>
+<!-- Bootstrap core JavaScript -->
+<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="${pageContext.request.contextPath}/resources/js/clean-blog.min.js"></script>
   </body>
   </html>

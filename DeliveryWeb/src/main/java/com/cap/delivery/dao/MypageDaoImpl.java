@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cap.delivery.model.ChangePwdVO;
 import com.cap.delivery.model.MyDeliveryDto;
+import com.cap.delivery.model.MyinquiryVO;
 import com.cap.delivery.model.SearchResponseListVO;
 import com.cap.delivery.model.SearchResponseVO;
 import com.cap.delivery.model.UserInfoVO;
@@ -52,6 +53,11 @@ public class MypageDaoImpl implements MypageDao {
 	@Override
 	public void changePwd(ChangePwdVO changePwdVO) {
 		sqlSession.update("mypageMapper.changePwd", changePwdVO);
+	}
+
+	@Override
+	public List<MyinquiryVO> getMyinquiry(String userId) {
+		return sqlSession.selectList("mypageMapper.getMyinquiry", userId);
 	}
 
 }

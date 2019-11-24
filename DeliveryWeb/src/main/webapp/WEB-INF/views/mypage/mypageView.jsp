@@ -68,11 +68,23 @@
      <div class="col-lg-6 col-md-6">
       <div class="card" style="margin-bottom: 40px; font-weight: 800;">
         <div class="card-header">
-			나의 배송 내역
+			나의 문의 내역
         </div>
         <div>
-            <p style="padding-left:20px; font-size: 15px;">나의 배송내역을 확인할 수 있습니다.</p>
+            <p style="padding-left:20px; font-size: 15px;">나의 배송내역을 조회할 수 있습니다.</p>
             <button class="btn btn-primary" style="margin: 20px;" id="mydeliveryBtn">조회하기</button>
+		</div>
+	  </div>
+  	</div>
+  	
+  	<div class="col-lg-6 col-md-6">
+      <div class="card" style="margin-bottom: 40px; font-weight: 800;">
+        <div class="card-header">
+			나의 문의 내역
+        </div>
+        <div>
+            <p style="padding-left:20px; font-size: 15px;">나의 문의내역을 확인할 수 있습니다.</p>
+            <button class="btn btn-primary" style="margin: 20px;" id="myinquiryBtn">조회하기</button>
 		</div>
 	  </div>
   	</div>
@@ -89,6 +101,10 @@
   	$('#mydeliveryBtn').on('click', function(){
   		location.href = '${pageContext.request.contextPath}/mypage/mydelivery';
   	});
+  	$('#myinquiryBtn').on('click', function(){
+  		location.href = '${pageContext.request.contextPath}/mypage/myinquiry';
+  	});
+  	
   </script>
 </body>
 </html>

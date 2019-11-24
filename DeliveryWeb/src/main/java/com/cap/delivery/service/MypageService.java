@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cap.delivery.model.ChangePwdVO;
 import com.cap.delivery.model.MyDeliveryDto;
+import com.cap.delivery.model.MyinquiryVO;
 import com.cap.delivery.model.SearchResponseListVO;
 import com.cap.delivery.model.SearchResponseVO;
 import com.cap.delivery.model.UserInfoVO;
@@ -17,5 +18,5 @@ public interface MypageService {
 	String getUserPwd(String userId);
 	void modifyUserInfo(UserInfoVO userInfoVO);
 	void changePwd(ChangePwdVO changePwdVO);
-	
+	List<MyinquiryVO> getMyinquiry(String userId);
 }

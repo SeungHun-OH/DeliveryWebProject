@@ -27,6 +27,7 @@ import com.cap.delivery.model.ChangePwdVO;
 import com.cap.delivery.model.ChangePwdValidation;
 import com.cap.delivery.model.MyDeliveryDto;
 import com.cap.delivery.model.MyDeliveryValidation;
+import com.cap.delivery.model.MyinquiryVO;
 import com.cap.delivery.model.SearchResponseListVO;
 import com.cap.delivery.model.SearchResponseVO;
 import com.cap.delivery.model.UserInfoVO;
@@ -152,6 +153,13 @@ public class MypageController {
 		return "redirect:/mypage/myinfo";
 	}
 	
+	@RequestMapping(value = "/myinquiry", method = RequestMethod.GET)
+	public String myinquiryViewGET(Model model, HttpSession session) {
+		UserVO userVO = (UserVO)session.getAttribute("login");
+		List<MyinquiryVO> myinquiryVO = mypageService.getMyinquiry(userVO.getUserId());
+		model.addAttribute("responseList", myinquiryVO);
+		return "mypage/myinquiryView";
+	}
 	
 	//	ajax 부분
 	@ResponseBody

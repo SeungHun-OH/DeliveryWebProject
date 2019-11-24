@@ -4,7 +4,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand" href="${pageContext.request.contextPath}/">Avery</a>
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/">TeamAvery</a>
       <c:if test="${empty login}">
 	  <!--  아이콘 참조     https://fontawesome.com/icons/sign-in-alt?style=solid -->
       <p style="margin: 0px 0px 0px 0px;"><a class="navbar-brand" href="${pageContext.request.contextPath}/user/login" style="font-size: 15px; text-decoration: underline;"><i class="fas fa-sign-in-alt"></i> 로그인</a></p>

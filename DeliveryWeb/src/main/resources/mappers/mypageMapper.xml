@@ -53,6 +53,12 @@
 		WHERE ID = #{userId}
 	</update>
 	
+	<select id="getMyinquiry" resultMap="MyinquiryResult">
+		SELECT INQUIRY_TYPE, TITLE, WAYBILL_NUMBER, REG_DATE, INQUIRY_STATUS
+		FROM AAA_DELIVERY_INQUIRY
+		WHERE LOGIN_ID = #{userId}
+	</select>
+	
 	<resultMap type="SearchResponseVO" id="SearchResponseResult">
 		<result property="waybillNum" column="WAYBILL_NUMBER"/>
 		<result property="senderName" column="SE_NAME"/>
@@ -84,5 +90,13 @@
 		<result property="addr1" column="ADDR2"/>
 		<result property="addr2" column="ADDR3"/>
 		<result property="joinDate" column="JOIN_DATE"/>
+	</resultMap>
+	
+	<resultMap type="MyinquiryVO" id="MyinquiryResult">
+		<result property="inquiryType" column="INQUIRY_TYPE"/>
+		<result property="title" column="TITLE"/>
+		<result property="waybillNumber" column="WAYBILL_NUMBER"/>
+		<result property="regDate" column="REG_DATE"/>
+		<result property="inquiryStatus" column="INQUIRY_STATUS"/>
 	</resultMap>
 </mapper>

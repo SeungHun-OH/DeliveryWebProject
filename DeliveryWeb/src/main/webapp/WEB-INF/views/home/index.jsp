@@ -63,7 +63,7 @@
         <div class="post-preview">
           <a href="/notice/read?noticeNo=${notice.noticeNo}">
             <p class="post-subtitle">
-              	<h4 style="color: #FFB843;">${notice.division}</h4>
+              	<h4>${notice.division}</h4>
             </p>
             <span class="post-title">
               	${notice.title}
