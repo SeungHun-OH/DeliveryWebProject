@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cap.delivery.dao.MypageDao;
+import com.cap.delivery.model.ChangePwdVO;
 import com.cap.delivery.model.MyDeliveryDto;
 import com.cap.delivery.model.SearchResponseListVO;
 import com.cap.delivery.model.SearchResponseVO;
@@ -46,6 +47,11 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public void modifyUserInfo(UserInfoVO userInfoVO) {
 		mypageDao.modifyUserInfo(userInfoVO);
+	}
+
+	@Override
+	public void changePwd(ChangePwdVO changePwdVO) {
+		mypageDao.changePwd(changePwdVO);
 	}
 	
 }

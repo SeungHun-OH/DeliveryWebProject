@@ -71,7 +71,7 @@
     <div class="row">
     <div class="col-lg-10 col-md-12 mx-auto">
     <form:form modelAttribute="userinfo" id="userinfoForm" method="post" action="${pageContext.request.contextPath}/mypage/myinfo">
-      <div class="col-lg-12 col-md-12 mx-auto">
+      <div class="col-lg-12 col-md-12 mx-auto" style="margin-bottom: 70px;">
       <div class="card" style="border: none; margin-bottom: 40px; font-weight: 800;">
         <div class="card-header">
 			내 정보
@@ -98,7 +98,7 @@
 			<div class="form-group floating-label-form-group controls">
               	<span class="sub">이메일</span>
               	<div class="input-group">
-				<form:input type="text" cssClass="form-control" placeholder="이메일" id="userEmail1" path="userEmail1" style="margin-right: 10px;" maxlength="20"/>
+				<form:input type="text" cssClass="form-control" placeholder="이메일을 입력해주세요." id="userEmail1" path="userEmail1" style="margin-right: 10px;" maxlength="20"/>
 				<span class="input-group-btn" style="margin: auto;">
 					<i class="fas fa-at" style="font-size: 25px;"></i>
 	      		</span>
@@ -110,14 +110,14 @@
 		<div class="control-group">
 			<div class="form-group floating-label-form-group controls">
 				<span class="sub">전화번호</span>
-				<form:input type="text" cssClass="form-control" placeholder="전화번호" id="userPhone" path="userPhone" maxlength="13"/>
+				<form:input type="text" cssClass="form-control" placeholder="전화번호를 입력해주세요." id="userPhone" path="userPhone" maxlength="13"/>
             	<small><form:errors path="userPhone" cssClass="errormsg" /></small>
             </div>
 		</div>
 		<div class="control-group">
 			<div class="form-group floating-label-form-group controls">
 				<span class="sub">비밀번호</span>
-				<form:password cssClass="form-control" placeholder="비밀번호" id="userPwd" path="userPwd" maxlength="20"/>
+				<form:password cssClass="form-control" placeholder="비밀번호를 입력해주세요." id="userPwd" path="userPwd" maxlength="20"/>
             	<small><form:errors path="userPwd" cssClass="errormsg" /></small>
             </div>
 		</div>
@@ -139,6 +139,39 @@
 	  <button class="btn w-100 btnSubmit" style="font-size: 20px;" type="button" id="btnInfoModify">정보수정</button>
 	  </div>
 	</form:form>
+	
+	<form:form modelAttribute="changePwd" id="changePwdForm" method="post" action="${pageContext.request.contextPath}/mypage/changePwd">
+	<div class="col-lg-12 col-md-12 mx-auto">
+      <div class="card" style="border: none; margin-bottom: 40px; font-weight: 800;">
+        <div class="card-header">
+			비밀번호 변경
+        </div>
+        <div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+              	<span class="sub">현재 비밀번호</span>
+              	<form:password cssClass="form-control" placeholder="현재 비밀번호를 입력해주세요." id="currPwd" path="currPwd" style="margin-right: 10px;" maxlength="20"/>
+              	<small><form:errors path="currPwd" cssClass="errormsg" /></small>
+            </div>
+		</div>
+        <div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+              	<span class="sub">새 비밀번호</span>
+              	<form:password cssClass="form-control" placeholder="새 비밀번호를 입력해주세요." id="newPwd" path="newPwd" style="margin-right: 10px;" maxlength="20"/>
+              	<small><form:errors path="newPwd" cssClass="errormsg" /></small>
+            </div>
+		</div>
+		<div class="control-group">
+			<div class="form-group floating-label-form-group controls">
+              	<span class="sub">새 비밀번호 확인</span>
+              	<form:password cssClass="form-control" placeholder="새 비밀번호 확인을 입력해주세요." id="newPwdChk" path="newPwdChk" style="margin-right: 10px;" maxlength="20"/>
+              	<small><form:errors path="newPwdChk" cssClass="errormsg" /></small>
+            </div>
+		</div>
+	  </div>
+	  <button class="btn w-100 btnSubmit" style="font-size: 20px;" type="button" id="btnChaangePwdBtn">비밀번호 변경</button>
+	  </div>
+	  </form:form>
+	  
 	</div>
     </div>
   </div>
@@ -222,6 +255,14 @@
 		  return false;
 	  }
 	  $('#userinfoForm').submit();
+  });
+  
+  $('#btnChaangePwdBtn').on("click", function(){
+	  if($('#currPwd').val() == '' || $('#newPwd').val() == '' || $('#newPwdChk').val() == ''){
+		  alert('비밀번호를 입력해주세요.')
+		  return false;
+	  }
+	  $('#changePwdForm').submit();
   });
 </script>
 </body>

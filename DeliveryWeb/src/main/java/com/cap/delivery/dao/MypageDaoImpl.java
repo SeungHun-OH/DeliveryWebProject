@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cap.delivery.model.ChangePwdVO;
 import com.cap.delivery.model.MyDeliveryDto;
 import com.cap.delivery.model.SearchResponseListVO;
 import com.cap.delivery.model.SearchResponseVO;
@@ -46,6 +47,11 @@ public class MypageDaoImpl implements MypageDao {
 	@Override
 	public void modifyUserInfo(UserInfoVO userInfoVO) {
 		sqlSession.update("mypageMapper.modifyUserInfo", userInfoVO);
+	}
+
+	@Override
+	public void changePwd(ChangePwdVO changePwdVO) {
+		sqlSession.update("mypageMapper.changePwd", changePwdVO);
 	}
 
 }

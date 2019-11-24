@@ -34,7 +34,7 @@
 	<select id="getUserInfo" resultMap="UserInfoResult">
 		SELECT MNO, ID, NAME, BIRTH, EMAIL, PHONE, ADDR1, ADDR2, ADDR3, JOIN_DATE
         FROM AAA_MEMBER
-        WHERE ID IN #{userId}
+        WHERE ID = #{userId}
 	</select>
 	
 	<select id="getUserPwd" resultType="String">
@@ -43,10 +43,15 @@
 		WHERE ID = #{userId}
 	</select>
 	
-	<insert id="modifyUserInfo">
+	<update id="modifyUserInfo">
 		UPDATE AAA_MEMBER SET EMAIL = '${userEmail1}@${userEmail2}', PHONE = #{userPhone}, ADDR1 = #{postCode}, ADDR2 = #{addr1}, ADDR3 = #{addr2}
 	    WHERE ID = #{userId}
-	</insert>
+	</update>
+	
+	<update id="changePwd">
+		UPDATE AAA_MEMBER SET PASS = #{newPwd}
+		WHERE ID = #{userId}
+	</update>
 	
 	<resultMap type="SearchResponseVO" id="SearchResponseResult">
 		<result property="waybillNum" column="WAYBILL_NUMBER"/>

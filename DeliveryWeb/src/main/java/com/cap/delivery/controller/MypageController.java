@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cap.delivery.model.ChangePwdVO;
+import com.cap.delivery.model.ChangePwdValidation;
 import com.cap.delivery.model.MyDeliveryDto;
 import com.cap.delivery.model.MyDeliveryValidation;
 import com.cap.delivery.model.SearchResponseListVO;
@@ -50,9 +52,11 @@ public class MypageController {
 	@Autowired
 	private UserInfoValidation userInfoValidation;
 	
+	@Autowired
+	private ChangePwdValidation changePwdValidation; 
+	
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public String mypageViewGET(Model model) {
-		
+	public String mypageViewGET() {
 		return "mypage/mypageView";
 	}
 	
@@ -62,6 +66,7 @@ public class MypageController {
 		UserVO userVO = (UserVO)session.getAttribute("login");
 		myDeliveryDto.setSessionInfo(userVO.getUserName(),userVO.getUserPhone()); 
 		List<myDeliveryResponseList> response = mypageService.myDeliveryList(myDeliveryDto);
+		
 		model.addAttribute("myDelivery", myDeliveryDto);
 		model.addAttribute("responseList", response);
 		return "/mypage/myDeliveryView";
@@ -88,7 +93,9 @@ public class MypageController {
 		UserInfoVO userinfo = mypageService.getUserInfo(userVO.getUserId());
 		userinfo.emailDivide(userinfo.getUserEmail());
 		userinfo.birthChange(userinfo.getUserBirth());
+		
 		model.addAttribute("userinfo", userinfo);
+		model.addAttribute("changePwd", new ChangePwdVO());
 		return "mypage/myinfoView";
 	}
 	
@@ -99,16 +106,49 @@ public class MypageController {
 		userInfoValidation.validate(userInfoVO, result);
 		if(result.hasErrors()) {
 			logger.info("에러 검출");
+			model.addAttribute("changePwd", new ChangePwdVO());
 			return "mypage/myinfoView";
 		}
 		if(!BCrypt.checkpw(userInfoVO.getUserPwd(), mypageService.getUserPwd(userVO.getUserId()))){
 			model.addAttribute("msg","비밀번호를 확인해주세요.");
+			model.addAttribute("changePwd", new ChangePwdVO());
 			return "mypage/myinfoView";
 		}
 		System.out.println(userInfoVO.toString());
 		userInfoVO.setUserId(userVO.getUserId());
+		userVO.setUserPhone(userInfoVO.getUserPhone());
+		session.setAttribute("login", userVO);
 		mypageService.modifyUserInfo(userInfoVO);
 		redirect.addFlashAttribute("msg", "정보 수정이 완료되었습니다.");
+		return "redirect:/mypage/myinfo";
+	}
+	
+	@RequestMapping(value = "/changePwd", method = RequestMethod.POST)
+	public String changePwdPOST(@Valid @ModelAttribute("changePwd") ChangePwdVO changePwdVO, BindingResult result, Model model, HttpSession session, RedirectAttributes redirect) {
+		logger.info("mypage 비밀번호 수정 POST");
+		UserVO userVO = (UserVO)session.getAttribute("login");
+		changePwdValidation.validate(changePwdVO, result);
+		if(result.hasErrors()) {
+			UserInfoVO userinfo = mypageService.getUserInfo(userVO.getUserId());
+			userinfo.emailDivide(userinfo.getUserEmail());
+			userinfo.birthChange(userinfo.getUserBirth());
+			
+			model.addAttribute("userinfo", userinfo);
+			return "mypage/myinfoView";
+		}
+		if(!BCrypt.checkpw(changePwdVO.getCurrPwd(), mypageService.getUserPwd(userVO.getUserId()))){
+			UserInfoVO userinfo = mypageService.getUserInfo(userVO.getUserId());
+			userinfo.emailDivide(userinfo.getUserEmail());
+			userinfo.birthChange(userinfo.getUserBirth());
+			
+			model.addAttribute("userinfo", userinfo);
+			model.addAttribute("msg","비밀번호를 확인해주세요.");
+			return "mypage/myinfoView";
+		}
+		changePwdVO.setUserId(userVO.getUserId());
+		changePwdVO.setNewPwd(BCrypt.hashpw(changePwdVO.getNewPwd(), BCrypt.gensalt()));
+		mypageService.changePwd(changePwdVO);
+		redirect.addFlashAttribute("msg", "비밀번호 수정이 완료되었습니다.");
 		return "redirect:/mypage/myinfo";
 	}
 	
