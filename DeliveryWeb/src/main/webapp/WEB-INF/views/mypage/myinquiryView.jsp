@@ -44,14 +44,13 @@
   <%@ include file="../../include/nav.jsp" %>
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('${pageContext.request.contextPath}/resources/img/about-bg.jpg')">
+  <header class="masthead" style="background-image: url('${pageContext.request.contextPath}/resources/img/img4.jpg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
             <h1>나의 배송내역</h1>
-            <span class="subheading">This is what I do.</span>
           </div>
         </div>
       </div>
@@ -134,9 +133,10 @@
 				var result ='';
 				result='<tr id=detail_'+data.response.inquiryNo+'><td colspan="5"><table class="table text-center sub-table" style="margin-bottom: 0px;" width="100%"><thead style="background: #FFB843;"><tr><th>물품명</th><th>이름</th><th>주소</th></tr></thead>';
 				result+='<tr><td>'+data.response.productName+'</td><td>'+data.response.name+'</td><td colspan="3">'+data.response.postCode+" "+data.response.addr1+" "+data.response.addr2+'</td></tr>';
-				if(data.resultList != null){
-					result+='<tr><td colspan="3"><a data-lightbox="uploadImages" href="/upload/displayFile?fileName='+getImageLink(data.fileList[0].fileLocation)+'"><img src="/upload/displayFile?fileName='+data.fileList[0].fileLocation+'" /></a></td><tr>'
-					result+='<tr><td colspan="3"><a data-lightbox="uploadImages" href="/upload/displayFile?fileName='+getImageLink(data.fileList[1].fileLocation)+'"><img src="/upload/displayFile?fileName='+data.fileList[1].fileLocation+'" /></a></td><tr>'
+				alert(data.responseList[0].fileLocation)
+				if(data.responseList != null){
+					result+='<tr><td colspan="3"><a data-lightbox="uploadImages" href="${path}/upload/displayFile?fileName='+getImageLink(data.responseList[0].fileLocation)+'"><img src="${path}/upload/displayFile?fileName='+data.responseList[0].fileLocation+'" /></a></td><tr>'
+					result+='<tr><td colspan="3"><a data-lightbox="uploadImages" href="${path}/upload/displayFile?fileName='+getImageLink(data.responseList[1].fileLocation)+'"><img src="${path}/upload/displayFile?fileName='+data.responseList[1].fileLocation+'" /></a></td><tr>'
 				}
 						
 				result+='<tr><th colspan="3" style="background:#FFB843;">내용</th></tr><tr><td colspan="3">'+data.response.contents+'</td></tr></table></td></tr>'
@@ -148,7 +148,11 @@
 		});
 	}
 	
-	
+	function getImageLink(fileName) {
+		var front = fileName.substr(0, 12);
+		var end = fileName.substr(14);
+		return front + end;
+	}
 	</script>
  
 </body>

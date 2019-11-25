@@ -67,7 +67,6 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
             <h1>고객 문의</h1>
-            <span class="subheading">Have questions? I have answers.</span>
           </div>
         </div>
       </div>

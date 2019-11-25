@@ -46,7 +46,6 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
             <h1>운송장 조회</h1>
-            <span class="subheading">This is what I do.</span>
           </div>
         </div>
       </div>

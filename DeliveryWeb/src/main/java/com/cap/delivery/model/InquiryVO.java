@@ -98,4 +98,15 @@ public class InquiryVO {
 				+ inquiryType + ", productName=" + productName + ", title=" + title + ", contents=" + contents
 				+ ", loginId=" + loginId + "]";
 	}
+	
+//	public void deliveryTypeChange(int deliveryType) {
+//		switch (deliveryType) {
+//		case 1:
+//			
+//			break;
+//
+//		default:
+//			break;
+//		}
+//	}
 }

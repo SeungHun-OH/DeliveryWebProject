@@ -44,7 +44,7 @@
   <%@ include file="../../include/nav.jsp" %>
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('${pageContext.request.contextPath}/resources/img/about-bg.jpg')">
+  <header class="masthead" style="background-image: url('${pageContext.request.contextPath}/resources/img/img3.jpg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">

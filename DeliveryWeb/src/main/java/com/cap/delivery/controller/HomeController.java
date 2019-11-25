@@ -33,18 +33,4 @@ public class HomeController {
 		return "home/index";
 	}
 	
-	@RequestMapping("/about")
-	public String aboutGET() {
-		return "/home/about";
-	}
-	
-	@RequestMapping("/contact")
-	public String contactGET() {
-		return "/home/contact";
-	}
-	
-	@RequestMapping("/post")
-	public String postGET() {
-		return "/home/post";
-	}
 }

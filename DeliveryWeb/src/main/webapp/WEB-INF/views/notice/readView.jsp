@@ -25,12 +25,12 @@
   <%@ include file="../../include/nav.jsp" %>
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('${pageContext.request.contextPath}/resources/img/post-bg.jpg')">
+  <header class="masthead" style="background-image: url('${pageContext.request.contextPath}/resources/img/img4.jpg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-12 col-md-12 mx-auto">
-          <div class="post-heading">
+          <div class="page-heading">
             <h1>공지사항</h1>
           </div>
         </div>
