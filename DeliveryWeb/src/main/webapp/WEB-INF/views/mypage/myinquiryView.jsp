@@ -133,10 +133,10 @@
 				var result ='';
 				result='<tr id=detail_'+data.response.inquiryNo+'><td colspan="5"><table class="table text-center sub-table" style="margin-bottom: 0px;" width="100%"><thead style="background: #FFB843;"><tr><th>물품명</th><th>이름</th><th>주소</th></tr></thead>';
 				result+='<tr><td>'+data.response.productName+'</td><td>'+data.response.name+'</td><td colspan="3">'+data.response.postCode+" "+data.response.addr1+" "+data.response.addr2+'</td></tr>';
-				alert(data.responseList[0].fileLocation)
 				if(data.responseList != null){
 					result+='<tr><td colspan="3"><a data-lightbox="uploadImages" href="${path}/upload/displayFile?fileName='+getImageLink(data.responseList[0].fileLocation)+'"><img src="${path}/upload/displayFile?fileName='+data.responseList[0].fileLocation+'" /></a></td><tr>'
-					result+='<tr><td colspan="3"><a data-lightbox="uploadImages" href="${path}/upload/displayFile?fileName='+getImageLink(data.responseList[1].fileLocation)+'"><img src="${path}/upload/displayFile?fileName='+data.responseList[1].fileLocation+'" /></a></td><tr>'
+					if(data.responseList.length>1)
+						result+='<tr><td colspan="3"><a data-lightbox="uploadImages" href="${path}/upload/displayFile?fileName='+getImageLink(data.responseList[1].fileLocation)+'"><img src="${path}/upload/displayFile?fileName='+data.responseList[1].fileLocation+'" /></a></td><tr>'
 				}
 						
 				result+='<tr><th colspan="3" style="background:#FFB843;">내용</th></tr><tr><td colspan="3">'+data.response.contents+'</td></tr></table></td></tr>'
