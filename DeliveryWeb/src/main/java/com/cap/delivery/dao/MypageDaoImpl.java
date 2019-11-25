@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cap.delivery.model.ChangePwdVO;
+import com.cap.delivery.model.FileVO;
+import com.cap.delivery.model.InquiryVO;
 import com.cap.delivery.model.MyDeliveryDto;
 import com.cap.delivery.model.MyinquiryVO;
 import com.cap.delivery.model.SearchResponseListVO;
@@ -60,4 +62,15 @@ public class MypageDaoImpl implements MypageDao {
 		return sqlSession.selectList("mypageMapper.getMyinquiry", userId);
 	}
 
+	@Override
+	public InquiryVO getMyinquiryDetail(String inquiryNo) {
+		return sqlSession.selectOne("mypageMapper.getMyinquiryDetail", inquiryNo);
+	}
+
+	@Override
+	public List<FileVO> getMyinquiryFile(String inquiryNo) {
+		return sqlSession.selectList("mypageMapper.getMyinquiryFile", inquiryNo);
+	}
+
+	
 }

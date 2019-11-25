@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.cap.delivery.dao.MypageDao;
 import com.cap.delivery.model.ChangePwdVO;
+import com.cap.delivery.model.FileVO;
+import com.cap.delivery.model.InquiryVO;
 import com.cap.delivery.model.MyDeliveryDto;
 import com.cap.delivery.model.MyinquiryVO;
 import com.cap.delivery.model.SearchResponseListVO;
@@ -58,6 +60,16 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public List<MyinquiryVO> getMyinquiry(String userId) {
 		return mypageDao.getMyinquiry(userId);
+	}
+
+	@Override
+	public InquiryVO getMyinquiryDetail(String inquiryNo) {
+		return mypageDao.getMyinquiryDetail(inquiryNo);
+	}
+
+	@Override
+	public List<FileVO> getMyinquiryFile(String inquiryNo) {
+		return mypageDao.getMyinquiryFile(inquiryNo);
 	}
 	
 }

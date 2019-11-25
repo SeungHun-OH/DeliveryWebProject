@@ -25,6 +25,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cap.delivery.model.ChangePwdVO;
 import com.cap.delivery.model.ChangePwdValidation;
+import com.cap.delivery.model.FileVO;
+import com.cap.delivery.model.InquiryVO;
 import com.cap.delivery.model.MyDeliveryDto;
 import com.cap.delivery.model.MyDeliveryValidation;
 import com.cap.delivery.model.MyinquiryVO;
@@ -176,4 +178,21 @@ public class MypageController {
 		map.put("responseList", responseList);
 		return map;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/myinquiryDetail", method = RequestMethod.POST)
+	public HashMap<String, Object> ajaxMyinquiryDeliveryPOST(@RequestBody String reciveData) throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObj = (JSONObject)jsonParser.parse(reciveData);
+		String inquiryNo = (String) jsonObj.get("inquiryNo");
+		InquiryVO inquiryVO = mypageService.getMyinquiryDetail(inquiryNo);
+		List<FileVO> fileList = mypageService.getMyinquiryFile(inquiryNo);
+		
+		map.put("response", inquiryVO);
+		map.put("responseList", fileList);
+		return map;
+	}
+	
+	
 }

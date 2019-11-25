@@ -12,6 +12,7 @@ public class MyinquiryVO {
 	private String waybillNumber;
 	private Date regDate;
 	private String inquiryStatus;
+	private int inquiryNo;
 	
 	public int getInquiryType() {
 		return inquiryType;
@@ -42,5 +43,11 @@ public class MyinquiryVO {
 	}
 	public void setInquiryStatus(String inquiryStatus) {
 		this.inquiryStatus = inquiryStatus;
+	}
+	public int getInquiryNo() {
+		return inquiryNo;
+	}
+	public void setInquiryNo(int inquiryNo) {
+		this.inquiryNo = inquiryNo;
 	}
 }

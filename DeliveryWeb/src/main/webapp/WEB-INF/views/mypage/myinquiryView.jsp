@@ -62,16 +62,16 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12 col-md-12 mx-auto">
-      	<form:form modelAttribute="myDelivery" id="myDeliveryForm" method="post" action="${pageContext.request.contextPath}/mypage/mydelivery">
 		
-		<table class="table table-hover table-bordered" style="margin-top: 20px; text-align: center;">
-		<thead class="thead-light">
+		<table id="inquiryTable" class="table table-bordered" style="margin-top: 20px; text-align: center;">
+		<thead style="background: #0085a1; color: #fff;">
 			<tr>
 				<th>문의유형</th>
 				<th>제목</th>
 				<th>운송장번호</th>
 				<th>문의날짜</th>
 				<th>문의상태</th>
+				<th style="visibility: hidden; display: none;">번호</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -79,23 +79,23 @@
 		<c:when test="${!empty responseList}">
 		<c:forEach items="${responseList}" var="response">
 			<tr style="font-size: 15px;">
-				<td>${response.inquiryType}</td>
-				<td>${response.title}</td>
-				<td>${response.waybillNumber}</td>
-				<td><fmt:formatDate value="${response.regDate}" pattern="YYYY년 M월 d일"/></td>
-				<td>${response.inquiryStatus}</td>
+				<th>${response.inquiryType}</th>
+				<th>${response.title}</th>
+				<th>${response.waybillNumber}</th>
+				<th><fmt:formatDate value="${response.regDate}" pattern="YYYY년 M월 d일"/></th>
+				<th>${response.inquiryStatus}</th>
+				<th style="visibility: hidden; display: none;">${response.inquiryNo}</th>
 			</tr>
 		</c:forEach>
 		</c:when>
 		<c:when test="${empty responseList}">
 			<tr id="noTr">
-				<td colspan="5" style="font-size: 35px; text-align: center;">배송정보가 없습니다.</td>
+				<td colspan="5" style="font-size: 35px; text-align: center;">문의정보가 없습니다.</td>
 			<tr>
 		</c:when>
 		</c:choose>
 		</tbody>
 		</table>
-		</form:form>
       </div>
     </div>
   </div>
@@ -104,6 +104,52 @@
   
   <%@ include file="../../include/footer.jsp" %>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+	$('#inquiryTable tbody tr').on("click", function(){
+	// 	alert('클릭');
+	// 	var tr = $(this);
+	// 	var tr_id =tr.attr('id');
+	// 	var param = '?inquiryNo='+tr_id;
+	// 	detailAjax(param, tr, tr_id);
+		var tr = $(this);
+	 	var sendData = JSON.stringify({"inquiryNo": tr.children('th').eq(5).text()});
+		var clicks = $(this).data('clicks');
+		if (clicks) {
+			$('#detail_'+tr.children('th').eq(5).text()).remove();
+		} else {
+		 	detailAjax(tr, sendData);
+		}
+		$(this).data("clicks", !clicks);
+	});
+	
+	function detailAjax(tr, sendData) {
+		$.ajax({
+			type : 'post',
+			url : '/mypage/myinquiryDetail',
+			dataType : 'json',
+			data : sendData,
+			contentType:'application/json;charset=UTF-8',
+			success : function (data) {
+				console.log(data);
+				var result ='';
+				result='<tr id=detail_'+data.response.inquiryNo+'><td colspan="5"><table class="table text-center sub-table" style="margin-bottom: 0px;" width="100%"><thead style="background: #FFB843;"><tr><th>물품명</th><th>이름</th><th>주소</th></tr></thead>';
+				result+='<tr><td>'+data.response.productName+'</td><td>'+data.response.name+'</td><td colspan="3">'+data.response.postCode+" "+data.response.addr1+" "+data.response.addr2+'</td></tr>';
+				if(data.resultList != null){
+					result+='<tr><td colspan="3"><a data-lightbox="uploadImages" href="/upload/displayFile?fileName='+getImageLink(data.fileList[0].fileLocation)+'"><img src="/upload/displayFile?fileName='+data.fileList[0].fileLocation+'" /></a></td><tr>'
+					result+='<tr><td colspan="3"><a data-lightbox="uploadImages" href="/upload/displayFile?fileName='+getImageLink(data.fileList[1].fileLocation)+'"><img src="/upload/displayFile?fileName='+data.fileList[1].fileLocation+'" /></a></td><tr>'
+				}
+						
+				result+='<tr><th colspan="3" style="background:#FFB843;">내용</th></tr><tr><td colspan="3">'+data.response.contents+'</td></tr></table></td></tr>'
+				tr.after(result);
+			},
+			error : function (request,status,error) {
+				alert('실패');
+			}
+		});
+	}
+	
+	
+	</script>
  
 </body>
 </html>
