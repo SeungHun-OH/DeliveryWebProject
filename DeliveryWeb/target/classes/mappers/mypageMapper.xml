@@ -126,7 +126,7 @@
 	
 	<resultMap type="FileVO" id="FileResult">
 		<result property="fileNo" column="FNO"/>
-		<result property="fileName" column="FILE_LOCATION"/>
-		<result property="fileLocation" column="FILE_NAME"/>
+		<result property="fileName" column="FILE_NAME"/>
+		<result property="fileLocation" column="FILE_LOCATION"/>
 	</resultMap>
 </mapper>

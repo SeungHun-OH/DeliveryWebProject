@@ -31,7 +31,7 @@
   <%@ include file="../../include/nav.jsp" %>
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('${pageContext.request.contextPath}/resources/img/img4.jpg')">
+  <header class="masthead" style="background-image: url('${pageContext.request.contextPath}/resources/img/img5.jpg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
