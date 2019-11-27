@@ -99,14 +99,4 @@ public class InquiryVO {
 				+ ", loginId=" + loginId + "]";
 	}
 	
-//	public void deliveryTypeChange(int deliveryType) {
-//		switch (deliveryType) {
-//		case 1:
-//			
-//			break;
-//
-//		default:
-//			break;
-//		}
-//	}
 }

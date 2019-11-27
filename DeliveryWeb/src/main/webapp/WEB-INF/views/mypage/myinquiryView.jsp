@@ -50,7 +50,7 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
-            <h1>나의 배송내역</h1>
+            <h1>나의 문의내역</h1>
           </div>
         </div>
       </div>
@@ -131,9 +131,9 @@
 			success : function (data) {
 				console.log(data);
 				var result ='';
-				result='<tr id=detail_'+data.response.inquiryNo+'><td colspan="5"><table class="table text-center sub-table" style="margin-bottom: 0px;" width="100%"><thead style="background: #FFB843;"><tr><th>물품명</th><th>이름</th><th>주소</th></tr></thead>';
+				result='<tr id=detail_'+data.response.inquiryNo+'><td colspan="5"><table class="table text-center sub-table" style="margin-bottom: 0px; font-size:15px;" width="100%"><thead style="background: #FFB843;"><tr><th>물품명</th><th>이름</th><th>주소</th></tr></thead>';
 				result+='<tr><td>'+data.response.productName+'</td><td>'+data.response.name+'</td><td colspan="3">'+data.response.postCode+" "+data.response.addr1+" "+data.response.addr2+'</td></tr>';
-				if(data.responseList != null){
+				if(data.responseList.length>0){
 					result+='<tr><td colspan="3"><a data-lightbox="uploadImages" href="${path}/upload/displayFile?fileName='+getImageLink(data.responseList[0].fileLocation)+'"><img src="${path}/upload/displayFile?fileName='+data.responseList[0].fileLocation+'" /></a></td><tr>'
 					if(data.responseList.length>1)
 						result+='<tr><td colspan="3"><a data-lightbox="uploadImages" href="${path}/upload/displayFile?fileName='+getImageLink(data.responseList[1].fileLocation)+'"><img src="${path}/upload/displayFile?fileName='+data.responseList[1].fileLocation+'" /></a></td><tr>'

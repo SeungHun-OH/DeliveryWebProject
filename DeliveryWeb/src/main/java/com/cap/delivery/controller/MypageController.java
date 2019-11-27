@@ -159,6 +159,9 @@ public class MypageController {
 	public String myinquiryViewGET(Model model, HttpSession session) {
 		UserVO userVO = (UserVO)session.getAttribute("login");
 		List<MyinquiryVO> myinquiryVO = mypageService.getMyinquiry(userVO.getUserId());
+		for(MyinquiryVO my : myinquiryVO) {
+			my.deliveryTypeChange(my.getInquiryType());
+		}
 		model.addAttribute("responseList", myinquiryVO);
 		return "mypage/myinquiryView";
 	}

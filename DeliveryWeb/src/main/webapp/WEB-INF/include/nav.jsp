@@ -27,16 +27,16 @@
 <%--             <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a> --%>
 <!--           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/board/search">택배조회</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/board/search" style="font-size: 15px;">택배조회</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/board/reservation">택배예약</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/board/reservation" style="font-size: 15px;">택배예약</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/support/inquiry">고객문의</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/support/inquiry" style="font-size: 15px;">고객문의</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/notice/list">공지사항</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/notice/list" style="font-size: 15px;">공지사항</a>
           </li>
         </ul>
       </div>
